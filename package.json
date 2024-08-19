@@ -6,11 +6,11 @@
   "scripts": {
     "start": "npm start --prefix packages/examples"
   },
-  "repository": "megahertz/react-amodal",
+  "repository": "megahertz/react-dialogues",
   "author": "Alexey Prokhorov",
   "license": "MIT",
-  "bugs": "https://github.com/megahertz/react-amodal/issues",
-  "homepage": "https://github.com/megahertz/react-amodal#readme",
+  "bugs": "https://github.com/megahertz/react-dialogues/issues",
+  "homepage": "https://github.com/megahertz/react-dialogues#readme",
   "workspaces": [
     "packages/*"
   ],

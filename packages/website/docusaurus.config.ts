@@ -3,7 +3,7 @@ import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'react-amodal',
+  title: 'react-dialogues',
   tagline: 'Tiny interaction React UI library',
   favicon: 'img/favicon.ico',
 

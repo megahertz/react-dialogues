@@ -1,4 +1,4 @@
-import { Button, Footer } from 'react-amodal';
+import { Button, Footer } from 'react-dialogues';
 
 export default function OtherPage() {
   return (

@@ -1,4 +1,4 @@
-import { Button, Modal } from 'react-amodal';
+import { Button, Modal } from 'react-dialogues';
 
 export default function AmodalShowSample() {
   return (

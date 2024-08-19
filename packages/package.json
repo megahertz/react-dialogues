@@ -1,5 +1,5 @@
 {
-  "name": "react-amodal",
+  "name": "react-dialogues",
   "version": "0.1.0",
   "description": "Tiny interaction React UI library",
   "main": "dist/index.js",
@@ -14,7 +14,7 @@
     "preversion": "npm run test:full",
     "start": "npm start --prefix website"
   },
-  "repository": "megahertz/react-amodal",
+  "repository": "megahertz/react-dialogues",
   "files": [
     "dist/*"
   ],
@@ -24,8 +24,8 @@
   ],
   "author": "Alexey Prokhorov",
   "license": "MIT",
-  "bugs": "https://github.com/megahertz/react-amodal/issues",
-  "homepage": "https://github.com/megahertz/react-amodal#readme",
+  "bugs": "https://github.com/megahertz/react-dialogues/issues",
+  "homepage": "https://github.com/megahertz/react-dialogues#readme",
   "devDependencies": {
     "@types/react": "^17.0.80",
     "@types/react-dom": "^17.0.25",

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button } from 'react-amodal';
+import { Button } from 'react-dialogues';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ModalPage from './pages/modals/ModalPage';
 import OtherPage from './pages/other/OtherPage';

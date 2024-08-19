@@ -1,5 +1,5 @@
-import { Button, CancelButton } from 'react-amodal/src/src';
-import Modal from 'react-amodal/src/modal/Modal';
+import { Button, CancelButton } from 'react-dialogues/src/src';
+import Modal from 'react-dialogues/src/modal/Modal';
 
 export default function SimpleModal() {
   return (
