@@ -1,0 +1,20 @@
+html, [data-theme="light"] {
+  --am-hover-shadow: rgba(0, 0, 0, 0.05);
+  --am-primary: #1677ff;
+  --am-primary-dark: #0958d9;
+  --am-primary-light: #4096ff;
+
+  --am-text-disabled: rgba(0, 0, 0, 0.25);
+  --am-bg-disabled: rgba(0, 0, 0, 0.04);
+  --am-background: #fff;
+  --am-text: rgba(0, 0, 0, 0.88);
+  --am-btn-border: #d9d9d9;
+}
+
+[data-theme="dark"] {
+  --am-text-disabled: rgba(255, 255, 255, 0.25);
+  --am-bg-disabled: rgba(255, 255, 255, 0.04);
+  --am-background: #1f1f1f;
+  --am-text: rgba(255, 255, 255, 0.85);
+  --am-btn-border: #424242;
+}

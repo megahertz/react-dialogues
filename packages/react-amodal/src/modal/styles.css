@@ -1,0 +1,24 @@
+.am-modal-wrapper {
+  background: rgba(0, 0, 0, .45);
+  inset: 0;
+  position: fixed;
+  z-index: 1000;
+}
+
+.am-modal {
+  animation: am-slideIn .3s;
+  margin: 0 auto;
+  top: 100px;
+  width: 520px;
+}
+
+@keyframes am-slideIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 30%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}

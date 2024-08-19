@@ -1,0 +1,29 @@
+---
+sidebar_position: 4
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SimpleModal from './components/SimpleModal';
+
+# Get Started
+
+  <Tabs>
+    <TabItem value="sample" label="Sample">
+
+      <SimpleModal />
+
+    </TabItem>
+    <TabItem value="source" label="Source">
+
+    ```tsx title="SimpleModal.tsx"
+    export default function SimpleModal() {
+      return (
+        <button onClick={() => alert('ok')}>Ok</button>
+      );
+    }
+    ```
+
+    </TabItem>
+  </Tabs>
+

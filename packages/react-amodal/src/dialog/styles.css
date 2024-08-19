@@ -1,0 +1,63 @@
+.am-body {
+  padding: 4px 0;
+}
+
+.am-dialog {
+  background: var(--am-background);
+  color: var(--am-text);
+  border-radius: 8px;
+  box-shadow:
+    0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  padding: 20px 24px;
+  position: relative;
+}
+
+.am-dialog-close {
+  background: transparent;
+  border-radius: 4px;
+  border: none;
+  color: var(--am-text);
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 700;
+  height: 32px;
+  line-height: 1;
+  opacity: 0.3;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 32px;
+}
+
+.am-dialog-close:hover {
+  background: var(--am-hover-shadow);
+}
+
+.am-footer {
+  display: flex;
+  gap: 8px;
+  justify-content: end;
+  margin-top: 16px;
+}
+
+.am-left {
+  justify-content: start;
+}
+
+.am-center {
+  justify-content:  center;
+}
+
+.am-right {
+  justify-content: end;
+}
+
+.am-header {
+  font-weight: 600;
+}
+
+.am-body {
+  padding-top: 16px;
+}

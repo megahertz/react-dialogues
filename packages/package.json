@@ -1,0 +1,48 @@
+{
+  "name": "react-amodal",
+  "version": "0.1.0",
+  "description": "Tiny interaction React UI library",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "node build.mjs",
+    "lint": "tsc --noEmit && eslint src website *.js",
+    "test": "vitest run src",
+    "test:full": "npm run build && npm test && npm run lint && tsc --noEmit && npm run test:e2e",
+    "postversion": "git push && git push --tags",
+    "prepack": "npm run build && npm run test:full",
+    "preversion": "npm run test:full",
+    "start": "npm start --prefix website"
+  },
+  "repository": "megahertz/react-amodal",
+  "files": [
+    "dist/*"
+  ],
+  "keywords": [
+    "react",
+    "modal"
+  ],
+  "author": "Alexey Prokhorov",
+  "license": "MIT",
+  "bugs": "https://github.com/megahertz/react-amodal/issues",
+  "homepage": "https://github.com/megahertz/react-amodal#readme",
+  "devDependencies": {
+    "@types/react": "^17.0.80",
+    "@types/react-dom": "^17.0.25",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "prettier": "^3.3.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17"
+  }
+}
