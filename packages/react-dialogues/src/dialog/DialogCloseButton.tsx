@@ -9,8 +9,8 @@ export function DialogCloseButton({
   return (
     <button
       aria-label="Close"
-      className="am-dialog-close"
-      onClick={() => ui.close('close')}
+      className="rd-dialog-close"
+      onClick={() => ui.destroy('close')}
       type="button"
       {...(props as object)}
     >

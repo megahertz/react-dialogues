@@ -1,15 +1,16 @@
-import { ComponentType } from 'react';
+import type { ComponentType } from 'react';
+import type { DialogProps } from '../dialog/Dialog';
 
-export default class AmodalState {
-  changeListeners: Array<(state: AmodalState) => void> = [];
-  item: AmItem<object, unknown>[] = [];
+export default class RdState {
+  changeListeners: Array<(state: RdState) => void> = [];
+  item: RdItem[] = [];
   lastItemId = 0;
 
   constructor({
     items = [],
     lastItemId = 0,
   }: {
-    items?: AmItem<object, unknown>[];
+    items?: RdItem[];
     lastItemId?: number;
   } = {}) {
     this.item = items;
@@ -21,8 +22,8 @@ export default class AmodalState {
     this.onChange = this.onChange.bind(this);
   }
 
-  add<TProps = object, TResult = unknown>(
-    elementInitOptions: AmItemInit<TProps>,
+  add<TProps extends DialogProps = DialogProps, TResult = unknown>(
+    elementInitOptions: RdItemInit<TProps>,
   ) {
     this.lastItemId += 1;
     const id = elementInitOptions.id || this.lastItemId.toString();
@@ -35,15 +36,25 @@ export default class AmodalState {
     const element = {
       ...elementInitOptions,
       id: this.lastItemId.toString(),
-      close: (result: TResult) => {
+      then: promise.then.bind(promise),
+
+      destroy: (result: TResult) => {
         this.remove(id);
         resolve(result);
-        console.log('close', result);
+        element.props.onClose?.(result);
       },
-      then: promise.then.bind(promise),
-    } as AmItem<TProps, TResult>;
 
-    this.item.push(element as AmItem);
+      update: (data: TProps | ((old: TProps) => TProps)) => {
+        if (typeof data === 'function') {
+          element.props = { ...data(element.props) };
+        } else {
+          element.props = { ...element.props, ...data };
+        }
+        this.emitOnChange();
+      },
+    } as RdItem<TProps, TResult>;
+
+    this.item.push(element as unknown as RdItem);
 
     this.emitOnChange();
 
@@ -51,17 +62,17 @@ export default class AmodalState {
   }
 
   clone() {
-    return new AmodalState({
+    return new RdState({
       items: this.item.slice(),
       lastItemId: this.lastItemId,
     });
   }
 
-  getItemsByType(type: ElementType) {
+  getItemsByType(type: ItemType) {
     return this.item.filter((element) => element.type === type);
   }
 
-  onChange(listener: (state: AmodalState) => void) {
+  onChange(listener: (state: RdState) => void) {
     this.changeListeners.push(listener);
   }
 
@@ -75,19 +86,22 @@ export default class AmodalState {
   }
 }
 
-export interface AmItemInit<TProps = object> {
+export interface RdItemInit<TProps extends DialogProps = DialogProps> {
   id?: string;
   component: ComponentType;
   props?: TProps;
-  type: ElementType;
+  type: ItemType;
 }
 
-export interface AmItem<TProps = object, TResult = unknown>
-  extends AmItemInit<TProps>,
+export interface RdItem<
+  TProps extends DialogProps = DialogProps,
+  TResult = unknown,
+> extends RdItemInit<TProps>,
     PromiseLike<TResult> {
   id: string;
-  close: (result?: TResult) => void;
+  destroy: (result?: TResult) => void;
+  update: (data: TProps | ((old: TProps) => TProps)) => void;
   props: TProps;
 }
 
-export type ElementType = 'modal' | 'notification';
+export type ItemType = 'modal' | 'notification';

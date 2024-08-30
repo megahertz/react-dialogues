@@ -1,0 +1,70 @@
+.rd-notification-container {
+  z-index: 1002;
+  position: fixed;
+}
+.rd-notification-container.bottom {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.rd-notification-container.bottomLeft {
+  bottom: 0;
+  left: 16px;
+}
+.rd-notification-container.bottomRight {
+  bottom: 0;
+  right: 16px;
+}
+.rd-notification-container.top {
+  left: 50%;
+  top: 16px;
+  transform: translateX(-50%);
+}
+.rd-notification-container.topLeft {
+  left: 16px;
+  top: 16px;
+}
+.rd-notification-container.topRight {
+  right: 16px;
+  top: 16px;
+}
+
+.rd-notification {
+  margin-bottom: 16px;
+  overflow: hidden;
+  width: 384px;
+}
+
+.rd-notification .rd-header {
+  font-size: 110%;
+  font-weight: normal;
+}
+
+.rd-notification-progress {
+  animation: rd-notification-progress linear 1 forwards;
+  background: var(--rd-primary);
+  bottom: 0;
+  height: 3px;
+  left: 0;
+  position: absolute;
+  transition: width 0.2s ease;
+  width: 100%;
+}
+.rd-success .rd-notification-progress {
+  background: var(--rd-success);
+}
+.rd-warning .rd-notification-progress {
+  background: var(--rd-warning);
+}
+.rd-error .rd-notification-progress {
+  background: var(--rd-error);
+}
+
+@keyframes rd-notification-progress {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}

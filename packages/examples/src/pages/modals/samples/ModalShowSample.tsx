@@ -1,6 +1,6 @@
 import { Button, Modal } from 'react-dialogues';
 
-export default function AmodalShowSample() {
+export function ModalShowSample() {
   return (
     <Button
       onClick={() => {

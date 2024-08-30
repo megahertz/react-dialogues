@@ -1,46 +1,54 @@
 import { useEffect, useState } from 'react';
 import { Button } from 'react-dialogues';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  NavLink,
+  Outlet,
+  RouterProvider,
+} from 'react-router-dom';
 import ModalPage from './pages/modals/ModalPage';
+import NotificationPage from './pages/notifications/NotificationPage';
 import OtherPage from './pages/other/OtherPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <div>
-        <h1>Hello World</h1>
-      </div>
+      <>
+        <nav className="menu">
+          <NavLink to="/modals">Modals</NavLink>
+          <NavLink to="/notifications">Notifications</NavLink>
+          <NavLink to="/other">Other</NavLink>
+          <ToggleTheme />
+        </nav>
+        <main className="content">
+          <Outlet />
+        </main>
+      </>
     ),
-  },
-  {
-    path: 'modals',
-    element: <ModalPage />,
-  },
-  {
-    path: 'notifications',
-    element: <div>Notifications</div>,
-  },
-  {
-    path: 'other',
-    element: <OtherPage />,
+    children: [
+      {
+        path: 'modals',
+        element: <ModalPage />,
+      },
+      {
+        path: 'notifications',
+        element: <NotificationPage />,
+      },
+      {
+        path: 'other',
+        element: <OtherPage />,
+      },
+      {
+        path: '/',
+        element: <h1>Examples</h1>,
+      },
+    ],
   },
 ]);
 
 export default function App() {
-  return (
-    <>
-      <nav className="menu">
-        <a href="/modals">Modals</a>
-        <a href="/notifications">Notifications</a>
-        <a href="/other">Other</a>
-        <ToggleTheme />
-      </nav>
-      <main className="content">
-        <RouterProvider router={router} />
-      </main>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 function ToggleTheme() {
@@ -51,11 +59,6 @@ function ToggleTheme() {
   );
 
   useEffect(() => {
-    console.log({
-      isDark,
-      dark: localStorage.dark,
-      matches: window.matchMedia?.('(prefers-color-scheme: dark)').matches,
-    });
     document.documentElement.setAttribute(
       'data-theme',
       isDark ? 'dark' : 'light',

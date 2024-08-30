@@ -1,10 +1,10 @@
 import { createContext, useContext } from 'react';
-import { AmItem } from './AmodalState';
+import { RdItem } from './RdState';
 
-export const ItemContext = createContext<AmItem>(
-  undefined as unknown as AmItem,
+export const ItemContext = createContext<RdItem>(
+  undefined as unknown as RdItem,
 );
 
-export function useUiItem(): AmItem {
+export function useUiItem(): RdItem {
   return useContext(ItemContext);
 }

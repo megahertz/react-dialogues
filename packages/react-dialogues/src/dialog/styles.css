@@ -1,10 +1,7 @@
-.am-body {
-  padding: 4px 0;
-}
-
-.am-dialog {
-  background: var(--am-background);
-  color: var(--am-text);
+.rd-dialog {
+  animation: rd-slideIn 0.3s;
+  background: var(--rd-background);
+  color: var(--rd-text);
   border-radius: 8px;
   box-shadow:
     0 6px 16px 0 rgba(0, 0, 0, 0.08),
@@ -14,11 +11,11 @@
   position: relative;
 }
 
-.am-dialog-close {
+.rd-dialog-close {
   background: transparent;
   border-radius: 4px;
   border: none;
-  color: var(--am-text);
+  color: var(--rd-text);
   cursor: pointer;
   font-size: 1.4rem;
   font-weight: 700;
@@ -31,33 +28,98 @@
   width: 32px;
 }
 
-.am-dialog-close:hover {
-  background: var(--am-hover-shadow);
+.rd-dialog-close + div {
+  padding-right: 24px;
 }
 
-.am-footer {
+.rd-dialog-close:hover {
+  background: var(--rd-hover-shadow);
+}
+
+.rd-header {
+  font-weight: 600;
+}
+.rd-header + .rd-body {
+  padding-top: 8px;
+}
+.rd-body + .rd-footer {
+  padding-top: 8px;
+}
+div + .rd-footer,
+div + .rd-footer {
+  padding-top: 8px;
+}
+
+.rd-footer {
   display: flex;
   gap: 8px;
   justify-content: end;
-  margin-top: 16px;
 }
 
-.am-left {
+.rd-left {
   justify-content: start;
 }
 
-.am-center {
-  justify-content:  center;
+.rd-center {
+  justify-content: center;
 }
 
-.am-right {
+.rd-right {
   justify-content: end;
 }
 
-.am-header {
-  font-weight: 600;
+.rd-iconbox {
+  display: flex;
 }
 
-.am-body {
-  padding-top: 16px;
+.rd-aftericon {
+  flex: 1;
+  padding-left: 16px;
+}
+
+.rd-notification-icon {
+  border-radius: 50%;
+  color: #fff;
+  display: inline-block;
+  height: 24px;
+  line-height: 24px;
+  pointer-events: none;
+  text-align: center;
+  width: 24px;
+}
+
+.rd-info .rd-notification-icon {
+  background: var(--rd-primary);
+}
+.rd-info .rd-notification-icon:after {
+  content: 'i';
+}
+.rd-success .rd-notification-icon {
+  background: var(--rd-success);
+}
+.rd-success .rd-notification-icon:after {
+  content: '✓';
+}
+.rd-warning .rd-notification-icon {
+  background: var(--rd-warning);
+}
+.rd-warning .rd-notification-icon:after {
+  content: '!';
+}
+.rd-error .rd-notification-icon {
+  background: var(--rd-error);
+}
+.rd-error .rd-notification-icon:after {
+  content: '🞩';
+}
+
+@keyframes rd-slideIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 30%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }

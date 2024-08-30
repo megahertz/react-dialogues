@@ -2,7 +2,7 @@ import { HTMLAttributes } from 'react';
 import { cls } from '../utils/string';
 
 export function Footer({ align, className, ...props }: FooterProps) {
-  const classNames = cls('am-footer', className, align && `am-${align}`);
+  const classNames = cls('rd-footer', className, align && `rd-${align}`);
   return <div className={classNames} {...props} />;
 }
 

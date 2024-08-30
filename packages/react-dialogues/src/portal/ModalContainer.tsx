@@ -1,24 +1,15 @@
 import { MouseEvent } from 'react';
 import { ItemContext } from '../core/itemContext';
-import { AmItem } from '../core/AmodalState';
+import { RdItem } from '../core/RdState';
 
-export default function ModalContainer({ items }: { items: AmItem[] }) {
+export function ModalContainer({ items }: { items: RdItem[] }) {
   return (
-    <div className="am-modal-container">
+    <div className="rd-modal-container">
       {items.map((item) => {
         const { id, component: Component, props } = item;
-        function onClick(e: MouseEvent<HTMLDivElement>) {
-          if (
-            (e.target as HTMLDivElement)?.classList.contains('am-modal-wrapper')
-          ) {
-            item.close('close');
-          }
-        }
         return (
-          <ItemContext.Provider value={item}>
-            <div key={id} className="am-modal-wrapper" onClick={onClick}>
-              <Component {...props} />
-            </div>
+          <ItemContext.Provider key={id} value={item}>
+            <Component {...props} />
           </ItemContext.Provider>
         );
       })}

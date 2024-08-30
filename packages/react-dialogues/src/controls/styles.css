@@ -1,54 +1,60 @@
-.am-button {
-  background: var(--am-primary);
-  border: none;
+.rd-btn {
+  background: var(--rd-primary);
+  border: 1px solid transparent;
   border-radius: 6px;
   color: #fff;
   cursor: pointer;
   line-height: 22px;
+  outline: none;
   padding: 4px 15px;
-  transition: all .2s;
+  transition: all 0.2s;
   user-select: none;
+  touch-action: manipulation;
 }
 
-.am-btn-primary {
-
+.rd-btn:not(:disabled):focus-visible {
+  outline: 4px solid #91caff;
+  outline-offset: 1px;
+  transition:
+    outline-offset 0s,
+    outline 0s;
 }
 
-.am-button:hover {
-  background: var(--am-primary-light);
+.rd-btn:hover {
+  background: var(--rd-primary-light);
 }
 
-.am-btn-secondary {
+.rd-btn-secondary {
   background: none;
-  border: 1px solid var(--am-btn-border);
-  color: var(--am-text);
+  border: 1px solid var(--rd-btn-border);
+  color: var(--rd-text);
 }
-.am-btn-secondary:hover {
+.rd-btn-secondary:hover {
   background: none;
-  border: 1px solid var(--am-primary);
-  color: var(--am-primary);
+  border: 1px solid var(--rd-primary);
+  color: var(--rd-primary);
 }
 
-.am-btn-text {
+.rd-btn-text {
   background: none;
-  color: var(--am-text);
+  color: var(--rd-text);
 }
-.am-btn-text:hover {
-  background: var(--am-hover-shadow);
+.rd-btn-text:hover {
+  background: var(--rd-hover-shadow);
 }
-.am-button.am-btn-text:disabled {
+.rd-btn.rd-btn-text:disabled {
   background: none;
   border: none;
 }
 
-.am-btn-loading {
+.rd-btn-loading {
   background: #ccc;
   cursor: not-allowed;
 }
 
-.am-button:disabled {
-  background: var(--am-bg-disabled);
-  border: 1px solid var(--am-btn-border);
-  color: var(--am-text-disabled);
+.rd-btn:disabled {
+  background: var(--rd-bg-disabled);
+  border: 1px solid var(--rd-btn-border);
+  color: var(--rd-text-disabled);
   cursor: not-allowed;
 }

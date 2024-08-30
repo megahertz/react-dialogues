@@ -38,6 +38,7 @@ module.exports = {
         '@typescript-eslint/lines-between-class-members': 'off',
         '@typescript-eslint/no-use-before-define': 'off',
         'import/prefer-default-export': 'off',
+        'no-restricted-syntax': 'off',
         'react/destructuring-assignment': 'off',
         'react/function-component-definition': [
           'error',
@@ -47,6 +48,7 @@ module.exports = {
           },
         ],
         'react/jsx-props-no-spreading': 'off',
+        'react/jsx-no-bind': 'off',
         'react/react-in-jsx-scope': 'off',
         'react/require-default-props': 'off',
       },

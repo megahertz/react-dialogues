@@ -1,16 +1,18 @@
-import { HTMLAttributes, MouseEvent, useState } from 'react';
+import {
+  ForwardedRef,
+  forwardRef,
+  HTMLAttributes,
+  MouseEvent,
+  useState,
+} from 'react';
 import './styles.css';
 import { useUiItem } from '../core/itemContext';
 import { cls } from '../utils/string';
 
-export function Button({
-  className,
-  loading,
-  onClick,
-  type,
-  value,
-  ...props
-}: ButtonProps) {
+export const Button = forwardRef(function Button(
+  { className, loading, onClick, type, value, ...props }: ButtonProps,
+  ref: ForwardedRef<HTMLButtonElement>,
+) {
   const item = useUiItem();
   const [isLoading, setIsLoading] = useState(loading);
 
@@ -44,11 +46,13 @@ export function Button({
       return;
     }
 
+    e.stopPropagation();
+
     setResult(value || 'ok');
   }
 
   function setResult(result: unknown) {
-    item?.close(result);
+    item?.destroy(result);
   }
 
   function setError(error: unknown) {
@@ -56,21 +60,22 @@ export function Button({
   }
 
   const cssClasses = cls(
-    'am-button',
+    'rd-btn',
     className,
     isLoading && 'loading',
-    type && type !== 'primary' && `am-btn-${type}`,
+    type && type !== 'primary' && `rd-btn-${type}`,
   );
 
   return (
     <button
       className={cssClasses}
       onClick={handleClick}
+      ref={ref}
       type="button"
       {...(props as object)}
     />
   );
-}
+});
 
 export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;

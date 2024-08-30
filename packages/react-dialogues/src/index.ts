@@ -1,13 +1,18 @@
 import './styles.css';
-import { amodal } from './core/amodal';
+import { dialogues } from './core/dialogues';
 
 export { CancelButton } from './controls/CancelButton';
-export { Button } from './controls/Button';
+export { Button, type ButtonProps } from './controls/Button';
 export { OkButton } from './controls/OkButton';
-export { amodal } from './core/amodal';
+export { dialogues } from './core/dialogues';
+export { type RdItem } from './core/RdState';
 export { Body, Header, Title } from './dialog/components';
 export { Dialog } from './dialog/Dialog';
 export { Footer, type FooterProps } from './dialog/Footer';
-export { Modal } from './modal/Modal';
+export { Modal, type ModalProps } from './modal/Modal';
+export {
+  Notification,
+  type NotificationProps,
+} from './notification/Notification';
 
-(window as unknown as Record<string, object>).amodal = amodal;
+(window as unknown as Record<string, object>).dialogues = dialogues;

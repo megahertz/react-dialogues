@@ -1,24 +1,48 @@
-.am-modal-wrapper {
-  background: rgba(0, 0, 0, .45);
+.rd-modal-wrapper {
   inset: 0;
+  overflow: auto;
   position: fixed;
   z-index: 1000;
 }
 
-.am-modal {
-  animation: am-slideIn .3s;
-  margin: 0 auto;
-  top: 100px;
+.rd-modal {
+  box-sizing: border-box;
+  margin: 100px auto 24px;
   width: 520px;
+  z-index: 1001;
 }
 
-@keyframes am-slideIn {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 30%, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
+.rd-modal.rd-full {
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
+}
+
+.rd-modal.rd-full .rd-body {
+  flex: 1;
+}
+
+.rd-modal.rd-large {
+  margin: 24px 0 24px 24px;
+  width: calc(100% - 48px);
+}
+
+.rd-centered {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.rd-centered .rd-modal {
+  margin: 0;
+}
+
+.rd-mask {
+  background: rgba(0, 0, 0, 0.45);
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: 1000;
 }
