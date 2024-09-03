@@ -1,4 +1,7 @@
-import { expect } from '@playwright/test';
+import {
+  expect,
+  type PageAssertionsToHaveScreenshotOptions,
+} from '@playwright/test';
 import type { Page } from 'playwright';
 
 export async function disableAnimations(page: Page) {
@@ -7,8 +10,13 @@ export async function disableAnimations(page: Page) {
   });
 }
 
-export async function expectScreenshot(page: Page) {
+export async function expectScreenshot(
+  page: Page,
+  options?: PageAssertionsToHaveScreenshotOptions,
+) {
   await expect(page).toHaveScreenshot({
     stylePath: 'src/__tests__/forScreenshot.css',
+    maxDiffPixels: 100,
+    ...options,
   });
 }

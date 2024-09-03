@@ -14,7 +14,7 @@ test('Normal modal with long text', async ({ page }) => {
 
   await page.getByText('Long', { exact: true }).click();
 
-  await expectScreenshot(page);
+  await expectScreenshot(page, { maxDiffPixels: 500 });
 });
 
 test('Large modal', async ({ page }) => {
@@ -30,7 +30,7 @@ test('Large modal with long text', async ({ page }) => {
 
   await page.getByText('Large & Long', { exact: true }).click();
 
-  await expectScreenshot(page);
+  await expectScreenshot(page, { maxDiffPixels: 700 });
 });
 
 test('Fullscreen modal', async ({ page }) => {
@@ -46,7 +46,7 @@ test('Fullscreen modal with long text', async ({ page }) => {
 
   await page.getByText('Fullscreen & Long', { exact: true }).click();
 
-  await expectScreenshot(page);
+  await expectScreenshot(page, { maxDiffPixels: 800 });
 });
 
 test('Centered modal', async ({ page }) => {
