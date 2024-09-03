@@ -1,4 +1,10 @@
-html, [data-theme="light"] {
+@import './controls/styles.css';
+@import './dialog/styles.css';
+@import './modal/styles.css';
+@import './notification/styles.css';
+
+html,
+[data-theme='light'] {
   --rd-hover-shadow: rgba(0, 0, 0, 0.05);
   --rd-primary: #1677ff;
   --rd-primary-dark: #0958d9;
@@ -15,7 +21,7 @@ html, [data-theme="light"] {
   --rd-btn-border: #d9d9d9;
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --rd-text-disabled: rgba(255, 255, 255, 0.25);
   --rd-bg-disabled: rgba(255, 255, 255, 0.04);
   --rd-background: #1f1f1f;

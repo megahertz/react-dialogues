@@ -11,6 +11,12 @@
   width: 520px;
   z-index: 1001;
 }
+@media only screen and (max-width: 552px) {
+  .rd-modal {
+    width: auto;
+    margin: 100px 16px 24px;
+  }
+}
 
 .rd-modal.rd-full {
   border-radius: 0;

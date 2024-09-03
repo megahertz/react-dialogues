@@ -1,22 +1,50 @@
-import { useEffect, useState } from 'react';
-import { dialogues } from '../core/dialogues';
+import {
+  type Dispatch,
+  type SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import type { RdItem } from '../core/RdState';
 import { ModalContainer } from './ModalContainer';
 import { NotificationContainer } from './NotificationContainer';
 
-export default function Portal() {
-  const [amodalState, setAmodalState] = useState(dialogues.internal.state);
+export function Portal({
+  initItems = [],
+  onMount,
+  onUnmount,
+}: {
+  initItems?: RdItem[];
+  onMount: OnPortalMount;
+  onUnmount: () => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [items, setPortalItems] = useState<RdItem[]>(initItems);
+
+  const modalItems = items.filter((i) => i.type === 'modal');
+  const notificationItems = items.filter((i) => i.type === 'notification');
 
   useEffect(() => {
-    dialogues.internal.onPortalMounted({ setPortalState: setAmodalState });
-    return () => dialogues.internal.onPortalUnmounted();
-  }, []);
+    console.log('Portal mounted');
+    onMount({
+      element: ref.current?.parentNode as HTMLElement,
+      setPortalItems,
+    });
+    return () => onUnmount();
+  }, [onMount, onUnmount, setPortalItems]);
 
   return (
     <>
-      <ModalContainer items={amodalState.getItemsByType('modal')} />
-      <NotificationContainer
-        items={amodalState.getItemsByType('notification') as any}
-      />
+      <ModalContainer items={modalItems} />
+      <NotificationContainer items={notificationItems} />
+      <div ref={ref} />
     </>
   );
+}
+
+type OnPortalMount = (payload: PortalMountedPayload) => void;
+
+export interface PortalMountedPayload {
+  element: HTMLElement;
+  setPortalItems: Dispatch<SetStateAction<RdItem[]>>;
 }

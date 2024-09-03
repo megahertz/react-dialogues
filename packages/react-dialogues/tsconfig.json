@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "declarationDir": "./lib",
+    "declarationDir": "./dist",
+    "emitDeclarationOnly": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
-    "lib": ["es6", "dom"],
+    "lib": ["es2020", "dom"],
     "moduleResolution": "node",
-    "outDir": "./lib",
+    "outDir": "./dist",
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "stripInternal": true,
-    "target": "ES2018"
+    "target": "es2020"
   },
   "include": ["src/**/*"]
 }

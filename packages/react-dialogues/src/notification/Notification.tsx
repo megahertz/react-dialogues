@@ -5,7 +5,6 @@ import type { RdItem } from '../core/RdState';
 import { Dialog, type DialogProps } from '../dialog/Dialog';
 import { cls } from '../utils/string';
 import { Progress } from './Progress';
-import './styles.css';
 
 const defaults: NotificationProps = {
   className: '',

@@ -2,9 +2,10 @@ import type { ComponentType } from 'react';
 import type { DialogProps } from '../dialog/Dialog';
 
 export default class RdState {
-  changeListeners: Array<(state: RdState) => void> = [];
-  item: RdItem[] = [];
-  lastItemId = 0;
+  items: RdItem[] = [];
+
+  private readonly changeListeners: Array<(state: RdState) => void> = [];
+  private lastItemId = 0;
 
   constructor({
     items = [],
@@ -13,7 +14,7 @@ export default class RdState {
     items?: RdItem[];
     lastItemId?: number;
   } = {}) {
-    this.item = items;
+    this.items = items;
     this.lastItemId = lastItemId;
 
     this.add = this.add.bind(this);
@@ -54,7 +55,7 @@ export default class RdState {
       },
     } as RdItem<TProps, TResult>;
 
-    this.item.push(element as unknown as RdItem);
+    this.items.push(element as unknown as RdItem);
 
     this.emitOnChange();
 
@@ -63,13 +64,13 @@ export default class RdState {
 
   clone() {
     return new RdState({
-      items: this.item.slice(),
+      items: this.items.slice(),
       lastItemId: this.lastItemId,
     });
   }
 
   getItemsByType(type: ItemType) {
-    return this.item.filter((element) => element.type === type);
+    return this.items.filter((element) => element.type === type);
   }
 
   onChange(listener: (state: RdState) => void) {
@@ -77,7 +78,7 @@ export default class RdState {
   }
 
   remove(id: string) {
-    this.item = this.item.filter((element) => element.id !== id);
+    this.items = this.items.filter((element) => element.id !== id);
     this.emitOnChange();
   }
 

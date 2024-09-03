@@ -1,6 +1,6 @@
 import { Button, Footer, Modal } from 'react-dialogues';
 
-export function SizesAndPositionSample() {
+export function ModalSizesAndPositionSample() {
   const children = 'Small test modal content';
   return (
     <>
@@ -74,7 +74,10 @@ function LongText() {
     <>
       {Array.from({ length: 100 }).map((_, id) => (
         // eslint-disable-next-line react/no-array-index-key
-        <p key={id}>{navigator.userAgent}</p>
+        <p key={id}>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry.
+        </p>
       ))}
     </>
   );

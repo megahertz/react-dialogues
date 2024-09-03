@@ -1,6 +1,6 @@
-import { CustomComponentSample } from './samples/CustomComponentSample';
+import { NotificationCustomComponentSample } from './samples/NotificationCustomComponentSample';
 import { NotificationTypesSample } from './samples/NotificationTypesSample';
-import { ItemMethodsSample } from './samples/ItemMethodsSample';
+import { NotificationItemMethodsSample } from './samples/NotificationItemMethodsSample';
 import { NotificationShowSample } from './samples/NotificationShowSample';
 
 export default function NotificationPage() {
@@ -12,13 +12,13 @@ export default function NotificationPage() {
       <NotificationShowSample />
 
       <h2>Control notification instance</h2>
-      <ItemMethodsSample />
+      <NotificationItemMethodsSample />
 
       <h2>Notification types</h2>
       <NotificationTypesSample />
 
       <h2>Custom component</h2>
-      <CustomComponentSample />
+      <NotificationCustomComponentSample />
     </>
   );
 }

@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { themes as prismThemes } from 'prism-react-renderer';
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
@@ -58,11 +59,27 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    () => ({
+      name: 'resolve-react',
+      configureWebpack() {
+        return {
+          resolve: {
+            alias: {
+              'react': path.resolve('../../node_modules/react'),
+              'react-dialogues': 'react-dialogues/src/index.ts',
+            },
+          },
+        };
+      },
+    }),
+  ],
+
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'AModal',
+      title: 'React Dialogues',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',

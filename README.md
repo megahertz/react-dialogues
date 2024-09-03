@@ -4,7 +4,8 @@
 [![npm version](https://img.shields.io/npm/v/react-dialogues?color=brightgreen)](https://www.npmjs.com/package/react-dialogues)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-dialogues.svg?color=rgb%2868%2C%20204%2C%2017%29)](https://bundlephobia.com/result?p=react-dialogues)
 
-Simple and flexible modal dialog library inspired by [Ant Design](https://ant.design/components/modal)
+Simple and flexible modal dialog library inspired by
+[Ant Design](https://ant.design/components/modal)
 
 ## WIP! Early prototyping stage. It's not ready for usage yet.
 
@@ -18,16 +19,13 @@ export default function App() {
         const result = await Modal.show({
           title: 'Information',
           content: 'Example',
-          buttons: [
-            <Modal.OkButton />,
-            <Modal.CancelButton />,
-          ]
+          buttons: [<Modal.OkButton />, <Modal.CancelButton />],
         });
-        
+
         if (result === 'ok') {
-          console.log('Ok button clicked')
+          console.log('Ok button clicked');
         } else {
-          console.log('Cancel button clicked')
+          console.log('Cancel button clicked');
         }
       }}
     >
@@ -35,5 +33,4 @@ export default function App() {
     </Button>
   );
 }
-
 ```

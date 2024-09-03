@@ -10,6 +10,10 @@ export function NotificationContainer({
 }: {
   items: RdItem<NotificationProps>[];
 }) {
+  if (items.length < 0) {
+    return null;
+  }
+
   const groups = groupByPlacement(items);
   return (
     <>

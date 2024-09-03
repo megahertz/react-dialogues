@@ -1,11 +1,11 @@
 import React, {
   type ComponentType,
-  ForwardedRef,
+  type ForwardedRef,
   forwardRef,
-  HTMLAttributes,
-  ReactNode,
+  Fragment,
+  type HTMLAttributes,
+  type ReactNode,
 } from 'react';
-import './styles.css';
 import { cls } from '../utils/string';
 import { NotificationType } from '../utils/types';
 import { Body, DialogContainer, Header, NotificationIcon } from './components';
@@ -63,7 +63,14 @@ export const Dialog = forwardRef(function Dialog(
 
   let footerEl = footer;
   if (footer === undefined && Array.isArray(buttons) && buttons.length > 0) {
-    footerEl = <Footer>{buttons}</Footer>;
+    footerEl = (
+      <Footer>
+        {buttons.map((button, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={i}>{button}</Fragment>
+        ))}
+      </Footer>
+    );
   }
 
   const cssClass = cls(className, type ? `rd-${type}` : undefined);

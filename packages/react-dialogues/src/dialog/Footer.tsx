@@ -1,4 +1,4 @@
-import { HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 import { cls } from '../utils/string';
 
 export function Footer({ align, className, ...props }: FooterProps) {

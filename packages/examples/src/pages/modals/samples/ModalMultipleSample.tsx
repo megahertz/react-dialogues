@@ -1,6 +1,6 @@
 import { Button, Footer, Modal, ModalProps, OkButton } from 'react-dialogues';
 
-export function MultipleSample() {
+export function ModalMultipleSample() {
   const buttons = [
     <Button type="text" onClick={() => Modal.destroyAll()}>
       Close All

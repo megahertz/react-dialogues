@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useRef, useState } from 'react';
+import { type MouseEvent, useEffect, useRef, useState } from 'react';
 import { OkButton } from '../controls/OkButton';
 import { dialogues } from '../core/dialogues';
 import { useUiItem } from '../core/itemContext';
@@ -6,7 +6,6 @@ import type { RdItem } from '../core/RdState';
 import { Dialog, type DialogProps } from '../dialog/Dialog';
 import { createDivComponent } from '../utils/constructors';
 import { cls } from '../utils/string';
-import './styles.css';
 
 const Mask = createDivComponent('mask');
 
@@ -50,18 +49,20 @@ export function Modal({
   const cssClass = cls('rd-modal', size && `rd-${size}`, className);
   const wrapCssClass = cls('rd-modal-wrapper', centered && 'rd-centered');
   return (
-    <div aria-hidden className={wrapCssClass} onClick={onWrapClick}>
+    <>
       {mask && <Mask aria-hidden />}
-      <Dialog
-        aria-modal
-        buttons={buttons}
-        className={cssClass}
-        footer={footer}
-        ref={focusRootRef}
-        role={role}
-        {...props}
-      />
-    </div>
+      <div aria-hidden className={wrapCssClass} onClick={onWrapClick}>
+        <Dialog
+          aria-modal
+          buttons={buttons}
+          className={cssClass}
+          footer={footer}
+          ref={focusRootRef}
+          role={role}
+          {...props}
+        />
+      </div>
+    </>
   );
 }
 

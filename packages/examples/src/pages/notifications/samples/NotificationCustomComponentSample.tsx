@@ -10,7 +10,7 @@ import {
   OkButton,
 } from 'react-dialogues';
 
-export function CustomComponentSample() {
+export function NotificationCustomComponentSample() {
   return (
     <Button onClick={() => CustomNotification.show()}>
       Show custom notification

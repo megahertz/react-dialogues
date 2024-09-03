@@ -7,7 +7,7 @@ import {
   type RdItem,
 } from 'react-dialogues';
 
-export function ItemMethodsSample() {
+export function NotificationItemMethodsSample() {
   const [notification1, setNotification1] =
     useState<RdItem<NotificationProps>>();
   const [notification2, setNotification2] =

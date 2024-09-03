@@ -4,4 +4,12 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
+  resolve: {
+    alias: {
+      'react-dialogues': 'react-dialogues/src/index.ts',
+    }
+  },
+  server: {
+    port: 3000,
+  },
 });

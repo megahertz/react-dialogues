@@ -14,5 +14,7 @@ export {
   Notification,
   type NotificationProps,
 } from './notification/Notification';
+export { Portal } from './portal/Portal';
+export * from './utils/types';
 
 (window as unknown as Record<string, object>).dialogues = dialogues;

@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { RdItem } from './RdState';
+import type { RdItem } from './RdState';
 
 export const ItemContext = createContext<RdItem>(
   undefined as unknown as RdItem,

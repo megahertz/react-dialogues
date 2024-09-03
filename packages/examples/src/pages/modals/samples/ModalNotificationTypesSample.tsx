@@ -1,6 +1,6 @@
 import { Button, Footer, Modal } from 'react-dialogues';
 
-export function NotificationTypesSample() {
+export function ModalNotificationTypesSample() {
   const children = 'test modal content';
   return (
     <Footer align="left">

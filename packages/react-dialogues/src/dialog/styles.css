@@ -9,6 +9,7 @@
     0 9px 28px 8px rgba(0, 0, 0, 0.05);
   padding: 20px 24px;
   position: relative;
+  transition: all 0.3s;
 }
 
 .rd-dialog-close {

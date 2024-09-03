@@ -1,11 +1,10 @@
 import {
-  ForwardedRef,
+  type ForwardedRef,
   forwardRef,
-  HTMLAttributes,
-  MouseEvent,
+  type HTMLAttributes,
+  type MouseEvent,
   useState,
 } from 'react';
-import './styles.css';
 import { useUiItem } from '../core/itemContext';
 import { cls } from '../utils/string';
 

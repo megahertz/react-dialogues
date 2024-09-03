@@ -1,16 +1,16 @@
-import { HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 import { useUiItem } from '../core/itemContext';
 
 export function DialogCloseButton({
   ...props
 }: HTMLAttributes<HTMLButtonElement>) {
-  const ui = useUiItem();
+  const item = useUiItem();
 
   return (
     <button
       aria-label="Close"
       className="rd-dialog-close"
-      onClick={() => ui.destroy('close')}
+      onClick={() => item?.destroy('close')}
       type="button"
       {...(props as object)}
     >

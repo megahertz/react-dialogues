@@ -1,7 +1,9 @@
 module.exports = {
   parserOptions: {
     sourceType: 'module',
-    project: 'tsconfig.json',
     tsconfigRootDir: __dirname,
+  },
+  settings: {
+    'import/core-modules': ['@playwright/test', 'playwright'],
   },
 };

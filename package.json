@@ -1,10 +1,13 @@
 {
-  "name": "@amodal/workspace",
+  "name": "@rd/workspace",
   "version": "0.0.0",
   "description": "Tiny interaction React UI library",
   "private": "true",
   "scripts": {
-    "start": "npm start --prefix packages/examples"
+    "lint": "eslint && prettier --check .",
+    "start": "npm start --prefix packages/examples",
+    "test": "npm test --prefix packages/examples",
+    "typecheck": "npm run typecheck -w packages"
   },
   "repository": "megahertz/react-dialogues",
   "author": "Alexey Prokhorov",

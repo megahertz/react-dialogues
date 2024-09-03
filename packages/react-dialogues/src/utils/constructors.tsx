@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, HTMLAttributes } from 'react';
+import { type ForwardedRef, forwardRef, type HTMLAttributes } from 'react';
 import { cls } from './string';
 
 export function createDivComponent(name: string) {

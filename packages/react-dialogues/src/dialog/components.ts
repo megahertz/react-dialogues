@@ -1,5 +1,4 @@
 import { createDivComponent } from '../utils/constructors';
-import './styles.css';
 
 export const Body = createDivComponent('body');
 export const DialogContainer = createDivComponent('dialog');

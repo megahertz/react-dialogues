@@ -1,7 +1,7 @@
-import { CustomComponentSample } from './samples/CustomComponentSample';
-import { MultipleSample } from './samples/MultipleSample';
-import { SizesAndPositionSample } from './samples/SizesAndPositionSample';
-import { NotificationTypesSample } from './samples/NotificationTypesSample';
+import { ModalCustomComponentSample } from './samples/ModalCustomComponentSample';
+import { ModalMultipleSample } from './samples/ModalMultipleSample';
+import { ModalSizesAndPositionSample } from './samples/ModalSizesAndPositionSample';
+import { ModalNotificationTypesSample } from './samples/ModalNotificationTypesSample';
 import { ModalShowSample } from './samples/ModalShowSample';
 
 export default function ModalPage() {
@@ -13,16 +13,16 @@ export default function ModalPage() {
       <ModalShowSample />
 
       <h2>Sizes</h2>
-      <SizesAndPositionSample />
+      <ModalSizesAndPositionSample />
 
       <h2>Notification types</h2>
-      <NotificationTypesSample />
+      <ModalNotificationTypesSample />
 
       <h2>Multiple Modals</h2>
-      <MultipleSample />
+      <ModalMultipleSample />
 
       <h2>Custom component</h2>
-      <CustomComponentSample />
+      <ModalCustomComponentSample />
     </>
   );
 }

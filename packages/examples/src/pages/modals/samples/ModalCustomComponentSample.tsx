@@ -11,10 +11,8 @@ import {
   OkButton,
 } from 'react-dialogues';
 
-export function CustomComponentSample() {
-  return (
-    <Button onClick={() => CustomModal.show()}>Show custom notification</Button>
-  );
+export function ModalCustomComponentSample() {
+  return <Button onClick={() => CustomModal.show()}>Show custom modal</Button>;
 }
 
 function CustomModal(props: ModalProps) {
