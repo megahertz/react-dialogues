@@ -4,21 +4,18 @@
   "description": "Tiny interaction React UI library",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "node esbuild.mjs",
-    "lint": "eslint src *.js && prettier --check .",
+    "build": "vite build && vite build --emptyOutDir false -- --nocss",
+    "lint": "eslint src '*.js' '*.mjs' && prettier --check .",
     "test": "true",
-    "test:full": "npm run build && npm test && npm run lint && tsc --noEmit && npm run test:e2e",
     "typecheck": "tsc --noEmit",
-    "types:dbg": "dts-bundle-generator -o dist/index.d.ts --verbose --no-check src/index.ts",
-    "types:tsc": "tsc --emitDeclarationOnly",
     "postversion": "git push && git push --tags",
     "prepack": "npm run build"
   },
   "repository": "megahertz/react-dialogues",
   "files": [
-    "dist/*",
-    "src/*"
+    "dist/*"
   ],
   "keywords": [
     "react",
@@ -29,11 +26,8 @@
   "bugs": "https://github.com/megahertz/react-dialogues/issues",
   "homepage": "https://github.com/megahertz/react-dialogues#readme",
   "devDependencies": {
-    "@hyrious/esbuild-plugin-style": "^0.3.5",
     "@types/react": "^17.0.80",
     "@types/react-dom": "^17.0.25",
-    "dts-bundle-generator": "^9.5.1",
-    "esbuild": "^0.23.1",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^18.0.0",
@@ -45,7 +39,9 @@
     "prettier": "^3.3.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "vite-plugin-css-injected-by-js": "^3.5.1"
+    "vite": "^5.4.2",
+    "vite-plugin-css-injected-by-js": "^3.5.1",
+    "vite-plugin-dts": "^4.1.0"
   },
   "peerDependencies": {
     "react": ">=17",

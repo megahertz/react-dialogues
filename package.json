@@ -7,6 +7,7 @@
     "lint": "eslint && prettier --check .",
     "start": "npm start --prefix packages/examples",
     "test": "npm test --prefix packages/examples",
+    "test:full": "npm run lint && npm test",
     "typecheck": "npm run typecheck -w packages"
   },
   "repository": "megahertz/react-dialogues",

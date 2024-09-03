@@ -25,7 +25,6 @@ export function Portal({
   const notificationItems = items.filter((i) => i.type === 'notification');
 
   useEffect(() => {
-    console.log('Portal mounted');
     onMount({
       element: ref.current?.parentNode as HTMLElement,
       setPortalItems,

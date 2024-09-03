@@ -1,0 +1,29 @@
+name: Tests
+
+on:
+  - pull_request
+  - push
+
+jobs:
+  test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - run: npm install
+    - run: npm ci --prefix e2e/cra
+
+    - run: npx --prefix packages/examples playwright install chromium --with-deps
+    - run: npm run test:full
+
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: playwright-report
+        path: packages/examples/test-results/report
+        retention-days: 5

@@ -55,7 +55,9 @@ export const Button = forwardRef(function Button(
   }
 
   function setError(error: unknown) {
-    console.log(error);
+    // TODO: Better error handling
+    // eslint-disable-next-line no-console
+    console.error('Error in button handler', error);
   }
 
   const cssClasses = cls(

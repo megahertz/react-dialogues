@@ -2,10 +2,10 @@ import React, {
   type ComponentType,
   type ForwardedRef,
   forwardRef,
-  Fragment,
   type HTMLAttributes,
   type ReactNode,
 } from 'react';
+import { Fragment } from 'react/jsx-runtime';
 import { cls } from '../utils/string';
 import { NotificationType } from '../utils/types';
 import { Body, DialogContainer, Header, NotificationIcon } from './components';

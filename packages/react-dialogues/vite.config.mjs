@@ -1,28 +1,35 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import dts from 'vite-plugin-dts'
-import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
+/* eslint-disable import/no-extraneous-dependencies */
+
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import dts from 'vite-plugin-dts';
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
+
+const noCss = process.argv.includes('--nocss');
 
 export default defineConfig({
   plugins: [
     react(),
-    cssInjectedByJsPlugin(),
-    dts({ rollupTypes: true })
+    !noCss && cssInjectedByJsPlugin(),
+    dts({ logLevel: 'silent', rollupTypes: true }),
   ],
   build: {
-    lib: {
-      entry: 'src/index.ts',
-      formats: ['es', 'cjs', 'umd']
-    },
-    minify: true,
+    lib: { entry: 'src/index.ts' },
+    cssMinify: true,
+    minify: false,
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
       output: [
-        { entryFileNames: '[name].mjs',  format: 'esm' },
-        { entryFileNames: '[name].cjs',  format: 'cjs' },
-        { entryFileNames: '[name].umd.js',  format: 'umd', name: 'ReactDialogues', },
-      ]
+        {
+          entryFileNames: noCss ? '[name].nocss.mjs' : '[name].mjs',
+          format: 'esm',
+        },
+        {
+          entryFileNames: noCss ? '[name].nocss.cjs' : '[name].cjs',
+          format: 'cjs',
+        },
+      ],
     },
     sourcemap: true,
-  }
-})
+  },
+});

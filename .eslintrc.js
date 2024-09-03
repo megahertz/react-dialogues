@@ -17,6 +17,18 @@ module.exports = {
       },
     },
     {
+      files: ['*.mjs'],
+      extends: ['airbnb-base', 'plugin:prettier/recommended'],
+      parserOptions: {
+        ecmaVersion: 2023,
+        sourceType: 'module',
+      },
+      plugins: ['import', 'prettier'],
+      rules: {
+        strict: ['error', 'global'],
+      },
+    },
+    {
       files: ['*.ts', '*.tsx'],
       extends: [
         'airbnb',
