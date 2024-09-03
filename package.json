@@ -7,7 +7,7 @@
     "lint": "eslint && prettier --check .",
     "patch": "npm version patch --prefix packages/react-dialogues",
     "preversion": "false",
-    "publish": "npm publish--prefix packages/react-dialogues",
+    "publish": "npm publish --prefix packages/react-dialogues",
     "start": "npm start --prefix packages/examples",
     "test": "npm test --prefix packages/examples",
     "test:full": "npm run lint && npm run typecheck && npm test",
