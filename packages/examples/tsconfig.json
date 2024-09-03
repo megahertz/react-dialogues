@@ -1,16 +1,13 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "declarationDir": "./lib",
     "esModuleInterop": true,
     "jsx": "react-jsx",
-    "lib": ["es6", "dom"],
+    "lib": ["es2023", "dom"],
     "moduleResolution": "node",
-    "outDir": "./lib",
+    "outDir": "./dist",
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "stripInternal": true,
     "target": "ES2023"
   },
   "include": ["src/**/*", "playwright.config.ts"]
