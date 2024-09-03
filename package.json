@@ -9,6 +9,7 @@
     "start": "npm start --prefix packages/examples",
     "test": "npm test --prefix packages/examples",
     "test:full": "npm run lint && npm test",
+    "test:update": "npm test -- -- --update-snapshots",
     "typecheck": "npm run typecheck -w packages",
     "patch": "npm version patch --prefix packages/react-dialogues"
   },
