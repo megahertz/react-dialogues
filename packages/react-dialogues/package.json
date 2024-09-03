@@ -4,7 +4,7 @@
   "description": "Tiny interaction React UI library",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "vite build && vite build --emptyOutDir false -- --nocss",
     "lint": "eslint src '*.js' '*.mjs' && prettier --check .",

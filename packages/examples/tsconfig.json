@@ -5,6 +5,9 @@
     "lib": ["es2023", "dom"],
     "moduleResolution": "node",
     "outDir": "./dist",
+    "paths": {
+      "react-dialogues": ["../react-dialogues/src/index.ts"]
+    },
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
