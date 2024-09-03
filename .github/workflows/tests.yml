@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 20
 
-      - run: npm ci -w examples
+      - run: npm ci -w @rd/examples
 
       - run: npm run lint
       - run: npm run typecheck
