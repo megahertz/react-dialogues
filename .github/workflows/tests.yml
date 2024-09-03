@@ -16,7 +16,7 @@ jobs:
         node-version: 20
 
     - run: npm install
-    - run: npm ci --prefix e2e/cra
+    - run: npm ci
 
     - run: npx --prefix packages/examples playwright install chromium --with-deps
     - run: npm run test:full
