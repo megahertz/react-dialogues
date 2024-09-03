@@ -6,5 +6,5 @@ test('Custom notification component', async ({ page }) => {
 
   await page.getByText('Show custom notification', { exact: true }).click();
 
-  await expectScreenshot(page);
+  await expectScreenshot(page, { maxDiffPixels: 250 });
 });

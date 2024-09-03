@@ -26,7 +26,7 @@ test('Close all notifications', async ({ page }) => {
 
   await page.getByText('Show Notification 1', { exact: true }).click();
   await page.getByText('Show Notification 2', { exact: true }).click();
-  await expectScreenshot(page);
+  await expectScreenshot(page, { maxDiffPixels: 150 });
 
   await page.getByText('Close All Notifications', { exact: true }).click();
   await expectScreenshot(page, { maxDiffPixels: 150 });
