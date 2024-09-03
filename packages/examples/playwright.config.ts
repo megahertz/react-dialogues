@@ -12,6 +12,11 @@ export default defineConfig({
 
   reporter: [['html', { outputFolder: 'test-results/report' }]],
 
+  timeout: 10_000,
+  expect: {
+    timeout: 2_000,
+  },
+
   use: {
     baseURL: url,
     screenshot: 'only-on-failure',
@@ -21,7 +26,12 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: ['--disable-font-subpixel-positioning', '--disable-lcd-text'],
+        },
+      },
     },
     // {
     //   name: 'firefox',

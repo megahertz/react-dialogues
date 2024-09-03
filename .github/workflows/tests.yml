@@ -10,20 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - run: npm install
-    - run: npm ci --prefix e2e/cra
+      - run: npm ci
 
-    - run: npx --prefix packages/examples playwright install chromium --with-deps
-    - run: npm run test:full
+      - run: npm run lint
+      - run: npm run typecheck
 
-    - uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: playwright-report
-        path: packages/examples/test-results/report
-        retention-days: 5
+      - run:
+          npx --prefix packages/examples playwright install chromium --with-deps
+      - run: npm run test
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: packages/examples/test-results/report
+          retention-days: 5

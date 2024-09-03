@@ -1,5 +1,8 @@
-import { test, expect } from '@playwright/test';
-import { disableAnimations } from '../../../../__tests__/utils';
+import { test } from '@playwright/test';
+import {
+  disableAnimations,
+  expectScreenshot,
+} from '../../../../__tests__/utils';
 
 test('Light theme should be applied on Light btn click', async ({ page }) => {
   await page.goto('other/ThemeSample');
@@ -7,7 +10,7 @@ test('Light theme should be applied on Light btn click', async ({ page }) => {
 
   await page.getByText('Light', { exact: true }).click();
 
-  await expect(page).toHaveScreenshot();
+  await expectScreenshot(page);
 });
 
 test('Dark theme should be applied on Dark btn click', async ({ page }) => {
@@ -16,5 +19,5 @@ test('Dark theme should be applied on Dark btn click', async ({ page }) => {
 
   await page.getByText('Dark', { exact: true }).click();
 
-  await expect(page).toHaveScreenshot();
+  await expectScreenshot(page);
 });
