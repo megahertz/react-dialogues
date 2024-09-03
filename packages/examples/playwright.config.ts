@@ -12,6 +12,11 @@ export default defineConfig({
 
   reporter: [['html', { outputFolder: 'test-results/report' }]],
 
+  timeout: 10_000,
+  expect: {
+    timeout: 2_000,
+  },
+
   use: {
     baseURL: url,
     screenshot: 'only-on-failure',

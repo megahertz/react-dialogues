@@ -1,11 +1,12 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+import { expectScreenshot } from '../../../../__tests__/utils';
 
 test('Info notification', async ({ page }) => {
   await page.goto('/notifications/NotificationTypesSample');
 
   await page.getByText('Info', { exact: true }).click();
 
-  await expect(page).toHaveScreenshot();
+  await expectScreenshot(page);
 });
 
 test('Success notification', async ({ page }) => {
@@ -13,7 +14,7 @@ test('Success notification', async ({ page }) => {
 
   await page.getByText('Success', { exact: true }).click();
 
-  await expect(page).toHaveScreenshot();
+  await expectScreenshot(page);
 });
 
 test('Warning notification', async ({ page }) => {
@@ -21,7 +22,7 @@ test('Warning notification', async ({ page }) => {
 
   await page.getByText('Warning', { exact: true }).click();
 
-  await expect(page).toHaveScreenshot();
+  await expectScreenshot(page);
 });
 
 test('Error notification', async ({ page }) => {
@@ -29,5 +30,5 @@ test('Error notification', async ({ page }) => {
 
   await page.getByText('Error', { exact: true }).click();
 
-  await expect(page).toHaveScreenshot();
+  await expectScreenshot(page);
 });
