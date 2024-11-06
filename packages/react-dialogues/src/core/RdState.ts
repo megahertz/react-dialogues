@@ -38,6 +38,7 @@ export default class RdState {
       ...elementInitOptions,
       id: this.lastItemId.toString(),
       then: promise.then.bind(promise),
+      catch: promise.catch.bind(promise),
 
       destroy: (result: TResult) => {
         this.remove(id);
@@ -96,7 +97,7 @@ export interface RdItemInit<TProps = DialogProps> {
 
 export interface RdItem<TProps = DialogProps, TResult = unknown>
   extends RdItemInit<TProps>,
-    PromiseLike<TResult> {
+    Promise<TResult> {
   id: string;
   destroy: (result?: TResult) => void;
   update: (data: Partial<TProps> | ((old: TProps) => Partial<TProps>)) => void;
