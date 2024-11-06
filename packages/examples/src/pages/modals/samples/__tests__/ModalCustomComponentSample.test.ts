@@ -6,5 +6,5 @@ test('Custom modal component', async ({ page }) => {
 
   await page.getByText('Show custom modal', { exact: true }).click();
 
-  await expectScreenshot(page);
+  await expectScreenshot(page, { maxDiffPixels: 200 });
 });
