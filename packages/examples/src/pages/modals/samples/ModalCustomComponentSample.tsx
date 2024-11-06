@@ -7,6 +7,7 @@ import {
   Header,
   Modal,
   Notification,
+  TextField,
   useUiItem,
 } from 'react-dialogues';
 
@@ -15,15 +16,13 @@ export function ModalCustomComponentSample() {
     <Footer align="left">
       <Button
         onClick={async () => {
-          const promise = await EditUserModal.show({
+          const result = await EditUserModal.show({
             user: {
               firstName: 'John',
               lastName: 'Doe',
               email: 'john.d@sample.com',
             },
           });
-
-          const result = await promise;
 
           if (result === 'cancel' || result === 'close') {
             Notification.warning({
@@ -55,29 +54,20 @@ function EditUserModal({ user }: UserModalProps) {
     <Modal empty>
       <Header>Edit user {user.firstName}</Header>
       <Body>
-        <div>
-          <label htmlFor="firstName">
-            First name:
-            <input
-              id="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="lastName">
-            Last name:
-            <input
-              id="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </label>
-        </div>
+        <TextField
+          label="First name:"
+          onChange={(e) => setFirstName(e.target.value)}
+          placeholder="First name"
+          value={firstName}
+        />
+        <TextField
+          label="Last name:"
+          onChange={(e) => setLastName(e.target.value)}
+          value={lastName}
+        />
       </Body>
       <Footer>
-        <CancelButton type="secondary" />
+        <CancelButton />
         <Button onClick={onSaveClick}>Save</Button>
       </Footer>
     </Modal>

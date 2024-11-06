@@ -11,7 +11,7 @@ import ModalPage from './pages/modals/ModalPage';
 import { ModalCustomComponentSample } from './pages/modals/samples/ModalCustomComponentSample';
 import { ModalMultipleSample } from './pages/modals/samples/ModalMultipleSample';
 import { ModalNotificationTypesSample } from './pages/modals/samples/ModalNotificationTypesSample';
-import { ModalShowSample } from './pages/modals/samples/ModalShowSample';
+import { ModalStaticMethods } from './pages/modals/samples/ModalStaticMethods';
 import { ModalSizesAndPositionSample } from './pages/modals/samples/ModalSizesAndPositionSample';
 import NotificationPage from './pages/notifications/NotificationPage';
 import { NotificationCustomComponentSample } from './pages/notifications/samples/NotificationCustomComponentSample';
@@ -52,12 +52,12 @@ const router = createBrowserRouter([
         element: <ModalNotificationTypesSample />,
       },
       {
-        path: 'modals/ModalShowSample',
-        element: <ModalShowSample />,
-      },
-      {
         path: 'modals/ModalSizesAndPositionSample',
         element: <ModalSizesAndPositionSample />,
+      },
+      {
+        path: 'modals/ModalStaticMethods',
+        element: <ModalStaticMethods />,
       },
       {
         path: 'modals',

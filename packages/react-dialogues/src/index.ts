@@ -4,6 +4,7 @@ import { dialogues } from './core/dialogues';
 export { CancelButton } from './controls/CancelButton';
 export { Button, type ButtonProps } from './controls/Button';
 export { OkButton } from './controls/OkButton';
+export { TextField, type TextFieldProps } from './controls/TextField';
 export { dialogues } from './core/dialogues';
 export { ItemContext, useUiItem } from './core/itemContext';
 export { type RdItem } from './core/RdState';

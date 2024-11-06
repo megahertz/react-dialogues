@@ -2,15 +2,15 @@ import { ModalCustomComponentSample } from './samples/ModalCustomComponentSample
 import { ModalMultipleSample } from './samples/ModalMultipleSample';
 import { ModalSizesAndPositionSample } from './samples/ModalSizesAndPositionSample';
 import { ModalNotificationTypesSample } from './samples/ModalNotificationTypesSample';
-import { ModalShowSample } from './samples/ModalShowSample';
+import { ModalStaticMethods } from './samples/ModalStaticMethods';
 
 export default function ModalPage() {
   return (
     <>
       <h1>Modals</h1>
 
-      <h2>Show a modal through Modal.show</h2>
-      <ModalShowSample />
+      <h2>Static methods</h2>
+      <ModalStaticMethods />
 
       <h2>Sizes</h2>
       <ModalSizesAndPositionSample />

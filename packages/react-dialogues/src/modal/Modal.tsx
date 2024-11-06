@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
+import React, {
   type ComponentProps,
   type ComponentType,
   type MouseEvent,
@@ -7,7 +7,10 @@ import {
   useRef,
   useState,
 } from 'react';
+import { Button } from '../controls/Button';
+import { CancelButton } from '../controls/CancelButton';
 import { OkButton } from '../controls/OkButton';
+import { TextField } from '../controls/TextField';
 import { dialogues } from '../core/dialogues';
 import { useUiItem } from '../core/itemContext';
 import type { RdItem } from '../core/RdState';
@@ -94,6 +97,10 @@ Modal.showCustom = <
     component,
     ...props,
   });
+};
+
+Modal.prompt = (props: PromptProps) => {
+  return Modal.showCustom(Prompt, props);
 };
 
 Modal.destroyAll = (result?: unknown) => {
@@ -192,4 +199,44 @@ export type ModalSize = 'normal' | 'large' | 'full';
 
 export interface ModalShowOptions {
   closeOthers?: boolean;
+}
+
+export function Prompt({
+  buttons,
+  label,
+  placeholder,
+  value,
+  ...props
+}: PromptProps) {
+  const item = useUiItem();
+  const [inputValue, setInputValue] = useState(value);
+
+  function onSubmit() {
+    item.destroy(inputValue);
+  }
+
+  const actualButtons = buttons || [
+    <CancelButton />,
+    <Button onClick={onSubmit}>OK</Button>,
+  ];
+
+  return (
+    <Modal {...props} buttons={actualButtons}>
+      <form onSubmit={onSubmit}>
+        <TextField
+          autoFocus
+          label={label}
+          placeholder={placeholder}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+      </form>
+    </Modal>
+  );
+}
+
+export interface PromptProps extends ModalProps {
+  label?: string;
+  placeholder?: string;
+  value?: string;
 }

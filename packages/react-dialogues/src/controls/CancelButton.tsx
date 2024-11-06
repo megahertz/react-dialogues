@@ -1,8 +1,12 @@
 import { Button, type ButtonProps } from './Button';
 
-export function CancelButton({ children = 'Cancel', ...props }: ButtonProps) {
+export function CancelButton({
+  children = 'Cancel',
+  type = 'secondary',
+  ...props
+}: ButtonProps) {
   return (
-    <Button {...props} value="cancel">
+    <Button {...props} type={type} value="cancel">
       {children}
     </Button>
   );

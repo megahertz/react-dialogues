@@ -7,7 +7,7 @@
   line-height: 22px;
   outline: none;
   padding: 4px 15px;
-  transition: background 0.2s;
+  transition: all 0.2s;
   user-select: none;
   touch-action: manipulation;
 }
@@ -57,4 +57,35 @@
   border: 1px solid var(--rd-btn-border);
   color: var(--rd-text-disabled);
   cursor: not-allowed;
+}
+
+.rd-textfield {
+  display: block;
+  padding-bottom: 10px;
+}
+
+.rd-label {
+  padding-bottom: 2px;
+}
+
+.rd-input {
+  background: var(--rd-background);
+  border: 1px solid var(--rd-btn-border);
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: var(--rd-text);
+  font-size: 14px;
+  padding: 6px 11px;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.rd-input:hover {
+  border-color: var(--rd-primary-light);
+}
+
+.rd-input:focus-visible {
+  border-color: transparent;
+  outline: 0;
+  box-shadow: 0 0 3px 1px var(--rd-primary);
 }
