@@ -1,4 +1,4 @@
-import type { MouseEvent } from 'react';
+import { useState } from 'react';
 import {
   Body,
   Button,
@@ -6,33 +6,94 @@ import {
   Footer,
   Header,
   Modal,
-  type ModalProps,
   Notification,
-  OkButton,
+  useUiItem,
 } from 'react-dialogues';
 
 export function ModalCustomComponentSample() {
-  return <Button onClick={() => CustomModal.show()}>Show custom modal</Button>;
+  return (
+    <Footer align="left">
+      <Button
+        onClick={async () => {
+          const promise = await EditUserModal.show({
+            user: {
+              firstName: 'John',
+              lastName: 'Doe',
+              email: 'john.d@sample.com',
+            },
+          });
+
+          const result = await promise;
+
+          if (result === 'cancel' || result === 'close') {
+            Notification.warning({
+              children: `User editing was cancelled: ${result}`,
+            });
+          } else {
+            Notification.info({
+              children: `User saved: ${JSON.stringify(result, null, 2)}`,
+            });
+          }
+        }}
+      >
+        Show custom modal
+      </Button>
+    </Footer>
+  );
 }
 
-function CustomModal(props: ModalProps) {
-  function onShowNotificationClick(e: MouseEvent<HTMLButtonElement>) {
-    e.stopPropagation();
-    Notification.info({ children: 'Notification' });
+function EditUserModal({ user }: UserModalProps) {
+  const [firstName, setFirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const item = useUiItem();
+
+  function onSaveClick() {
+    return item.destroy({ ...user, firstName, lastName });
   }
 
   return (
-    <Modal empty {...props}>
-      <Header>Custom Modal</Header>
-      <Body>This is a custom modal</Body>
+    <Modal empty>
+      <Header>Edit user {user.firstName}</Header>
+      <Body>
+        <div>
+          <label htmlFor="firstName">
+            First name:
+            <input
+              id="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="lastName">
+            Last name:
+            <input
+              id="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </label>
+        </div>
+      </Body>
       <Footer>
         <CancelButton type="secondary" />
-        <OkButton onClick={onShowNotificationClick}>Show notification</OkButton>
+        <Button onClick={onSaveClick}>Save</Button>
       </Footer>
     </Modal>
   );
 }
 
-CustomModal.show = (props?: ModalProps) => {
-  Modal.show({ ...props, component: CustomModal });
+EditUserModal.show = (props: UserModalProps) => {
+  return Modal.showCustom(EditUserModal, props);
 };
+
+interface User {
+  email: string;
+  firstName: string;
+  lastName: string;
+}
+
+interface UserModalProps {
+  user: User;
+}

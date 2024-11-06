@@ -1,5 +1,5 @@
-import type { ComponentType } from 'react';
 import type { DialogProps } from '../dialog/Dialog';
+import { AnyComponentType } from '../utils/types';
 
 export default class RdState {
   items: RdItem[] = [];
@@ -45,9 +45,9 @@ export default class RdState {
         element.props.onClose?.(result);
       },
 
-      update: (data: TProps | ((old: TProps) => TProps)) => {
+      update: (data: Partial<TProps> | ((old: TProps) => Partial<TProps>)) => {
         if (typeof data === 'function') {
-          element.props = { ...data(element.props) };
+          element.props = { ...(data(element.props) as TProps) };
         } else {
           element.props = { ...element.props, ...data };
         }
@@ -70,7 +70,7 @@ export default class RdState {
   }
 
   getItemsByType(type: ItemType) {
-    return this.items.filter((element) => element.type === type);
+    return this.items.filter((element) => element.itemType === type);
   }
 
   onChange(listener: (state: RdState) => void) {
@@ -87,21 +87,19 @@ export default class RdState {
   }
 }
 
-export interface RdItemInit<TProps extends DialogProps = DialogProps> {
+export interface RdItemInit<TProps = DialogProps> {
   id?: string;
-  component: ComponentType;
+  component: AnyComponentType;
   props?: TProps;
-  type: ItemType;
+  itemType: ItemType;
 }
 
-export interface RdItem<
-  TProps extends DialogProps = DialogProps,
-  TResult = unknown,
-> extends RdItemInit<TProps>,
+export interface RdItem<TProps = DialogProps, TResult = unknown>
+  extends RdItemInit<TProps>,
     PromiseLike<TResult> {
   id: string;
   destroy: (result?: TResult) => void;
-  update: (data: TProps | ((old: TProps) => TProps)) => void;
+  update: (data: Partial<TProps> | ((old: TProps) => Partial<TProps>)) => void;
   props: TProps;
 }
 

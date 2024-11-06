@@ -6,6 +6,7 @@ export function ModalContainer({ items }: { items: RdItem[] }) {
     <>
       {items.map((item) => {
         const { id, component: Component, props } = item;
+
         return (
           <ItemContext.Provider key={id} value={item}>
             <Component {...props} />

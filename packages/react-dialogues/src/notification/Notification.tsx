@@ -1,4 +1,10 @@
-import { type MouseEvent, useEffect, useState } from 'react';
+import {
+  type ComponentProps,
+  type ComponentType,
+  type MouseEvent,
+  useEffect,
+  useState,
+} from 'react';
 import { dialogues } from '../core/dialogues';
 import { useUiItem } from '../core/itemContext';
 import type { RdItem } from '../core/RdState';
@@ -68,6 +74,21 @@ Notification.success = createShowFunction({ type: 'success' });
 Notification.warning = createShowFunction({ type: 'warning' });
 Notification.error = createShowFunction({ type: 'error' });
 
+Notification.showCustom = <
+  TResult,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TComponent extends ComponentType<any> = ComponentType<any>,
+  TProps extends ComponentProps<TComponent> = ComponentProps<TComponent>,
+>(
+  component: TComponent,
+  props?: ComponentProps<TComponent>,
+): RdItem<TProps, TResult> => {
+  return Notification.show<TResult, TProps>({
+    component,
+    ...props,
+  });
+};
+
 Notification.destroyAll = (result?: unknown) => {
   for (const item of dialogues.internal.state.getItemsByType('notification')) {
     item.destroy(result);
@@ -76,12 +97,18 @@ Notification.destroyAll = (result?: unknown) => {
 
 function createShowFunction(overrides: NotificationProps = {}) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return <TResult = any,>(
+  return <TResult = any, TProps extends NotificationProps = NotificationProps>(
     props: NotificationProps,
-  ): RdItem<NotificationProps, TResult> => {
-    const element = dialogues.internal.state.add<NotificationProps, TResult>({
-      type: 'notification',
-      props: { placement: defaults.placement, ...overrides, ...props },
+  ): RdItem<TProps, TResult> => {
+    const mergedProps = {
+      placement: defaults.placement,
+      ...overrides,
+      ...props,
+    } as TProps;
+
+    const element = dialogues.internal.state.add<TProps, TResult>({
+      itemType: 'notification',
+      props: mergedProps as TProps,
       component: props.component || Notification,
     });
 

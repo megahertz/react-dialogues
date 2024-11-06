@@ -21,8 +21,8 @@ export function Portal({
   const ref = useRef<HTMLDivElement>(null);
   const [items, setPortalItems] = useState<RdItem[]>(initItems);
 
-  const modalItems = items.filter((i) => i.type === 'modal');
-  const notificationItems = items.filter((i) => i.type === 'notification');
+  const modalItems = items.filter((i) => i.itemType === 'modal');
+  const notificationItems = items.filter((i) => i.itemType === 'notification');
 
   useEffect(() => {
     onMount({

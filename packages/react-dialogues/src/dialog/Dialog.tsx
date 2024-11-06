@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {
-  type ComponentType,
   type ForwardedRef,
   forwardRef,
   type HTMLAttributes,
@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { Fragment } from 'react/jsx-runtime';
 import { cls } from '../utils/string';
-import { NotificationType } from '../utils/types';
+import { AnyComponentType, NotificationType } from '../utils/types';
 import { Body, DialogContainer, Header, NotificationIcon } from './components';
 import { DialogCloseButton } from './DialogCloseButton';
 import { Footer } from './Footer';
@@ -97,12 +97,13 @@ export const Dialog = forwardRef(function Dialog(
   );
 });
 
-export interface DialogProps
+export interface DialogProps<P = any>
   extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   body?: ReactNode;
   buttons?: ReactNode[];
   close?: ReactNode;
-  component?: ComponentType;
+  component?: AnyComponentType<P>;
+  element?: React.ReactNode;
   empty?: boolean;
   firstChild?: ReactNode;
   footer?: ReactNode;

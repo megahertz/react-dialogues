@@ -1,4 +1,12 @@
-import { type MouseEvent, useEffect, useRef, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  type ComponentProps,
+  type ComponentType,
+  type MouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { OkButton } from '../controls/OkButton';
 import { dialogues } from '../core/dialogues';
 import { useUiItem } from '../core/itemContext';
@@ -74,6 +82,20 @@ Modal.success = createShowFunction({ type: 'success' });
 Modal.warning = createShowFunction({ type: 'warning' });
 Modal.error = createShowFunction({ type: 'error' });
 
+Modal.showCustom = <
+  TResult,
+  TComponent extends ComponentType<any> = ComponentType<any>,
+  TProps extends ComponentProps<TComponent> = ComponentProps<TComponent>,
+>(
+  component: TComponent,
+  props?: ComponentProps<TComponent> & ModalShowOptions,
+): RdItem<TProps, TResult> => {
+  return Modal.show<TResult, TProps>({
+    component,
+    ...props,
+  });
+};
+
 Modal.destroyAll = (result?: unknown) => {
   for (const item of dialogues.internal.state.getItemsByType('modal')) {
     item.destroy(result);
@@ -81,24 +103,22 @@ Modal.destroyAll = (result?: unknown) => {
 };
 
 function createShowFunction(overrides: ModalProps = {}) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return <TResult = any,>(props: ModalProps): RdItem<ModalProps, TResult> => {
-    const mergedProps = {
-      closeOthers: defaults.closeOthers,
-      ...overrides,
-      ...props,
-    };
+  return <TResult = any, TProps extends ModalProps = ModalProps>({
+    closeOthers = defaults.closeOthers,
+    ...props
+  }: ModalProps & ModalShowOptions): RdItem<TProps, TResult> => {
+    const mergedProps = { ...overrides, ...props } as TProps;
 
-    if (mergedProps.closeOthers) {
+    if (closeOthers) {
       dialogues.internal.state.getItemsByType('modal').forEach((item) => {
         item.destroy('close');
       });
     }
 
-    const element = dialogues.internal.state.add<ModalProps, TResult>({
-      type: 'modal',
-      props: mergedProps,
+    const element = dialogues.internal.state.add<TProps, TResult>({
       component: props.component || Modal,
+      props: mergedProps,
+      itemType: 'modal',
     });
 
     dialogues.internal.ensurePortalRendered();
@@ -158,7 +178,8 @@ function useEsc(onPress: () => void) {
   }, [onPress]);
 }
 
-export interface ModalProps extends DialogProps {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface ModalProps<P = any> extends DialogProps<P> {
   fullscreen?: boolean;
   centered?: boolean;
   closeOthers?: boolean;
@@ -168,3 +189,7 @@ export interface ModalProps extends DialogProps {
 }
 
 export type ModalSize = 'normal' | 'large' | 'full';
+
+export interface ModalShowOptions {
+  closeOthers?: boolean;
+}

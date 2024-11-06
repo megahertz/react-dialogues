@@ -39,5 +39,5 @@ function CustomNotification(props: NotificationProps) {
 }
 
 CustomNotification.show = (props?: NotificationProps) => {
-  Notification.show({ ...props, component: CustomNotification });
+  Notification.showCustom(CustomNotification, props);
 };
