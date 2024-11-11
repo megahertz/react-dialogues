@@ -8,8 +8,19 @@ export { TextField, type TextFieldProps } from './controls/TextField';
 export { dialogues } from './core/dialogues';
 export { ItemContext, useUiItem } from './core/itemContext';
 export { type RdItem } from './core/RdState';
-export { Body, Header, Title } from './dialog/components';
-export { Dialog } from './dialog/Dialog';
+export {
+  Body,
+  Header,
+  Title,
+  type BodyProps,
+  type HeaderProps,
+  type TitleProps,
+} from './dialog/components';
+export { Dialog, type DialogProps } from './dialog/Dialog';
+export {
+  DialogCloseButton,
+  type DialogCloseButtonProps,
+} from './dialog/DialogCloseButton';
 export { Footer, type FooterProps } from './dialog/Footer';
 export { Modal, type ModalProps } from './modal/Modal';
 export {

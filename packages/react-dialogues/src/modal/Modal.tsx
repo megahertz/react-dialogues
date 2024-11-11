@@ -187,7 +187,6 @@ function useEsc(onPress: () => void) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ModalProps<P = any> extends DialogProps<P> {
-  fullscreen?: boolean;
   centered?: boolean;
   closeOthers?: boolean;
   mask?: boolean;

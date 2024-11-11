@@ -26,14 +26,16 @@
   min-height: 100%;
   width: 100%;
 }
-
-.rd-modal.rd-full .rd-body {
+.rd-modal.rd-full .rd-body,
+.rd-modal.rd-large .rd-body {
   flex: 1;
 }
-
 .rd-modal.rd-large {
+  display: flex;
+  flex-direction: column;
   margin: 24px 0 24px 24px;
   width: calc(100% - 48px);
+  min-height: calc(100% - 48px);
 }
 
 .rd-centered {

@@ -1,5 +1,9 @@
 'use strict';
 
+const commonRules = {
+  'no-use-before-define': 'off',
+};
+
 module.exports = {
   root: true,
 
@@ -13,6 +17,7 @@ module.exports = {
       },
       plugins: ['import', 'prettier'],
       rules: {
+        ...commonRules,
         strict: ['error', 'global'],
       },
     },
@@ -25,6 +30,7 @@ module.exports = {
       },
       plugins: ['import', 'prettier'],
       rules: {
+        ...commonRules,
         strict: ['error', 'global'],
       },
     },
@@ -47,6 +53,7 @@ module.exports = {
       plugins: ['@typescript-eslint', 'import', 'prettier', 'react'],
 
       rules: {
+        ...commonRules,
         '@typescript-eslint/lines-between-class-members': 'off',
         '@typescript-eslint/no-use-before-define': 'off',
         'import/prefer-default-export': 'off',

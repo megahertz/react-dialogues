@@ -1,9 +1,7 @@
 import type { HTMLAttributes } from 'react';
 import { useUiItem } from '../core/itemContext';
 
-export function DialogCloseButton({
-  ...props
-}: HTMLAttributes<HTMLButtonElement>) {
+export function DialogCloseButton({ ...props }: DialogCloseButtonProps) {
   const item = useUiItem();
 
   return (
@@ -18,3 +16,6 @@ export function DialogCloseButton({
     </button>
   );
 }
+
+export interface DialogCloseButtonProps
+  extends HTMLAttributes<HTMLButtonElement> {}

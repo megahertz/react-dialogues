@@ -10,7 +10,7 @@ const noCss = process.argv.includes('--nocss');
 export default defineConfig({
   plugins: [
     react(),
-    !noCss && cssInjectedByJsPlugin(),
+    !noCss && cssInjectedByJsPlugin({ injectCode }),
     dts({ logLevel: 'silent', rollupTypes: true }),
   ],
   build: {
@@ -33,3 +33,33 @@ export default defineConfig({
     sourcemap: true,
   },
 });
+
+function injectCode(cssCode, { styleId, useStrictCSP, attributes }) {
+  const elementStyleMods = Object.entries(attributes || {}).map(
+    ([key, value]) => `elementStyle.setAttribute('${key}', '${value}');`,
+  );
+
+  if (typeof styleId === 'string' && styleId.length > 0) {
+    elementStyleMods.push(`elementStyle.id = '${styleId}';`);
+  }
+
+  if (useStrictCSP) {
+    elementStyleMods.push(
+      'elementStyle.nonce = ' +
+        'document.head.querySelector("meta[property=csp-nonce]")?.content;',
+    );
+  }
+
+  return `
+   try {
+     if (typeof document !== 'undefined') {
+       var elementStyle = document.createElement('style');
+       ${elementStyleMods.join('\n')}
+       elementStyle.appendChild(document.createTextNode(${cssCode}));
+       document.head.prepend(elementStyle);
+     }
+   } catch (e) {
+      console.error('vite-plugin-css-injected-by-js', e);
+   }
+`;
+}
