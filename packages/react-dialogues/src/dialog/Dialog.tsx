@@ -9,6 +9,7 @@ import { Fragment } from 'react/jsx-runtime';
 import { Button } from '../controls/Button';
 import { CancelButton } from '../controls/CancelButton';
 import { OkButton } from '../controls/OkButton';
+import { ActionMode } from '../core/RdState';
 import { cls } from '../utils/string';
 import { AnyComponentType, NotificationType } from '../utils/types';
 import { Body, DialogContainer, Header, NotificationIcon } from './components';
@@ -120,6 +121,7 @@ export const Dialog = forwardRef(function Dialog(
 
 export interface DialogProps<P = any>
   extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+  actionMode?: ActionMode;
   body?: ReactNode;
   buttons?: ReactNode[];
   close?: ReactNode;

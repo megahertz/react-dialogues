@@ -21,6 +21,7 @@ import { Result } from '../utils/types';
 const Mask = createDivComponent('mask');
 
 const defaults: ModalProps = {
+  actionMode: 'simplified',
   buttons: ['OK'],
   centered: false,
   className: '',
@@ -102,7 +103,10 @@ Modal.showCustom = <
 Modal.prompt = <TResult extends Result = ['ok' | 'close', string]>(
   props: PromptProps,
 ) => {
-  return Modal.showCustom<TResult, typeof Prompt>(Prompt, props);
+  return Modal.showCustom<TResult, typeof Prompt>(Prompt, {
+    ...props,
+    actionMode: 'okClose',
+  });
 };
 
 Modal.destroyAll = (action = 'destroyAll', result?: unknown) => {
@@ -123,11 +127,12 @@ function createShowFunction(overrides: ModalProps = {}) {
 
     if (closeOthers) {
       dialogues.internal.state.getItemsByType('modal').forEach((item) => {
-        item.destroy('close');
+        item.destroy('closeOthers');
       });
     }
 
     const element = dialogues.internal.state.add<TProps, TResult>({
+      actionMode: props.actionMode || defaults.actionMode || 'simplified',
       component: props.component || Modal,
       props: mergedProps,
       itemType: 'modal',
@@ -215,6 +220,9 @@ export function Prompt({
   const item = useUiItem();
   const [inputValue, setInputValue] = useState(value);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => item.setResult(value), [value]);
+
   function onType(e: ChangeEvent<HTMLInputElement>) {
     const text = e.target.value;
     setInputValue(text);
@@ -238,7 +246,6 @@ export function Prompt({
 
 export interface PromptProps extends ModalProps {
   label?: string;
-  okButtonTitle?: string;
   placeholder?: string;
   value?: string;
 }

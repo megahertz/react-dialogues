@@ -2,7 +2,14 @@ import type { DialogProps } from '../dialog/Dialog';
 import type { AnyComponentType } from '../utils/types';
 
 const OK_ACTIONS = ['ok', 'enter'];
-const CLOSE_ACTIONS = ['cancel', 'close', 'esc', 'mask'];
+const CLOSE_ACTIONS = [
+  'cancel',
+  'close',
+  'closeOthers',
+  'destroyAll',
+  'esc',
+  'mask',
+];
 
 export default class RdState {
   items: RdItem[] = [];
@@ -39,7 +46,6 @@ export default class RdState {
     });
 
     const element = {
-      actionMode: 'simplified',
       ...elementInitOptions,
       id: this.lastItemId.toString(),
       result: undefined,
@@ -127,6 +133,7 @@ function transformAction(action: string, mode: ActionMode): string {
 }
 
 export interface RdItemInit<TProps = DialogProps> {
+  actionMode: ActionMode;
   id?: string;
   component: AnyComponentType;
   props?: TProps;
@@ -138,7 +145,6 @@ export interface RdItem<
   TResult extends [string, unknown] = [string, unknown],
 > extends RdItemInit<TProps>,
     Promise<TResult> {
-  actionMode: ActionMode;
   id: string;
   result: TResult[1];
   destroy: (action: TResult[0], result?: TResult[1]) => void;
