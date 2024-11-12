@@ -23,8 +23,7 @@ export function ModalStaticMethods() {
 
           Notification.show({
             children: `Email: ${email} (${action})`,
-            type:
-              action === 'ok' || action === 'submit' ? 'success' : 'warning',
+            type: action === 'ok' ? 'success' : 'warning',
           });
         }}
       >

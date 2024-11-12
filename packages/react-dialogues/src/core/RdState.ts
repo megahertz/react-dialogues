@@ -1,6 +1,9 @@
 import type { DialogProps } from '../dialog/Dialog';
 import type { AnyComponentType } from '../utils/types';
 
+const OK_ACTIONS = ['ok', 'enter'];
+const CLOSE_ACTIONS = ['cancel', 'close', 'esc', 'mask'];
+
 export default class RdState {
   items: RdItem[] = [];
 
@@ -36,6 +39,7 @@ export default class RdState {
     });
 
     const element = {
+      actionMode: 'simplified',
       ...elementInitOptions,
       id: this.lastItemId.toString(),
       result: undefined,
@@ -44,7 +48,11 @@ export default class RdState {
 
       destroy: (action: TResult[0], result: TResult[1] = element.result) => {
         this.remove(id);
-        resolve([action, result] as TResult);
+
+        resolve([
+          transformAction(action, element.actionMode),
+          result,
+        ] as TResult);
         element.props.onClose?.([action, result]);
       },
 
@@ -94,6 +102,30 @@ export default class RdState {
   }
 }
 
+function transformAction(action: string, mode: ActionMode): string {
+  switch (mode) {
+    case 'okClose': {
+      return CLOSE_ACTIONS.includes(action) ? 'close' : 'ok';
+    }
+
+    case 'simplified': {
+      if (OK_ACTIONS.includes(action)) {
+        return 'ok';
+      }
+
+      if (CLOSE_ACTIONS.includes(action) || !action) {
+        return 'close';
+      }
+
+      return action;
+    }
+
+    default: {
+      return action;
+    }
+  }
+}
+
 export interface RdItemInit<TProps = DialogProps> {
   id?: string;
   component: AnyComponentType;
@@ -106,6 +138,7 @@ export interface RdItem<
   TResult extends [string, unknown] = [string, unknown],
 > extends RdItemInit<TProps>,
     Promise<TResult> {
+  actionMode: ActionMode;
   id: string;
   result: TResult[1];
   destroy: (action: TResult[0], result?: TResult[1]) => void;
@@ -115,3 +148,5 @@ export interface RdItem<
 }
 
 export type ItemType = 'modal' | 'notification';
+
+export type ActionMode = 'okClose' | 'simplified' | 'full';

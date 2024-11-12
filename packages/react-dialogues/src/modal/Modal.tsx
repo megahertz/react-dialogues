@@ -99,7 +99,9 @@ Modal.showCustom = <
   });
 };
 
-Modal.prompt = <TResult extends Result>(props: PromptProps) => {
+Modal.prompt = <TResult extends Result = ['ok' | 'close', string]>(
+  props: PromptProps,
+) => {
   return Modal.showCustom<TResult, typeof Prompt>(Prompt, props);
 };
 
@@ -221,7 +223,7 @@ export function Prompt({
 
   return (
     <Modal {...props} buttons={buttons}>
-      <form onSubmit={() => item.destroy('submit')}>
+      <form onSubmit={() => item.destroy('enter')}>
         <TextField
           autoFocus
           label={label}
