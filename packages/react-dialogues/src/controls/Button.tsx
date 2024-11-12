@@ -18,6 +18,7 @@ export const Button = forwardRef(function Button(
   function handleClick(e: MouseEvent<HTMLButtonElement>) {
     if (onClick) {
       try {
+        // noinspection JSVoidFunctionReturnValueUsed
         const result = onClick(e) as unknown;
         if (
           result &&
@@ -38,6 +39,10 @@ export const Button = forwardRef(function Button(
               setError(promiseError);
             });
         }
+
+        if (result !== undefined) {
+          setResult(result);
+        }
       } catch (error) {
         setError(error);
       }
@@ -47,11 +52,11 @@ export const Button = forwardRef(function Button(
 
     e.stopPropagation();
 
-    setResult(value || 'ok');
+    setResult();
   }
 
-  function setResult(result: unknown) {
-    item?.destroy(result);
+  function setResult(result?: unknown) {
+    item?.destroy(value || 'button', result);
   }
 
   function setError(error: unknown) {
@@ -82,5 +87,5 @@ export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   loading?: boolean;
   type?: 'primary' | 'secondary' | 'text';
-  value?: unknown;
+  value?: string;
 }

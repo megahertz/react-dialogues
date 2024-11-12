@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {
+  ChangeEvent,
   type ComponentProps,
   type ComponentType,
   type MouseEvent,
@@ -7,8 +8,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Button } from '../controls/Button';
-import { CancelButton } from '../controls/CancelButton';
 import { OkButton } from '../controls/OkButton';
 import { TextField } from '../controls/TextField';
 import { dialogues } from '../core/dialogues';
@@ -17,11 +16,12 @@ import type { RdItem } from '../core/RdState';
 import { Dialog, type DialogProps } from '../dialog/Dialog';
 import { createDivComponent } from '../utils/constructors';
 import { cls } from '../utils/string';
+import { Result } from '../utils/types';
 
 const Mask = createDivComponent('mask');
 
 const defaults: ModalProps = {
-  buttons: [<OkButton />],
+  buttons: ['OK'],
   centered: false,
   className: '',
   closeOthers: false,
@@ -46,14 +46,14 @@ export function Modal({
   const item = useUiItem();
   const focusRootRef = useFocusLock();
   useScrollLock();
-  useEsc(() => item?.destroy('close'));
+  useEsc(() => item?.destroy('esc'));
 
-  function onWrapClick(e: MouseEvent<HTMLDivElement>) {
+  function onMaskClick(e: MouseEvent<HTMLDivElement>) {
     if (
       maskClosable &&
       (e.target as HTMLDivElement)?.classList.contains('rd-modal-wrapper')
     ) {
-      item.destroy('close');
+      item.destroy('mask');
     }
   }
 
@@ -62,7 +62,7 @@ export function Modal({
   return (
     <>
       {mask && <Mask aria-hidden />}
-      <div aria-hidden className={wrapCssClass} onClick={onWrapClick}>
+      <div aria-hidden className={wrapCssClass} onClick={onMaskClick}>
         <Dialog
           aria-modal
           buttons={buttons}
@@ -86,7 +86,7 @@ Modal.warning = createShowFunction({ type: 'warning' });
 Modal.error = createShowFunction({ type: 'error' });
 
 Modal.showCustom = <
-  TResult,
+  TResult extends Result,
   TComponent extends ComponentType<any> = ComponentType<any>,
   TProps extends ComponentProps<TComponent> = ComponentProps<TComponent>,
 >(
@@ -99,18 +99,21 @@ Modal.showCustom = <
   });
 };
 
-Modal.prompt = (props: PromptProps) => {
-  return Modal.showCustom(Prompt, props);
+Modal.prompt = <TResult extends Result>(props: PromptProps) => {
+  return Modal.showCustom<TResult, typeof Prompt>(Prompt, props);
 };
 
-Modal.destroyAll = (result?: unknown) => {
+Modal.destroyAll = (action = 'destroyAll', result?: unknown) => {
   for (const item of dialogues.internal.state.getItemsByType('modal')) {
-    item.destroy(result);
+    item.destroy(action, result);
   }
 };
 
 function createShowFunction(overrides: ModalProps = {}) {
-  return <TResult = any, TProps extends ModalProps = ModalProps>({
+  return <
+    TResult extends Result = Result,
+    TProps extends ModalProps = ModalProps,
+  >({
     closeOthers = defaults.closeOthers,
     ...props
   }: ModalProps & ModalShowOptions): RdItem<TProps, TResult> => {
@@ -201,33 +204,30 @@ export interface ModalShowOptions {
 }
 
 export function Prompt({
-  buttons,
+  buttons = ['Cancel', <OkButton autoFocus={false} />],
   label,
   placeholder,
-  value,
+  value = '',
   ...props
 }: PromptProps) {
   const item = useUiItem();
   const [inputValue, setInputValue] = useState(value);
 
-  function onSubmit() {
-    item.destroy(inputValue);
+  function onType(e: ChangeEvent<HTMLInputElement>) {
+    const text = e.target.value;
+    setInputValue(text);
+    item.setResult(text);
   }
 
-  const actualButtons = buttons || [
-    <CancelButton />,
-    <Button onClick={onSubmit}>OK</Button>,
-  ];
-
   return (
-    <Modal {...props} buttons={actualButtons}>
-      <form onSubmit={onSubmit}>
+    <Modal {...props} buttons={buttons}>
+      <form onSubmit={() => item.destroy('submit')}>
         <TextField
           autoFocus
           label={label}
           placeholder={placeholder}
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={onType}
         />
       </form>
     </Modal>
@@ -236,6 +236,7 @@ export function Prompt({
 
 export interface PromptProps extends ModalProps {
   label?: string;
+  okButtonTitle?: string;
   placeholder?: string;
   value?: string;
 }

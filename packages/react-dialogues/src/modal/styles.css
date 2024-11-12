@@ -19,6 +19,7 @@
 }
 
 .rd-modal.rd-full {
+  animation: rd-fade 0.5s;
   border-radius: 0;
   display: flex;
   flex-direction: column;
@@ -31,11 +32,21 @@
   flex: 1;
 }
 .rd-modal.rd-large {
+  animation: rd-fade 0.5s;
   display: flex;
   flex-direction: column;
   margin: 24px 0 24px 24px;
   width: calc(100% - 48px);
   min-height: calc(100% - 48px);
+}
+
+@keyframes rd-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .rd-centered {

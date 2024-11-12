@@ -6,6 +6,9 @@ import React, {
   type ReactNode,
 } from 'react';
 import { Fragment } from 'react/jsx-runtime';
+import { Button } from '../controls/Button';
+import { CancelButton } from '../controls/CancelButton';
+import { OkButton } from '../controls/OkButton';
 import { cls } from '../utils/string';
 import { AnyComponentType, NotificationType } from '../utils/types';
 import { Body, DialogContainer, Header, NotificationIcon } from './components';
@@ -65,10 +68,28 @@ export const Dialog = forwardRef(function Dialog(
   if (footer === undefined && Array.isArray(buttons) && buttons.length > 0) {
     footerEl = (
       <Footer>
-        {buttons.map((button, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <Fragment key={i}>{button}</Fragment>
-        ))}
+        {buttons.map((button, i) => {
+          const key = i;
+
+          if (typeof button === 'string') {
+            const value = button.toLowerCase();
+            if (value === 'cancel') {
+              return <CancelButton key={key}>{button}</CancelButton>;
+            }
+
+            if (value === 'ok') {
+              return <OkButton key={key}>{button}</OkButton>;
+            }
+
+            return (
+              <Button key={key} value={value}>
+                {button}
+              </Button>
+            );
+          }
+
+          return <Fragment key={key}>{button}</Fragment>;
+        })}
       </Footer>
     );
   }

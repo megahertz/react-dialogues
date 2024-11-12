@@ -7,3 +7,5 @@ export type ThemeName = 'light' | 'dark' | 'auto' | 'none';
 export type AnyComponentType<P = any> =
   | ElementType<P>
   | ForwardRefExoticComponent<P>;
+
+export type Result = [string, unknown];

@@ -1,5 +1,5 @@
 import type { DialogProps } from '../dialog/Dialog';
-import { AnyComponentType } from '../utils/types';
+import type { AnyComponentType } from '../utils/types';
 
 export default class RdState {
   items: RdItem[] = [];
@@ -23,9 +23,10 @@ export default class RdState {
     this.onChange = this.onChange.bind(this);
   }
 
-  add<TProps extends DialogProps = DialogProps, TResult = unknown>(
-    elementInitOptions: RdItemInit<TProps>,
-  ) {
+  add<
+    TProps extends DialogProps = DialogProps,
+    TResult extends [string, unknown] = [string, unknown],
+  >(elementInitOptions: RdItemInit<TProps>) {
     this.lastItemId += 1;
     const id = elementInitOptions.id || this.lastItemId.toString();
 
@@ -37,13 +38,18 @@ export default class RdState {
     const element = {
       ...elementInitOptions,
       id: this.lastItemId.toString(),
+      result: undefined,
       then: promise.then.bind(promise),
       catch: promise.catch.bind(promise),
 
-      destroy: (result: TResult) => {
+      destroy: (action: TResult[0], result: TResult[1] = element.result) => {
         this.remove(id);
-        resolve(result);
-        element.props.onClose?.(result);
+        resolve([action, result] as TResult);
+        element.props.onClose?.([action, result]);
+      },
+
+      setResult: (result: TResult[1]) => {
+        element.result = result;
       },
 
       update: (data: Partial<TProps> | ((old: TProps) => Partial<TProps>)) => {
@@ -95,13 +101,17 @@ export interface RdItemInit<TProps = DialogProps> {
   itemType: ItemType;
 }
 
-export interface RdItem<TProps = DialogProps, TResult = unknown>
-  extends RdItemInit<TProps>,
+export interface RdItem<
+  TProps = DialogProps,
+  TResult extends [string, unknown] = [string, unknown],
+> extends RdItemInit<TProps>,
     Promise<TResult> {
   id: string;
-  destroy: (result?: TResult) => void;
+  result: TResult[1];
+  destroy: (action: TResult[0], result?: TResult[1]) => void;
   update: (data: Partial<TProps> | ((old: TProps) => Partial<TProps>)) => void;
   props: TProps;
+  setResult: (result: TResult[1]) => void;
 }
 
 export type ItemType = 'modal' | 'notification';

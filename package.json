@@ -4,6 +4,7 @@
   "description": "Tiny interaction React UI library",
   "private": "true",
   "scripts": {
+    "build": "npm run build --prefix packages/react-dialogues",
     "lint": "eslint && prettier --check .",
     "patch": "npm version patch --prefix packages/react-dialogues",
     "preversion": "false",

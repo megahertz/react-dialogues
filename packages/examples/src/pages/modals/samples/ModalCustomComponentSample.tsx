@@ -7,6 +7,7 @@ import {
   Header,
   Modal,
   Notification,
+  OkButton,
   TextField,
   useUiItem,
 } from 'react-dialogues';
@@ -16,7 +17,7 @@ export function ModalCustomComponentSample() {
     <Footer align="left">
       <Button
         onClick={async () => {
-          const result = await EditUserModal.show({
+          const [action, result] = await EditUserModal.show({
             user: {
               firstName: 'John',
               lastName: 'Doe',
@@ -24,13 +25,13 @@ export function ModalCustomComponentSample() {
             },
           });
 
-          if (result === 'cancel' || result === 'close') {
-            Notification.warning({
-              children: `User editing was cancelled: ${result}`,
-            });
-          } else {
+          if (action === 'save') {
             Notification.info({
               children: `User saved: ${JSON.stringify(result, null, 2)}`,
+            });
+          } else {
+            Notification.warning({
+              children: `User editing was cancelled: ${action}`,
             });
           }
         }}
@@ -47,7 +48,7 @@ function EditUserModal({ user }: UserModalProps) {
   const item = useUiItem();
 
   function onSaveClick() {
-    return item.destroy({ ...user, firstName, lastName });
+    item.destroy('save', { ...user, firstName, lastName });
   }
 
   return (
@@ -68,7 +69,7 @@ function EditUserModal({ user }: UserModalProps) {
       </Body>
       <Footer>
         <CancelButton />
-        <Button onClick={onSaveClick}>Save</Button>
+        <OkButton onClick={onSaveClick}>Save</OkButton>
       </Footer>
     </Modal>
   );

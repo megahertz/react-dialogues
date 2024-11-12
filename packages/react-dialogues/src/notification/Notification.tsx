@@ -10,6 +10,7 @@ import { useUiItem } from '../core/itemContext';
 import type { RdItem } from '../core/RdState';
 import { Dialog, type DialogProps } from '../dialog/Dialog';
 import { cls } from '../utils/string';
+import { Result } from '../utils/types';
 import { Progress } from './Progress';
 
 const defaults: NotificationProps = {
@@ -75,7 +76,7 @@ Notification.warning = createShowFunction({ type: 'warning' });
 Notification.error = createShowFunction({ type: 'error' });
 
 Notification.showCustom = <
-  TResult,
+  TResult extends Result = Result,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TComponent extends ComponentType<any> = ComponentType<any>,
   TProps extends ComponentProps<TComponent> = ComponentProps<TComponent>,
@@ -89,15 +90,18 @@ Notification.showCustom = <
   });
 };
 
-Notification.destroyAll = (result?: unknown) => {
+Notification.destroyAll = (action = 'destroyAll', result?: unknown) => {
   for (const item of dialogues.internal.state.getItemsByType('notification')) {
-    item.destroy(result);
+    item.destroy(action, result);
   }
 };
 
 function createShowFunction(overrides: NotificationProps = {}) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return <TResult = any, TProps extends NotificationProps = NotificationProps>(
+  return <
+    TResult extends Result = Result,
+    TProps extends NotificationProps = NotificationProps,
+  >(
     props: NotificationProps,
   ): RdItem<TProps, TResult> => {
     const mergedProps = {

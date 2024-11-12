@@ -15,13 +15,17 @@ export function ModalStaticMethods() {
       </Button>
       <Button
         onClick={async () => {
-          const email = await Modal.prompt({
+          const [action, email] = await Modal.prompt({
             label: 'Enter email address:',
             placeholder: 'email@example.com',
             title: 'Modal.prompt Example',
           });
 
-          Notification.info({ children: `Email: ${email}` });
+          Notification.show({
+            children: `Email: ${email} (${action})`,
+            type:
+              action === 'ok' || action === 'submit' ? 'success' : 'warning',
+          });
         }}
       >
         Show Prompt
