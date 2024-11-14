@@ -53,35 +53,32 @@ export const dialogues = {
         return;
       }
 
-      internal.state.onChange((state) => {
-        internal.setPortalControllers(state.controllers.slice());
-      });
-
       render(
         <Portal
           initControllers={internal.state.controllers}
-          onMount={onPortalMounted}
-          onUnmount={onPortalUnmounted}
+          onMount={internal.onPortalMounted}
+          onUnmount={internal.onPortalUnmounted}
         />,
         dialogues.config.getContainerElement(),
       );
+    },
 
-      function onPortalMounted({
-        element,
-        setPortalControllers,
-      }: PortalMountedPayload) {
-        internal.isPortalMounted = true;
-        internal.rootElement = element;
-        internal.setPortalControllers = setPortalControllers;
-      }
+    onPortalMounted({ element, setPortalControllers }: PortalMountedPayload) {
+      dialogues.internal.isPortalMounted = true;
+      dialogues.internal.rootElement = element;
+      dialogues.internal.setPortalControllers = setPortalControllers;
+    },
 
-      function onPortalUnmounted() {
-        internal.isPortalMounted = false;
-        internal.rootElement = undefined;
-        internal.setPortalControllers = () => {};
-      }
+    onPortalUnmounted() {
+      dialogues.internal.isPortalMounted = false;
+      dialogues.internal.rootElement = undefined;
+      dialogues.internal.setPortalControllers = () => {};
     },
 
     setPortalControllers: (() => {}) as (items: RdController[]) => void,
   },
 };
+
+dialogues.internal.state.onChange((state) => {
+  dialogues.internal.setPortalControllers(state.controllers.slice());
+});
