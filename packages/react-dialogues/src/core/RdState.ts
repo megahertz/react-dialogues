@@ -12,20 +12,20 @@ const CLOSE_ACTIONS = [
 ];
 
 export default class RdState {
-  items: RdItem[] = [];
+  controllers: RdController[] = [];
 
   private readonly changeListeners: Array<(state: RdState) => void> = [];
-  private lastItemId = 0;
+  private lastControllerId = 0;
 
   constructor({
-    items = [],
-    lastItemId = 0,
+    controllers = [],
+    lastControllerId = 0,
   }: {
-    items?: RdItem[];
-    lastItemId?: number;
+    controllers?: RdController[];
+    lastControllerId?: number;
   } = {}) {
-    this.items = items;
-    this.lastItemId = lastItemId;
+    this.controllers = controllers;
+    this.lastControllerId = lastControllerId;
 
     this.add = this.add.bind(this);
     this.clone = this.clone.bind(this);
@@ -36,62 +36,62 @@ export default class RdState {
   add<
     TProps extends DialogProps = DialogProps,
     TResult extends [string, unknown] = [string, unknown],
-  >(elementInitOptions: RdItemInit<TProps>) {
-    this.lastItemId += 1;
-    const id = elementInitOptions.id || this.lastItemId.toString();
+  >(elementInitOptions: RdControllerInit<TProps>) {
+    this.lastControllerId += 1;
+    const id = elementInitOptions.id || this.lastControllerId.toString();
 
     let resolve: (result: TResult) => void;
     const promise = new Promise<TResult>((r) => {
       resolve = r;
     });
 
-    const element = {
+    const controller = {
       ...elementInitOptions,
-      id: this.lastItemId.toString(),
+      id: this.lastControllerId.toString(),
       result: undefined,
       then: promise.then.bind(promise),
       catch: promise.catch.bind(promise),
 
-      destroy: (action: TResult[0], result: TResult[1] = element.result) => {
+      destroy: (action: TResult[0], result: TResult[1] = controller.result) => {
         this.remove(id);
 
         resolve([
-          transformAction(action, element.actionMode),
+          transformAction(action, controller.actionMode),
           result,
         ] as TResult);
-        element.props.onClose?.([action, result]);
+        controller.props.onClose?.([action, result]);
       },
 
       setResult: (result: TResult[1]) => {
-        element.result = result;
+        controller.result = result;
       },
 
       update: (data: Partial<TProps> | ((old: TProps) => Partial<TProps>)) => {
         if (typeof data === 'function') {
-          element.props = { ...(data(element.props) as TProps) };
+          controller.props = { ...(data(controller.props) as TProps) };
         } else {
-          element.props = { ...element.props, ...data };
+          controller.props = { ...controller.props, ...data };
         }
         this.emitOnChange();
       },
-    } as RdItem<TProps, TResult>;
+    } as RdController<TProps, TResult>;
 
-    this.items.push(element as unknown as RdItem);
+    this.controllers.push(controller as unknown as RdController);
 
     this.emitOnChange();
 
-    return element;
+    return controller;
   }
 
   clone() {
     return new RdState({
-      items: this.items.slice(),
-      lastItemId: this.lastItemId,
+      controllers: this.controllers.slice(),
+      lastControllerId: this.lastControllerId,
     });
   }
 
-  getItemsByType(type: ItemType) {
-    return this.items.filter((element) => element.itemType === type);
+  getControllersByType(type: ControllerType) {
+    return this.controllers.filter((c) => c.controllerType === type);
   }
 
   onChange(listener: (state: RdState) => void) {
@@ -99,7 +99,7 @@ export default class RdState {
   }
 
   remove(id: string) {
-    this.items = this.items.filter((element) => element.id !== id);
+    this.controllers = this.controllers.filter((element) => element.id !== id);
     this.emitOnChange();
   }
 
@@ -132,18 +132,18 @@ function transformAction(action: string, mode: ActionMode): string {
   }
 }
 
-export interface RdItemInit<TProps = DialogProps> {
+export interface RdControllerInit<TProps = DialogProps> {
   actionMode: ActionMode;
   id?: string;
   component: AnyComponentType;
   props?: TProps;
-  itemType: ItemType;
+  controllerType: ControllerType;
 }
 
-export interface RdItem<
+export interface RdController<
   TProps = DialogProps,
   TResult extends [string, unknown] = [string, unknown],
-> extends RdItemInit<TProps>,
+> extends RdControllerInit<TProps>,
     Promise<TResult> {
   id: string;
   result: TResult[1];
@@ -153,6 +153,6 @@ export interface RdItem<
   setResult: (result: TResult[1]) => void;
 }
 
-export type ItemType = 'modal' | 'notification';
+export type ControllerType = 'modal' | 'notification';
 
 export type ActionMode = 'okClose' | 'simplified' | 'full';

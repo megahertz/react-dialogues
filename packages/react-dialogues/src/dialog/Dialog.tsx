@@ -22,6 +22,7 @@ export const Dialog = forwardRef(function Dialog(
     buttons,
     children,
     className,
+    classNames = {},
     close,
     component,
     empty = false,
@@ -41,11 +42,11 @@ export const Dialog = forwardRef(function Dialog(
 
   let headerEl = header;
   if (header === undefined && title) {
-    headerEl = <Header>{title}</Header>;
+    headerEl = <Header className={classNames?.header}>{title}</Header>;
   }
   let bodyEl = body;
   if (body === undefined && children) {
-    bodyEl = <Body>{children}</Body>;
+    bodyEl = <Body className={classNames?.body}>{children}</Body>;
   }
 
   let headerAndBodyEl = (
@@ -55,12 +56,15 @@ export const Dialog = forwardRef(function Dialog(
     </>
   );
 
-  const iconEl = icon || (type && <NotificationIcon />);
+  const iconEl =
+    icon || (type && <NotificationIcon className={classNames?.icon} />);
   if (iconEl) {
     headerAndBodyEl = (
-      <div className="rd-iconbox">
+      <div className={cls('rd-iconbox', classNames?.iconBox)}>
         {iconEl}
-        <div className="rd-aftericon">{headerAndBodyEl}</div>
+        <div className={cls('rd-iconbox-content', classNames?.iconBoxContent)}>
+          {headerAndBodyEl}
+        </div>
       </div>
     );
   }
@@ -68,7 +72,7 @@ export const Dialog = forwardRef(function Dialog(
   let footerEl = footer;
   if (footer === undefined && Array.isArray(buttons) && buttons.length > 0) {
     footerEl = (
-      <Footer>
+      <Footer className={classNames?.footer}>
         {buttons.map((button, i) => {
           const key = i;
 
@@ -124,6 +128,7 @@ export interface DialogProps<P = any>
   actionMode?: ActionMode;
   body?: ReactNode;
   buttons?: ReactNode[];
+  classNames?: Partial<Record<DialogSlots, string>>;
   close?: ReactNode;
   component?: AnyComponentType<P>;
   element?: React.ReactNode;
@@ -137,3 +142,11 @@ export interface DialogProps<P = any>
   title?: ReactNode;
   type?: NotificationType;
 }
+
+export type DialogSlots =
+  | 'body'
+  | 'footer'
+  | 'header'
+  | 'icon'
+  | 'iconBox'
+  | 'iconBoxContent';

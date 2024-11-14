@@ -1,7 +1,7 @@
 import { render } from 'react-dom';
 import { Portal, type PortalMountedPayload } from '../portal/Portal';
 import type { ThemeName } from '../utils/types';
-import RdState, { type RdItem } from './RdState';
+import RdState, { type RdController } from './RdState';
 
 export const dialogues = {
   config: {
@@ -54,12 +54,12 @@ export const dialogues = {
       }
 
       internal.state.onChange((state) => {
-        internal.setPortalItems(state.items.slice());
+        internal.setPortalControllers(state.controllers.slice());
       });
 
       render(
         <Portal
-          initItems={internal.state.items}
+          initControllers={internal.state.controllers}
           onMount={onPortalMounted}
           onUnmount={onPortalUnmounted}
         />,
@@ -68,20 +68,20 @@ export const dialogues = {
 
       function onPortalMounted({
         element,
-        setPortalItems,
+        setPortalControllers,
       }: PortalMountedPayload) {
         internal.isPortalMounted = true;
         internal.rootElement = element;
-        internal.setPortalItems = setPortalItems;
+        internal.setPortalControllers = setPortalControllers;
       }
 
       function onPortalUnmounted() {
         internal.isPortalMounted = false;
         internal.rootElement = undefined;
-        internal.setPortalItems = () => {};
+        internal.setPortalControllers = () => {};
       }
     },
 
-    setPortalItems: (() => {}) as (items: RdItem[]) => void,
+    setPortalControllers: (() => {}) as (items: RdController[]) => void,
   },
 };

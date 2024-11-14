@@ -9,7 +9,7 @@ import {
   Notification,
   OkButton,
   TextField,
-  useUiItem,
+  useRdController,
 } from 'react-dialogues';
 
 export function ModalCustomComponentSample() {
@@ -45,7 +45,7 @@ export function ModalCustomComponentSample() {
 function EditUserModal({ user }: UserModalProps) {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const item = useUiItem();
+  const item = useRdController();
 
   function onSaveClick() {
     item.destroy('save', { ...user, firstName, lastName });

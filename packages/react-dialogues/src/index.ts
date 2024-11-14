@@ -6,8 +6,8 @@ export { Button, type ButtonProps } from './controls/Button';
 export { OkButton } from './controls/OkButton';
 export { TextField, type TextFieldProps } from './controls/TextField';
 export { dialogues } from './core/dialogues';
-export { ItemContext, useUiItem } from './core/itemContext';
-export { type RdItem } from './core/RdState';
+export { ControllerContext, useRdController } from './core/controllerContext';
+export { type RdController } from './core/RdState';
 export {
   Body,
   Header,

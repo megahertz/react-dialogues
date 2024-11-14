@@ -5,14 +5,14 @@ import {
   type MouseEvent,
   useState,
 } from 'react';
-import { useUiItem } from '../core/itemContext';
+import { useRdController } from '../core/controllerContext';
 import { cls } from '../utils/string';
 
 export const Button = forwardRef(function Button(
   { className, loading, onClick, type, value, ...props }: ButtonProps,
   ref: ForwardedRef<HTMLButtonElement>,
 ) {
-  const item = useUiItem();
+  const controller = useRdController();
   const [isLoading, setIsLoading] = useState(loading);
 
   function handleClick(e: MouseEvent<HTMLButtonElement>) {
@@ -56,7 +56,7 @@ export const Button = forwardRef(function Button(
   }
 
   function setResult(result?: unknown) {
-    item?.destroy(value || 'button', result);
+    controller?.destroy(value || 'button', result);
   }
 
   function setError(error: unknown) {

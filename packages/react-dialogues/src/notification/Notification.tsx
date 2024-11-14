@@ -6,11 +6,11 @@ import {
   useState,
 } from 'react';
 import { dialogues } from '../core/dialogues';
-import { useUiItem } from '../core/itemContext';
-import type { RdItem } from '../core/RdState';
-import { Dialog, type DialogProps } from '../dialog/Dialog';
+import { useRdController } from '../core/controllerContext';
+import type { RdController } from '../core/RdState';
+import { Dialog, type DialogSlots, type DialogProps } from '../dialog/Dialog';
 import { cls } from '../utils/string';
-import { Result } from '../utils/types';
+import type { Result } from '../utils/types';
 import { Progress } from './Progress';
 
 const defaults: NotificationProps = {
@@ -26,6 +26,7 @@ const defaults: NotificationProps = {
 
 export function Notification({
   className = defaults.className,
+  classNames = {},
   duration = defaults.duration,
   keepOnFocusLoss = defaults.keepOnFocusLoss,
   pauseOnHover = defaults.pauseOnHover,
@@ -34,7 +35,7 @@ export function Notification({
   showProgress = defaults.showProgress,
   ...props
 }: NotificationProps) {
-  const item = useUiItem();
+  const item = useRdController();
   const timer = useCountdownTimer({
     duration,
     keepOnFocusLoss,
@@ -46,7 +47,11 @@ export function Notification({
     <Dialog
       lastChild={
         duration && showProgress ? (
-          <Progress duration={duration} paused={timer.paused} />
+          <Progress
+            className={classNames?.progress}
+            duration={duration}
+            paused={timer.paused}
+          />
         ) : null
       }
       className={cssClass}
@@ -84,7 +89,7 @@ Notification.showCustom = <
 >(
   component: TComponent,
   props?: ComponentProps<TComponent>,
-): RdItem<TProps, TResult> => {
+): RdController<TProps, TResult> => {
   return Notification.show<TResult, TProps>({
     component,
     ...props,
@@ -92,7 +97,9 @@ Notification.showCustom = <
 };
 
 Notification.destroyAll = (action = 'destroyAll', result?: unknown) => {
-  for (const item of dialogues.internal.state.getItemsByType('notification')) {
+  for (const item of dialogues.internal.state.getControllersByType(
+    'notification',
+  )) {
     item.destroy(action, result);
   }
 };
@@ -102,9 +109,10 @@ function createShowFunction(overrides: NotificationProps = {}) {
   return <
     TResult extends Result = Result,
     TProps extends NotificationProps = NotificationProps,
-  >(
-    props: NotificationProps,
-  ): RdItem<TProps, TResult> => {
+  >({
+    actionMode = defaults.actionMode || 'simplified',
+    ...props
+  }: NotificationProps): RdController<TProps, TResult> => {
     const mergedProps = {
       placement: defaults.placement,
       ...overrides,
@@ -112,8 +120,8 @@ function createShowFunction(overrides: NotificationProps = {}) {
     } as TProps;
 
     const element = dialogues.internal.state.add<TProps, TResult>({
-      actionMode: 'simplified',
-      itemType: 'notification',
+      actionMode,
+      controllerType: 'notification',
       props: mergedProps as TProps,
       component: props.component || Notification,
     });
@@ -169,12 +177,15 @@ function useCountdownTimer({
 }
 
 export interface NotificationProps extends DialogProps {
+  classNames?: Partial<Record<NotificationSlots, string>>;
   duration?: number;
   keepOnFocusLoss?: boolean;
   pauseOnHover?: boolean;
   placement?: NotificationPlacement;
   showProgress?: boolean;
 }
+
+export type NotificationSlots = DialogSlots | 'progress';
 
 export type NotificationPlacement =
   | 'bottom'

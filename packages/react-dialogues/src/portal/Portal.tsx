@@ -5,37 +5,40 @@ import {
   useRef,
   useState,
 } from 'react';
-import type { RdItem } from '../core/RdState';
+import type { RdController } from '../core/RdState';
 import { ModalContainer } from './ModalContainer';
 import { NotificationContainer } from './NotificationContainer';
 
 export function Portal({
-  initItems = [],
+  initControllers = [],
   onMount,
   onUnmount,
 }: {
-  initItems?: RdItem[];
+  initControllers?: RdController[];
   onMount: OnPortalMount;
   onUnmount: () => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [items, setPortalItems] = useState<RdItem[]>(initItems);
+  const [controllers, setPortalControllers] =
+    useState<RdController[]>(initControllers);
 
-  const modalItems = items.filter((i) => i.itemType === 'modal');
-  const notificationItems = items.filter((i) => i.itemType === 'notification');
+  const modalItems = controllers.filter((i) => i.controllerType === 'modal');
+  const notificationItems = controllers.filter(
+    (i) => i.controllerType === 'notification',
+  );
 
   useEffect(() => {
     onMount({
       element: ref.current?.parentNode as HTMLElement,
-      setPortalItems,
+      setPortalControllers,
     });
     return () => onUnmount();
-  }, [onMount, onUnmount, setPortalItems]);
+  }, [onMount, onUnmount, setPortalControllers]);
 
   return (
     <>
-      <ModalContainer items={modalItems} />
-      <NotificationContainer items={notificationItems} />
+      <ModalContainer controllers={modalItems} />
+      <NotificationContainer controllers={notificationItems} />
       <div ref={ref} />
     </>
   );
@@ -45,5 +48,5 @@ type OnPortalMount = (payload: PortalMountedPayload) => void;
 
 export interface PortalMountedPayload {
   element: HTMLElement;
-  setPortalItems: Dispatch<SetStateAction<RdItem[]>>;
+  setPortalControllers: Dispatch<SetStateAction<RdController[]>>;
 }

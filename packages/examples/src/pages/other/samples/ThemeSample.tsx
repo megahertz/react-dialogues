@@ -4,12 +4,12 @@ import {
   dialogues,
   Footer,
   Notification,
-  type RdItem,
+  type RdController,
   type ThemeName,
 } from 'react-dialogues';
 
 export function ThemeSample() {
-  const [notification, setNotification] = useState<RdItem>();
+  const [notification, setNotification] = useState<RdController>();
 
   function createThemeChanger(theme: ThemeName) {
     return () => {

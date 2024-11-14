@@ -9,11 +9,11 @@ import React, {
   useState,
 } from 'react';
 import { OkButton } from '../controls/OkButton';
-import { TextField } from '../controls/TextField';
+import { TextField, type TextFieldSlots } from '../controls/TextField';
 import { dialogues } from '../core/dialogues';
-import { useUiItem } from '../core/itemContext';
-import type { RdItem } from '../core/RdState';
-import { Dialog, type DialogProps } from '../dialog/Dialog';
+import { useRdController } from '../core/controllerContext';
+import type { ActionMode, RdController } from '../core/RdState';
+import { Dialog, type DialogSlots, type DialogProps } from '../dialog/Dialog';
 import { createDivComponent } from '../utils/constructors';
 import { cls } from '../utils/string';
 import { Result } from '../utils/types';
@@ -35,6 +35,7 @@ const defaults: ModalProps = {
 export function Modal({
   centered = defaults.centered,
   className = defaults.className,
+  classNames = {},
   closeOthers,
   buttons = defaults.buttons,
   footer,
@@ -44,10 +45,10 @@ export function Modal({
   size = defaults.size,
   ...props
 }: ModalProps) {
-  const item = useUiItem();
+  const item = useRdController();
   const focusRootRef = useFocusLock();
   useScrollLock();
-  useEsc(() => item?.destroy('esc'));
+  useKey((key) => item?.destroy(key));
 
   function onMaskClick(e: MouseEvent<HTMLDivElement>) {
     if (
@@ -59,15 +60,20 @@ export function Modal({
   }
 
   const cssClass = cls('rd-modal', size && `rd-${size}`, className);
-  const wrapCssClass = cls('rd-modal-wrapper', centered && 'rd-centered');
+  const wrapCssClass = cls(
+    'rd-modal-wrapper',
+    centered && 'rd-centered',
+    classNames?.wrap,
+  );
   return (
     <>
-      {mask && <Mask aria-hidden />}
+      {mask && <Mask className={classNames?.mask} aria-hidden />}
       <div aria-hidden className={wrapCssClass} onClick={onMaskClick}>
         <Dialog
           aria-modal
           buttons={buttons}
           className={cssClass}
+          classNames={classNames}
           footer={footer}
           ref={focusRootRef}
           role={role}
@@ -93,7 +99,7 @@ Modal.showCustom = <
 >(
   component: TComponent,
   props?: ComponentProps<TComponent> & ModalShowOptions,
-): RdItem<TProps, TResult> => {
+): RdController<TProps, TResult> => {
   return Modal.show<TResult, TProps>({
     component,
     ...props,
@@ -110,7 +116,7 @@ Modal.prompt = <TResult extends Result = ['ok' | 'close', string]>(
 };
 
 Modal.destroyAll = (action = 'destroyAll', result?: unknown) => {
-  for (const item of dialogues.internal.state.getItemsByType('modal')) {
+  for (const item of dialogues.internal.state.getControllersByType('modal')) {
     item.destroy(action, result);
   }
 };
@@ -120,22 +126,23 @@ function createShowFunction(overrides: ModalProps = {}) {
     TResult extends Result = Result,
     TProps extends ModalProps = ModalProps,
   >({
+    actionMode = defaults.actionMode || 'simplified',
     closeOthers = defaults.closeOthers,
     ...props
-  }: ModalProps & ModalShowOptions): RdItem<TProps, TResult> => {
+  }: ModalProps & ModalShowOptions): RdController<TProps, TResult> => {
     const mergedProps = { ...overrides, ...props } as TProps;
 
     if (closeOthers) {
-      dialogues.internal.state.getItemsByType('modal').forEach((item) => {
+      dialogues.internal.state.getControllersByType('modal').forEach((item) => {
         item.destroy('closeOthers');
       });
     }
 
     const element = dialogues.internal.state.add<TProps, TResult>({
-      actionMode: props.actionMode || defaults.actionMode || 'simplified',
+      actionMode,
       component: props.component || Modal,
       props: mergedProps,
-      itemType: 'modal',
+      controllerType: 'modal',
     });
 
     dialogues.internal.ensurePortalRendered();
@@ -182,11 +189,16 @@ function useScrollLock() {
   }, []);
 }
 
-function useEsc(onPress: () => void) {
+function useKey(onPress: (key: 'enter' | 'esc') => void) {
   useEffect(() => {
+    const map = {
+      Enter: 'enter',
+      Escape: 'esc',
+    } as Record<string, 'enter' | 'esc'>;
+
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') {
-        onPress();
+      if (map[e.key]) {
+        onPress(e.key as 'enter' | 'esc');
       }
     }
 
@@ -198,26 +210,31 @@ function useEsc(onPress: () => void) {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ModalProps<P = any> extends DialogProps<P> {
   centered?: boolean;
+  classNames?: Partial<Record<ModalSlots, string>>;
   closeOthers?: boolean;
   mask?: boolean;
   maskClosable?: boolean;
   size?: ModalSize;
 }
 
+export type ModalSlots = DialogSlots | 'mask' | 'wrap';
+
 export type ModalSize = 'normal' | 'large' | 'full';
 
 export interface ModalShowOptions {
+  actionMode?: ActionMode;
   closeOthers?: boolean;
 }
 
 export function Prompt({
   buttons = ['Cancel', <OkButton autoFocus={false} />],
+  classNames,
   label,
   placeholder,
   value = '',
   ...props
 }: PromptProps) {
-  const item = useUiItem();
+  const item = useRdController();
   const [inputValue, setInputValue] = useState(value);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -231,20 +248,20 @@ export function Prompt({
 
   return (
     <Modal {...props} buttons={buttons}>
-      <form onSubmit={() => item.destroy('enter')}>
-        <TextField
-          autoFocus
-          label={label}
-          placeholder={placeholder}
-          value={inputValue}
-          onChange={onType}
-        />
-      </form>
+      <TextField
+        autoFocus
+        classNames={classNames}
+        label={label}
+        placeholder={placeholder}
+        value={inputValue}
+        onChange={onType}
+      />
     </Modal>
   );
 }
 
 export interface PromptProps extends ModalProps {
+  classNames?: Partial<Record<ModalSlots | TextFieldSlots, string>>;
   label?: string;
   placeholder?: string;
   value?: string;

@@ -4,14 +4,14 @@ import {
   Footer,
   Notification,
   NotificationProps,
-  type RdItem,
+  type RdController,
 } from 'react-dialogues';
 
 export function NotificationItemMethodsSample() {
   const [notification1, setNotification1] =
-    useState<RdItem<NotificationProps>>();
+    useState<RdController<NotificationProps>>();
   const [notification2, setNotification2] =
-    useState<RdItem<NotificationProps>>();
+    useState<RdController<NotificationProps>>();
 
   return (
     <>

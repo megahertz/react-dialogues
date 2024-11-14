@@ -1,16 +1,20 @@
-import { ItemContext } from '../core/itemContext';
-import type { RdItem } from '../core/RdState';
+import { ControllerContext } from '../core/controllerContext';
+import type { RdController } from '../core/RdState';
 
-export function ModalContainer({ items }: { items: RdItem[] }) {
+export function ModalContainer({
+  controllers,
+}: {
+  controllers: RdController[];
+}) {
   return (
     <>
-      {items.map((item) => {
-        const { id, component: Component, props } = item;
+      {controllers.map((controller) => {
+        const { id, component: Component, props } = controller;
 
         return (
-          <ItemContext.Provider key={id} value={item}>
+          <ControllerContext.Provider key={id} value={controller}>
             <Component {...props} />
-          </ItemContext.Provider>
+          </ControllerContext.Provider>
         );
       })}
     </>

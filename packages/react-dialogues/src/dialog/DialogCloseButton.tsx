@@ -1,8 +1,8 @@
 import type { HTMLAttributes } from 'react';
-import { useUiItem } from '../core/itemContext';
+import { useRdController } from '../core/controllerContext';
 
 export function DialogCloseButton({ ...props }: DialogCloseButtonProps) {
-  const item = useUiItem();
+  const item = useRdController();
 
   return (
     <button

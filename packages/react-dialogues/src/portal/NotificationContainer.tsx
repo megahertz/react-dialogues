@@ -1,20 +1,20 @@
-import { ItemContext } from '../core/itemContext';
-import type { RdItem } from '../core/RdState';
+import { ControllerContext } from '../core/controllerContext';
+import type { RdController } from '../core/RdState';
 import type {
   NotificationPlacement,
   NotificationProps,
 } from '../notification/Notification';
 
 export function NotificationContainer({
-  items,
+  controllers,
 }: {
-  items: RdItem<NotificationProps>[];
+  controllers: RdController<NotificationProps>[];
 }) {
-  if (items.length < 0) {
+  if (controllers.length < 0) {
     return null;
   }
 
-  const groups = groupByPlacement(items);
+  const groups = groupByPlacement(controllers);
   return (
     <>
       {Object.entries(groups).map(([placement, grouped]) => (
@@ -22,12 +22,12 @@ export function NotificationContainer({
           key={placement}
           className={`rd-notification-container ${placement}`}
         >
-          {grouped.map((item) => {
-            const { id, component: Component, props } = item;
+          {grouped.map((controller) => {
+            const { id, component: Component, props } = controller;
             return (
-              <ItemContext.Provider value={item} key={id}>
+              <ControllerContext.Provider value={controller} key={id}>
                 <Component {...props} />
-              </ItemContext.Provider>
+              </ControllerContext.Provider>
             );
           })}
         </div>
@@ -36,8 +36,8 @@ export function NotificationContainer({
   );
 }
 
-function groupByPlacement(items: RdItem<NotificationProps>[]) {
-  const placements = {} as Record<NotificationPlacement, RdItem[]>;
+function groupByPlacement(items: RdController<NotificationProps>[]) {
+  const placements = {} as Record<NotificationPlacement, RdController[]>;
   for (const item of items) {
     const placement = item.props.placement!;
     if (!Array.isArray(placements[placement])) {
