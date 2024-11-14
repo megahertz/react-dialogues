@@ -19,7 +19,6 @@
 }
 
 .rd-modal.rd-full {
-  animation: rd-fade 0.5s;
   border-radius: 0;
   display: flex;
   flex-direction: column;
@@ -32,7 +31,6 @@
   flex: 1;
 }
 .rd-modal.rd-large {
-  animation: rd-fade 0.5s;
   display: flex;
   flex-direction: column;
   margin: 24px 0 24px 24px;
@@ -59,9 +57,16 @@
 }
 
 .rd-mask {
+  animation: rd-opacity 0.3s;
   background: rgba(0, 0, 0, 0.45);
   inset: 0;
   pointer-events: none;
   position: fixed;
   z-index: 1000;
+}
+
+@keyframes rd-opacity {
+  from {
+    opacity: 0;
+  }
 }
