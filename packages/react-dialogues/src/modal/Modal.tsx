@@ -68,7 +68,8 @@ export function Modal({
   return (
     <>
       {mask && <Mask className={classNames?.mask} aria-hidden />}
-      <div aria-hidden className={wrapCssClass} onClick={onMaskClick}>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+      <div className={wrapCssClass} onClick={onMaskClick}>
         <Dialog
           aria-modal
           buttons={buttons}
