@@ -9,6 +9,7 @@ import { dialogues } from '../core/dialogues';
 import { useRdController } from '../core/controllerContext';
 import type { RdController } from '../core/RdState';
 import { Dialog, type DialogSlots, type DialogProps } from '../dialog/Dialog';
+import { Modal } from '../modal/Modal';
 import { cls } from '../utils/string';
 import type { Result } from '../utils/types';
 import { Progress } from './Progress';
@@ -94,6 +95,10 @@ Notification.showCustom = <
     component,
     ...props,
   });
+};
+
+Notification.getAll = () => {
+  dialogues.internal.state.getControllersByType('notification');
 };
 
 Notification.destroyAll = (action = 'destroyAll', result?: unknown) => {

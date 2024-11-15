@@ -115,6 +115,8 @@ Modal.prompt = <TResult extends Result = ['ok' | 'close', string]>(
   });
 };
 
+Modal.getAll = () => dialogues.internal.state.getControllersByType('modal');
+
 Modal.destroyAll = (action = 'destroyAll', result?: unknown) => {
   for (const item of dialogues.internal.state.getControllersByType('modal')) {
     item.destroy(action, result);
