@@ -111,8 +111,8 @@ Modal.prompt = <TResult extends Result = ['ok' | 'close', string]>(
   props: PromptProps,
 ) => {
   return Modal.showCustom<TResult, typeof Prompt>(Prompt, {
-    ...props,
     actionMode: 'okClose',
+    ...props,
   });
 };
 

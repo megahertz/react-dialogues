@@ -69,8 +69,12 @@ div + .rd-footer {
   justify-content: end;
 }
 
-.rd-iconbox {
-  display: flex;
+.rd-icon-wrap {
+  position: absolute;
+}
+.rd-icon-wrap ~ .rd-header,
+.rd-icon-wrap ~ .rd-body {
+  padding-left: 40px;
 }
 
 .rd-iconbox-content {

@@ -49,25 +49,11 @@ export const Dialog = forwardRef(function Dialog(
     bodyEl = <Body className={classNames?.body}>{children}</Body>;
   }
 
-  let headerAndBodyEl = (
-    <>
-      {headerEl}
-      {bodyEl}
-    </>
-  );
-
   const iconEl =
     icon || (type && <NotificationIcon className={classNames?.icon} />);
-  if (iconEl) {
-    headerAndBodyEl = (
-      <div className={cls('rd-iconbox', classNames?.iconBox)}>
-        {iconEl}
-        <div className={cls('rd-iconbox-content', classNames?.iconBoxContent)}>
-          {headerAndBodyEl}
-        </div>
-      </div>
-    );
-  }
+  const iconWrap = iconEl ? (
+    <div className={cls('rd-icon-wrap', classNames?.iconWrap)}>{iconEl}</div>
+  ) : null;
 
   let footerEl = footer;
   if (footer === undefined && Array.isArray(buttons) && buttons.length > 0) {
@@ -115,8 +101,10 @@ export const Dialog = forwardRef(function Dialog(
   return (
     <DialogContainer className={cssClass} ref={ref} {...props}>
       {firstChild}
+      {iconWrap}
       {closeEl}
-      {headerAndBodyEl}
+      {headerEl}
+      {bodyEl}
       {footerEl}
       {lastChild}
     </DialogContainer>
@@ -143,10 +131,4 @@ export interface DialogProps<P = any>
   type?: NotificationType;
 }
 
-export type DialogSlots =
-  | 'body'
-  | 'footer'
-  | 'header'
-  | 'icon'
-  | 'iconBox'
-  | 'iconBoxContent';
+export type DialogSlots = 'body' | 'footer' | 'header' | 'icon' | 'iconWrap';
