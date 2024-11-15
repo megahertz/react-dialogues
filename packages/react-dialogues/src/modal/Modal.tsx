@@ -201,7 +201,7 @@ function useKey(onPress: (key: 'enter' | 'esc') => void) {
 
     function onKeyDown(e: KeyboardEvent) {
       if (map[e.key]) {
-        onPress(e.key as 'enter' | 'esc');
+        onPress(map[e.key]);
       }
     }
 
