@@ -14,6 +14,7 @@ export function ModalStaticMethods() {
         Show Modal
       </Button>
       <Button
+        loading={false}
         onClick={async () => {
           const [action, email] = await Modal.prompt({
             label: 'Enter email address:',

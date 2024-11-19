@@ -27,11 +27,17 @@ export function ModalMultipleSample() {
 
   return (
     <Footer align="left">
-      <Button onClick={() => showMultipleModals()}>Simultaneously</Button>
       <Button
-        onClick={() =>
-          showMultipleModals({ buttons: undefined, closeOthers: true })
-        }
+        onClick={() => {
+          showMultipleModals();
+        }}
+      >
+        Simultaneously
+      </Button>
+      <Button
+        onClick={() => {
+          showMultipleModals({ buttons: undefined, closeOthers: true });
+        }}
       >
         One at once
       </Button>

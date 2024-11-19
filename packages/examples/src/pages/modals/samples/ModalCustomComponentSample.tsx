@@ -16,6 +16,7 @@ export function ModalCustomComponentSample() {
   return (
     <Footer align="left">
       <Button
+        loading={false}
         onClick={async () => {
           const [action, result] = await EditUserModal.show({
             user: {

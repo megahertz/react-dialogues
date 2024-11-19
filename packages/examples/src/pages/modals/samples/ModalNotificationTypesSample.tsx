@@ -4,16 +4,32 @@ export function ModalNotificationTypesSample() {
   const children = 'test modal content';
   return (
     <Footer align="left">
-      <Button onClick={() => Modal.info({ children, title: 'Info' })}>
+      <Button
+        onClick={() => {
+          Modal.info({ children, title: 'Info' });
+        }}
+      >
         Info
       </Button>
-      <Button onClick={() => Modal.success({ children, title: 'Success' })}>
+      <Button
+        onClick={() => {
+          Modal.success({ children, title: 'Success' });
+        }}
+      >
         Success
       </Button>
-      <Button onClick={() => Modal.warning({ children, title: 'Warning' })}>
+      <Button
+        onClick={() => {
+          Modal.warning({ children, title: 'Warning' });
+        }}
+      >
         Warning
       </Button>
-      <Button onClick={() => Modal.error({ children, title: 'Error' })}>
+      <Button
+        onClick={() => {
+          Modal.error({ children, title: 'Error' });
+        }}
+      >
         Error
       </Button>
     </Footer>

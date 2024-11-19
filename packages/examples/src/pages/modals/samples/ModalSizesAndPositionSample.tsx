@@ -5,22 +5,26 @@ export function ModalSizesAndPositionSample() {
   return (
     <>
       <Footer align="left">
-        <Button onClick={() => Modal.show({ children, title: 'Normal' })}>
+        <Button
+          onClick={() => {
+            Modal.show({ children, title: 'Normal' });
+          }}
+        >
           Normal
         </Button>
         <Button
-          onClick={() =>
-            Modal.show({ children: <LongText />, title: 'Long Text' })
-          }
+          onClick={() => {
+            Modal.show({ children: <LongText />, title: 'Long Text' });
+          }}
         >
           Long
         </Button>
       </Footer>
       <Footer align="left">
         <Button
-          onClick={() =>
-            Modal.show({ children, size: 'large', title: 'Large' })
-          }
+          onClick={() => {
+            Modal.show({ children, size: 'large', title: 'Large' });
+          }}
         >
           Large
         </Button>
