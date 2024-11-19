@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { Button, Footer } from 'react-dialogues';
 
 export function ButtonsSample() {
+  const [btnLoading, setBtnLoading] = useState(false);
+
   return (
     <>
       <h3>Button types</h3>
@@ -18,6 +21,29 @@ export function ButtonsSample() {
         </Button>
         <Button disabled type="text">
           Text button
+        </Button>
+      </Footer>
+
+      <h3>Loading</h3>
+      <Footer align="left">
+        <Button loading>Loading</Button>
+        <Button
+          loading={btnLoading}
+          onClick={() => {
+            setBtnLoading(true);
+            setTimeout(() => setBtnLoading(false), 1000);
+          }}
+        >
+          setTimeout
+        </Button>
+        <Button
+          onClick={async () =>
+            new Promise((r) => {
+              setTimeout(r, 1000);
+            })
+          }
+        >
+          Async onClick handler
         </Button>
       </Footer>
     </>

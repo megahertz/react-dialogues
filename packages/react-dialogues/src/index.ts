@@ -1,9 +1,9 @@
 import './styles.css';
-import { dialogues } from './core/dialogues';
 
 export { CancelButton } from './controls/CancelButton';
 export { Button, type ButtonProps } from './controls/Button';
 export { OkButton } from './controls/OkButton';
+export { Spinner, type SpinnerProps } from './controls/Spinner';
 export { TextField, type TextFieldProps } from './controls/TextField';
 export { dialogues } from './core/dialogues';
 export { ControllerContext, useRdController } from './core/controllerContext';

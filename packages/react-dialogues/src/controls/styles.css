@@ -1,15 +1,21 @@
 .rd-btn {
+  align-items: center;
   background: var(--rd-primary);
   border: 1px solid transparent;
   border-radius: 6px;
   color: #fff;
   cursor: pointer;
+  display: inline-flex;
+  gap: 8px;
+  justify-content: center;
   line-height: 22px;
+  min-height: 32px;
   outline: none;
   padding: 4px 15px;
+  touch-action: manipulation;
   transition: all 0.2s;
   user-select: none;
-  touch-action: manipulation;
+  white-space: nowrap;
 }
 
 .rd-btn:not(:disabled):focus-visible {
@@ -48,8 +54,10 @@
 }
 
 .rd-btn-loading {
-  background: #ccc;
-  cursor: not-allowed;
+  opacity: 0.65;
+}
+.rd-btn-loading .rd-spinner {
+  color: #fff;
 }
 
 .rd-btn:disabled {
@@ -88,4 +96,21 @@
   border-color: transparent;
   outline: 0;
   box-shadow: 0 0 3px 1px var(--rd-primary);
+}
+
+.rd-spinner {
+  color: var(--rd-primary);
+  overflow: visible;
+  width: 16px;
+}
+.rd-spinner-fg {
+  animation: 1.3s linear 0s infinite normal none running rd-spinner-animation;
+}
+@keyframes rd-spinner-animation {
+  0% {
+    stroke-dashoffset: 325;
+  }
+  100% {
+    stroke-dashoffset: 151;
+  }
 }

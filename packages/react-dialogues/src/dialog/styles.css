@@ -53,6 +53,7 @@ div + .rd-footer {
 
 .rd-footer {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   justify-content: end;
 }

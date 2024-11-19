@@ -7,13 +7,15 @@ import {
 } from 'react';
 import { useRdController } from '../core/controllerContext';
 import { cls } from '../utils/string';
+import { Spinner } from './Spinner';
 
 export const Button = forwardRef(function Button(
-  { className, loading, onClick, type, value, ...props }: ButtonProps,
+  { children, className, loading, onClick, type, value, ...props }: ButtonProps,
   ref: ForwardedRef<HTMLButtonElement>,
 ) {
   const controller = useRdController();
-  const [isLoading, setIsLoading] = useState(loading);
+  const [loadingState, setLoadingState] = useState(Boolean(loading));
+  const isLoading = loading === undefined ? loadingState : loading;
 
   function handleClick(e: MouseEvent<HTMLButtonElement>) {
     if (onClick) {
@@ -26,21 +28,19 @@ export const Button = forwardRef(function Button(
           'then' in result &&
           typeof result.then === 'function'
         ) {
-          setIsLoading(true);
+          setLoadingState(true);
           Promise.resolve(result)
             .then((res) => {
               if (res !== undefined) {
                 setResult(res);
               }
-              setIsLoading(false);
+              setLoadingState(false);
             })
             .catch((promiseError) => {
-              setIsLoading(false);
+              setLoadingState(false);
               setError(promiseError);
             });
-        }
-
-        if (result !== undefined) {
+        } else if (result !== undefined) {
           setResult(result);
         }
       } catch (error) {
@@ -68,7 +68,7 @@ export const Button = forwardRef(function Button(
   const cssClasses = cls(
     'rd-btn',
     className,
-    isLoading && 'loading',
+    isLoading && 'rd-btn-loading',
     type && type !== 'primary' && `rd-btn-${type}`,
   );
 
@@ -79,7 +79,10 @@ export const Button = forwardRef(function Button(
       ref={ref}
       type="button"
       {...(props as object)}
-    />
+    >
+      {isLoading && <Spinner bgColor="none" />}
+      {children}
+    </button>
   );
 });
 

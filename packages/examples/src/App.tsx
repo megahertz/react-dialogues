@@ -19,6 +19,8 @@ import { NotificationItemMethodsSample } from './pages/notifications/samples/Not
 import { NotificationShowSample } from './pages/notifications/samples/NotificationShowSample';
 import { NotificationTypesSample } from './pages/notifications/samples/NotificationTypesSample';
 import OtherPage from './pages/other/OtherPage';
+import { ButtonsSample } from './pages/other/samples/ButtonsSample';
+import { SpinnersSample } from './pages/other/samples/SpinnersSample';
 import { ThemeSample } from './pages/other/samples/ThemeSample';
 
 const router = createBrowserRouter([
@@ -88,6 +90,14 @@ const router = createBrowserRouter([
       {
         path: 'other',
         element: <OtherPage />,
+      },
+      {
+        path: 'other/ButtonsSample',
+        element: <ButtonsSample />,
+      },
+      {
+        path: 'other/SpinnersSample',
+        element: <SpinnersSample />,
       },
       {
         path: 'other/ThemeSample',
