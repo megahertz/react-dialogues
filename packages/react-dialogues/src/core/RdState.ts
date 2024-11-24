@@ -28,7 +28,6 @@ export default class RdState {
     this.lastControllerId = lastControllerId;
 
     this.add = this.add.bind(this);
-    this.clone = this.clone.bind(this);
     this.remove = this.remove.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -81,13 +80,6 @@ export default class RdState {
     this.emitOnChange();
 
     return controller;
-  }
-
-  clone() {
-    return new RdState({
-      controllers: this.controllers.slice(),
-      lastControllerId: this.lastControllerId,
-    });
   }
 
   getControllersByType(type: ControllerType) {
