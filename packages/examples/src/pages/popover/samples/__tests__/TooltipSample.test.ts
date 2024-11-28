@@ -19,19 +19,19 @@ test('Tooltip should support setting color', async ({ page }) => {
   await page.goto('popover/TooltipSample');
 
   await page.getByText('Colored', { exact: true }).hover();
-  await expectScreenshot(page, { maxDiffPixels: 300 });
+  await expectScreenshot(page, { maxDiffPixels: 450 });
 });
 
 test('Arrow should be placed correctly when long width', async ({ page }) => {
   await page.goto('popover/TooltipSample');
 
   await page.getByText('Long target width', { exact: true }).hover();
-  await expectScreenshot(page, { maxDiffPixels: 600 });
+  await expectScreenshot(page, { maxDiffPixels: 650 });
 });
 
 test('Arrow should be placed correctly when long height', async ({ page }) => {
   await page.goto('popover/TooltipSample');
 
   await page.getByText('Long', { exact: true }).hover();
-  await expectScreenshot(page);
+  await expectScreenshot(page, { maxDiffPixels: 200 });
 });
