@@ -1,13 +1,13 @@
 import type { DialogProps } from '../dialog/Dialog';
 import type { AnyComponentType } from '../utils/types';
 
-const OK_ACTIONS = ['ok', 'enter'];
+const OK_ACTIONS = ['keyEnter', 'ok'];
 const CLOSE_ACTIONS = [
   'cancel',
   'close',
   'closeOthers',
   'destroyAll',
-  'esc',
+  'keyEscape',
   'mask',
 ];
 
@@ -46,12 +46,14 @@ export default class RdState {
 
     const controller = {
       ...elementInitOptions,
+      destroyed: false,
       id: this.lastControllerId.toString(),
       result: undefined,
       then: promise.then.bind(promise),
       catch: promise.catch.bind(promise),
 
       destroy: (action: TResult[0], result: TResult[1] = controller.result) => {
+        controller.destroyed = true;
         this.remove(id);
 
         resolve([
@@ -137,6 +139,7 @@ export interface RdController<
   TResult extends [string, unknown] = [string, unknown],
 > extends RdControllerInit<TProps>,
     Promise<TResult> {
+  destroyed: boolean;
   id: string;
   result: TResult[1];
   destroy: (action: TResult[0], result?: TResult[1]) => void;
@@ -145,6 +148,6 @@ export interface RdController<
   setResult: (result: TResult[1]) => void;
 }
 
-export type ControllerType = 'modal' | 'notification';
+export type ControllerType = 'modal' | 'notification' | 'popover';
 
 export type ActionMode = 'okClose' | 'simplified' | 'full';

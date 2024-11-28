@@ -27,5 +27,13 @@ export {
   Notification,
   type NotificationProps,
 } from './notification/Notification';
+export {
+  Popover,
+  type PopoverProps,
+  type PopoverResult,
+  type PositionOptions,
+  usePopover,
+} from './popover/Popover';
+export { Tooltip, type TooltipProps } from './popover/Tooltip';
 export { RdPortal } from './portal/RdPortal';
 export * from './utils/types';

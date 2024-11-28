@@ -1,9 +1,9 @@
-import { ControllerContext } from '../core/controllerContext';
 import type { RdController } from '../core/RdState';
 import type {
   NotificationPlacement,
   NotificationProps,
 } from '../notification/Notification';
+import { UniversalContainer } from './UniversalContainer';
 
 export function NotificationContainer({
   controllers,
@@ -22,14 +22,7 @@ export function NotificationContainer({
           key={placement}
           className={`rd-notification-container ${placement}`}
         >
-          {grouped.map((controller) => {
-            const { id, component: Component, props } = controller;
-            return (
-              <ControllerContext.Provider value={controller} key={id}>
-                <Component {...props} />
-              </ControllerContext.Provider>
-            );
-          })}
+          <UniversalContainer controllers={grouped} />
         </div>
       ))}
     </>

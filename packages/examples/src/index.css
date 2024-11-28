@@ -1,5 +1,5 @@
 html {
-  background: var(--rd-background);
+  background: var(--rd-bg);
   color: var(--rd-text);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';

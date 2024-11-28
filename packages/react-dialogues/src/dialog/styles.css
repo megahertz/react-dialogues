@@ -1,6 +1,5 @@
 .rd-dialog {
-  animation: rd-scaleUp 0.3s;
-  background: var(--rd-background);
+  background: var(--rd-bg);
   color: var(--rd-text);
   border-radius: 8px;
   box-shadow:
@@ -117,11 +116,4 @@ div + .rd-footer {
 }
 .rd-error .rd-notification-icon:after {
   content: '🞩';
-}
-
-@keyframes rd-scaleUp {
-  from {
-    opacity: 0;
-    transform: scale(0.35);
-  }
 }

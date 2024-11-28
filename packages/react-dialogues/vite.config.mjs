@@ -2,15 +2,18 @@
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { visualizer } from 'rollup-plugin-visualizer';
 import dts from 'vite-plugin-dts';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
 const noCss = process.argv.includes('--nocss');
+const analyze = process.argv.includes('--analyze');
 
 export default defineConfig({
   plugins: [
     react(),
     !noCss && cssInjectedByJsPlugin({ injectCode }),
+    analyze && visualizer({ filename: 'dist/deps.html', gzipSize: true }),
     dts({ logLevel: 'silent', rollupTypes: true }),
   ],
   build: {

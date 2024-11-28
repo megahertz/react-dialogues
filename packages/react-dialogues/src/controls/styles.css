@@ -77,7 +77,7 @@
 }
 
 .rd-input {
-  background: var(--rd-background);
+  background: var(--rd-bg);
   border: 1px solid var(--rd-btn-border);
   border-radius: 6px;
   box-sizing: border-box;

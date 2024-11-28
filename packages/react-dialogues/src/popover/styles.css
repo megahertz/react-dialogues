@@ -1,0 +1,76 @@
+.rd-float {
+  --rd-float-bg: var(--rd-bg);
+  position: absolute;
+}
+
+.rd-float-arrow {
+  display: block;
+  height: 16px;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  width: 16px;
+  z-index: 1;
+}
+.rd-float-arrow:before {
+  background: var(--rd-float-bg);
+  position: absolute;
+  bottom: 0;
+  inset-inline-start: 0;
+  width: 16px;
+  height: 8px;
+
+  clip-path: path(
+    'M 0 8 A 4 4 0 0 0 2.82842712474619 6.82842712474619 L 6.585786437626905 3.0710678118654755 A 2 2 0 0 1 9.414213562373096 3.0710678118654755 L 13.17157287525381 6.82842712474619 A 4 4 0 0 0 16 8 Z'
+  );
+  content: '';
+}
+.rd-float-arrow:after {
+  background: transparent;
+  content: '';
+  position: absolute;
+  width: 8.970562748477143px;
+  height: 8.970562748477143px;
+  bottom: 0;
+  inset-inline: 0;
+  margin: auto;
+  border-radius: 0 0 2px 0;
+  transform: translateY(50%) rotate(-135deg);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  z-index: 0;
+}
+.rd-float-arrow-top {
+  bottom: 0;
+  transform: translateY(100%) rotate(180deg);
+}
+.rd-float-arrow-left {
+  right: 0;
+  transform: translateX(100%) rotate(90deg);
+}
+.rd-float-arrow-bottom {
+  top: 0;
+  transform: translateY(-99%); /* to avoid a tiny gap */
+}
+.rd-float-arrow-right {
+  left: 0;
+  transform: translateX(-100%) rotate(-90deg);
+}
+
+.rd-popover {
+  background: var(--rd-float-bg);
+  border-radius: 8px;
+  box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.05);
+}
+
+.rd-popover-wrap {
+  display: contents;
+}
+
+.rd-tooltip {
+  --rd-float-bg: var(--rd-bg-contast);
+  border-radius: 4px;
+  box-shadow: none;
+  color: #fff;
+  max-width: 250px;
+  padding: 6px 8px;
+}

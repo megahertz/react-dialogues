@@ -1,0 +1,19 @@
+.root {
+  max-width: 540px;
+}
+.root button {
+  min-width: 100px;
+}
+
+.centeredRow {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.sidedRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}

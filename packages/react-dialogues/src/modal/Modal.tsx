@@ -15,6 +15,7 @@ import { useRdController } from '../core/controllerContext';
 import type { ActionMode, RdController } from '../core/RdState';
 import { Dialog, type DialogSlots, type DialogProps } from '../dialog/Dialog';
 import { createDivComponent } from '../utils/constructors';
+import { useKey } from '../utils/hooks';
 import { cls } from '../utils/string';
 import { Result } from '../utils/types';
 
@@ -48,7 +49,7 @@ export function Modal({
   const item = useRdController();
   const focusRootRef = useFocusLock();
   useScrollLock();
-  useKey((key) => item?.destroy(key));
+  useKey((key) => item?.destroy(key), ['keyEnter', 'keyEscape']);
 
   function onMaskClick(e: MouseEvent<HTMLDivElement>) {
     if (
@@ -141,7 +142,7 @@ function createShowFunction(overrides: ModalProps = {}) {
       });
     }
 
-    const element = dialogues.internal.state.add<TProps, TResult>({
+    const controller = dialogues.internal.state.add<TProps, TResult>({
       actionMode,
       component: props.component || Modal,
       props: mergedProps,
@@ -150,7 +151,7 @@ function createShowFunction(overrides: ModalProps = {}) {
 
     dialogues.internal.ensurePortalRendered();
 
-    return element;
+    return controller;
   };
 }
 
@@ -190,24 +191,6 @@ function useScrollLock() {
       document.body.style.overflow = oldOverflowRef.current;
     };
   }, []);
-}
-
-function useKey(onPress: (key: 'enter' | 'esc') => void) {
-  useEffect(() => {
-    const map = {
-      Enter: 'enter',
-      Escape: 'esc',
-    } as Record<string, 'enter' | 'esc'>;
-
-    function onKeyDown(e: KeyboardEvent) {
-      if (map[e.key]) {
-        onPress(map[e.key]);
-      }
-    }
-
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, [onPress]);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

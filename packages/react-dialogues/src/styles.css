@@ -2,6 +2,7 @@
 @import './dialog/styles.css';
 @import './modal/styles.css';
 @import './notification/styles.css';
+@import './popover/styles.css';
 
 html,
 [data-theme='light'] {
@@ -14,17 +15,32 @@ html,
   --rd-error: #ff4d4f;
   --rd-info: var(--rd-primary);
 
-  --rd-text-disabled: rgba(0, 0, 0, 0.25);
+  --rd-bg: #fff;
+  --rd-bg-contast: #262626;
   --rd-bg-disabled: rgba(0, 0, 0, 0.04);
-  --rd-background: #fff;
-  --rd-text: rgba(0, 0, 0, 0.88);
   --rd-btn-border: #d9d9d9;
+  --rd-text: rgba(0, 0, 0, 0.88);
+  --rd-text-disabled: rgba(0, 0, 0, 0.25);
 }
 
 [data-theme='dark'] {
-  --rd-text-disabled: rgba(255, 255, 255, 0.25);
+  --rd-bg: #1f1f1f;
+  --rd-bg-contast: #424242;
   --rd-bg-disabled: rgba(255, 255, 255, 0.04);
-  --rd-background: #1f1f1f;
-  --rd-text: rgba(255, 255, 255, 0.85);
   --rd-btn-border: #424242;
+  --rd-text: rgba(255, 255, 255, 0.85);
+  --rd-text-disabled: rgba(255, 255, 255, 0.25);
+}
+
+@keyframes rd-opacity {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rd-scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.35);
+  }
 }

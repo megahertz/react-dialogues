@@ -22,6 +22,11 @@ import OtherPage from './pages/other/OtherPage';
 import { ButtonsSample } from './pages/other/samples/ButtonsSample';
 import { SpinnersSample } from './pages/other/samples/SpinnersSample';
 import { ThemeSample } from './pages/other/samples/ThemeSample';
+import PopoverPage from './pages/popover/PopoverPage';
+import { PlacementSample } from './pages/popover/samples/PlacementSample';
+import { PopoverSample } from './pages/popover/samples/PopoverSample';
+import { ScrollSample } from './pages/popover/samples/ScrollSample';
+import { TooltipSample } from './pages/popover/samples/TooltipSample';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +37,7 @@ const router = createBrowserRouter([
         <nav className="menu">
           <NavLink to="/modals">Modals</NavLink>
           <NavLink to="/notifications">Notifications</NavLink>
+          <NavLink to="/popovers">Popovers</NavLink>
           <NavLink to="/other">Other</NavLink>
           <ToggleTheme />
         </nav>
@@ -41,6 +47,10 @@ const router = createBrowserRouter([
       </>
     ),
     children: [
+      {
+        path: 'modals',
+        element: <ModalPage />,
+      },
       {
         path: 'modals/ModalCustomComponentSample',
         element: <ModalCustomComponentSample />,
@@ -60,10 +70,6 @@ const router = createBrowserRouter([
       {
         path: 'modals/ModalStaticMethods',
         element: <ModalStaticMethods />,
-      },
-      {
-        path: 'modals',
-        element: <ModalPage />,
       },
 
       {
@@ -85,6 +91,27 @@ const router = createBrowserRouter([
       {
         path: 'notifications/NotificationTypesSample',
         element: <NotificationTypesSample />,
+      },
+
+      {
+        path: 'popovers',
+        element: <PopoverPage />,
+      },
+      {
+        path: 'popover/PlacementSample',
+        element: <PlacementSample />,
+      },
+      {
+        path: 'popover/ScrollSample',
+        element: <ScrollSample />,
+      },
+      {
+        path: 'popover/PopoverSample',
+        element: <PopoverSample />,
+      },
+      {
+        path: 'popover/TooltipSample',
+        element: <TooltipSample />,
       },
 
       {

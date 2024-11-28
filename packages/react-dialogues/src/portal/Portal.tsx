@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 import type { RdController } from '../core/RdState';
-import { ModalContainer } from './ModalContainer';
+import { UniversalContainer } from './UniversalContainer';
 import { NotificationContainer } from './NotificationContainer';
 
 export function Portal({
@@ -26,6 +26,9 @@ export function Portal({
   const notificationItems = controllers.filter(
     (i) => i.controllerType === 'notification',
   );
+  const popoverItems = controllers.filter(
+    (i) => i.controllerType === 'popover',
+  );
 
   useEffect(() => {
     onMount({
@@ -37,8 +40,9 @@ export function Portal({
 
   return (
     <>
-      <ModalContainer controllers={modalItems} />
+      <UniversalContainer controllers={modalItems} />
       <NotificationContainer controllers={notificationItems} />
+      <UniversalContainer controllers={popoverItems} />
       <div ref={ref} />
     </>
   );

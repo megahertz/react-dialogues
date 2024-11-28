@@ -1,0 +1,19 @@
+.scroll {
+  height: 150px;
+  margin-top: 32px;
+  overflow: auto;
+  width: 200px;
+}
+
+.scrollContent {
+  align-items: center;
+  background: #eee;
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  width: 400px;
+}
+
+.rect {
+  white-space: pre-wrap;
+}

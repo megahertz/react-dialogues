@@ -1,7 +1,7 @@
 import { ControllerContext } from '../core/controllerContext';
 import type { RdController } from '../core/RdState';
 
-export function ModalContainer({
+export function UniversalContainer({
   controllers,
 }: {
   controllers: RdController[];
