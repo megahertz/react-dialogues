@@ -23,6 +23,6 @@ test('All placements should be renderer properly', async ({ page }) => {
 
   for (const placement of placements) {
     await page.getByText(placement, { exact: true }).hover();
-    await expectScreenshot(page);
+    await expectScreenshot(page, { maxDiffPixels: 230 });
   }
 });

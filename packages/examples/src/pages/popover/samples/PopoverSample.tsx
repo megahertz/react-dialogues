@@ -9,6 +9,7 @@ export function PopoverSample() {
             buttons={['Cancel', 'Save']}
             close={null}
             title="Popover sample"
+            style={{ width: '240px' }}
           >
             <TextField label="Name:" />
           </Dialog>
