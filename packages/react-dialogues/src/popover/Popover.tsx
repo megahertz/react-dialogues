@@ -4,6 +4,7 @@ import {
   type HTMLAttributes,
   isValidElement,
   type MouseEventHandler,
+  type MutableRefObject,
   type ReactNode,
   type UIEvent,
   useEffect,
@@ -144,7 +145,9 @@ export function usePopover(props: Partial<PopoverProps>): PopoverResult {
       return;
     }
 
-    ref.current = e.target as HTMLElement;
+    if (!ref.current) {
+      ref.current = e.target as HTMLElement;
+    }
 
     setController(
       dialogues.internal.state.add({
@@ -188,6 +191,7 @@ export function usePopover(props: Partial<PopoverProps>): PopoverResult {
       hidePopover('leave');
     },
     open: Boolean(controller),
+    ref,
   };
 }
 
@@ -231,6 +235,7 @@ export interface PopoverResult {
   onMouseEnter?: MouseEventHandler<HTMLElement>;
   onMouseLeave?: MouseEventHandler<HTMLElement>;
   open: boolean;
+  ref: MutableRefObject<HTMLElement | undefined>;
 }
 
 export type Placement =

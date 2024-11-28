@@ -1,3 +1,4 @@
+import { ComplexTargetsSample } from './samples/ComplexTargetsSample';
 import { PlacementSample } from './samples/PlacementSample';
 import { PopoverSample } from './samples/PopoverSample';
 import { ScrollSample } from './samples/ScrollSample';
@@ -8,19 +9,20 @@ export default function PopoverPage() {
     <>
       <h1>Popover components</h1>
 
-      <h2>Tooltip</h2>
-
-      <h3>Basic</h3>
+      <h2>Basic</h2>
       <TooltipSample />
 
-      <h3>Placement</h3>
+      <h2>Placement</h2>
       <PlacementSample />
 
-      <h3>Scroll</h3>
+      <h2>Scroll</h2>
       <ScrollSample />
 
       <h2>Popover</h2>
       <PopoverSample />
+
+      <h2>Complex targets</h2>
+      <ComplexTargetsSample />
     </>
   );
 }

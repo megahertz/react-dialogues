@@ -23,6 +23,7 @@ import { ButtonsSample } from './pages/other/samples/ButtonsSample';
 import { SpinnersSample } from './pages/other/samples/SpinnersSample';
 import { ThemeSample } from './pages/other/samples/ThemeSample';
 import PopoverPage from './pages/popover/PopoverPage';
+import { ComplexTargetsSample } from './pages/popover/samples/ComplexTargetsSample';
 import { PlacementSample } from './pages/popover/samples/PlacementSample';
 import { PopoverSample } from './pages/popover/samples/PopoverSample';
 import { ScrollSample } from './pages/popover/samples/ScrollSample';
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
       {
         path: 'popovers',
         element: <PopoverPage />,
+      },
+      {
+        path: 'popover/ComplexTargetsSample',
+        element: <ComplexTargetsSample />,
       },
       {
         path: 'popover/PlacementSample',
