@@ -136,6 +136,8 @@ export function usePopover(props: Partial<PopoverProps>): PopoverResult {
   const ref = useRef<HTMLElement | undefined>();
   const [controller, setController] = useState<RdController | undefined>();
 
+  useEffect(() => () => controller?.destroy('unmount'), [controller]);
+
   function showPopover(e: UIEvent, trigger: Trigger) {
     if (
       (controller && !controller.destroyed) ||
