@@ -35,5 +35,5 @@ export {
   usePopover,
 } from './popover/Popover';
 export { Tooltip, type TooltipProps } from './popover/Tooltip';
-export { RdPortal } from './portal/RdPortal';
+export { RdContainer } from './container/RdContainer';
 export * from './utils/types';

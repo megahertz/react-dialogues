@@ -84,6 +84,10 @@ export default class RdState {
     return controller;
   }
 
+  destroyAll() {
+    this.controllers.forEach((controller) => controller.destroy('destroyAll'));
+  }
+
   getControllersByType(type: ControllerType) {
     return this.controllers.filter((c) => c.controllerType === type);
   }

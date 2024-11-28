@@ -9,7 +9,7 @@ import type { RdController } from '../core/RdState';
 import { UniversalContainer } from './UniversalContainer';
 import { NotificationContainer } from './NotificationContainer';
 
-export function Portal({
+export function RootContainer({
   initControllers = [],
   onMount,
   onUnmount,

@@ -1,5 +1,8 @@
 import { render } from 'react-dom';
-import { Portal, type PortalMountedPayload } from '../portal/Portal';
+import {
+  RootContainer,
+  type PortalMountedPayload,
+} from '../container/RootContainer';
 import type { ThemeName } from '../utils/types';
 import RdState, { type RdController } from './RdState';
 
@@ -41,6 +44,10 @@ export const dialogues = {
     },
   },
 
+  destroyAll() {
+    dialogues.internal.state.destroyAll();
+  },
+
   /** @internal */
   internal: {
     isPortalMounted: false,
@@ -54,7 +61,7 @@ export const dialogues = {
       }
 
       render(
-        <Portal
+        <RootContainer
           initControllers={internal.state.controllers}
           onMount={internal.onPortalMounted}
           onUnmount={internal.onPortalUnmounted}

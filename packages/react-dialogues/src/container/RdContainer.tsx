@@ -1,9 +1,9 @@
 import { dialogues } from '../core/dialogues';
-import { Portal } from './Portal';
+import { RootContainer } from './RootContainer';
 
-export function RdPortal() {
+export function RdContainer() {
   return (
-    <Portal
+    <RootContainer
       onMount={dialogues.internal.onPortalMounted}
       onUnmount={dialogues.internal.onPortalUnmounted}
     />
