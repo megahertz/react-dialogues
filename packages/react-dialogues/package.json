@@ -1,6 +1,6 @@
 {
   "name": "react-dialogues",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Tiny interaction React UI library",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
