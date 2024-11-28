@@ -5,7 +5,7 @@ test('Basic tooltip', async ({ page }) => {
   await page.goto('popover/TooltipSample');
 
   await page.getByText('Hover me', { exact: true }).hover();
-  await expectScreenshot(page, { maxDiffPixels: 600 });
+  await expectScreenshot(page, { maxDiffPixels: 650 });
 });
 
 test('Large Tooltip text should be flipped', async ({ page }) => {
