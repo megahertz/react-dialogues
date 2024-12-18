@@ -39,7 +39,7 @@ async function runBump(command) {
   await cmd(`git commit -m "${version}"`);
   await cmd(`git tag -a v${version} -m "${version}"`);
   await cmd('git push');
-  await cmd(`git push v${version}`);
+  await cmd(`git push origin v${version}`);
 }
 
 async function checkIfGitClean() {
