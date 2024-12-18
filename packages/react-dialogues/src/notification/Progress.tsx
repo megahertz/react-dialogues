@@ -8,7 +8,6 @@ export function Progress({
   style,
   ...props
 }: ProgressProps) {
-  // console.log('render', { className, duration, style, props });
   const classNames = cls('rd-notification-progress', className);
   const styles: CSSProperties = {
     ...style,

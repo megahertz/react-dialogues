@@ -24,7 +24,7 @@ export function ButtonsSample() {
         </Button>
       </Footer>
 
-      <h3>Loading</h3>
+      <h3>Interaction</h3>
       <Footer align="left">
         <Button loading>Loading</Button>
         <Button
@@ -44,6 +44,13 @@ export function ButtonsSample() {
           }
         >
           Async onClick handler
+        </Button>
+        <Button
+          onClick={async () => {
+            throw new Error('test');
+          }}
+        >
+          Error handling
         </Button>
       </Footer>
     </>

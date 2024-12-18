@@ -1,18 +1,35 @@
 import {
   type ForwardedRef,
   forwardRef,
+  ForwardRefExoticComponent,
   type HTMLAttributes,
   type MouseEvent,
+  RefAttributes,
   useState,
 } from 'react';
 import { useRdController } from '../core/controllerContext';
+import { stringifyError } from '../utils/errors';
 import { cls } from '../utils/string';
 import { Spinner } from './Spinner';
 
-export const Button = forwardRef(function Button(
-  { children, className, loading, onClick, type, value, ...props }: ButtonProps,
+export const Button = forwardRef(function ButtonComponent(
+  props: ButtonProps,
   ref: ForwardedRef<HTMLButtonElement>,
 ) {
+  const mergedProps = { ...Button.defaults, ...props };
+
+  const {
+    children,
+    className,
+    loading,
+    onClick,
+    errorAction,
+    onErrorHandler,
+    type,
+    value,
+    ...rest
+  } = mergedProps;
+
   const controller = useRdController();
   const [loadingState, setLoadingState] = useState(Boolean(loading));
   const isLoading = loading === undefined ? loadingState : loading;
@@ -38,13 +55,13 @@ export const Button = forwardRef(function Button(
             })
             .catch((promiseError) => {
               setLoadingState(false);
-              setError(promiseError);
+              onError(promiseError);
             });
         } else if (result !== undefined) {
           setResult(result);
         }
       } catch (error) {
-        setError(error);
+        onError(error);
       }
 
       return;
@@ -55,14 +72,13 @@ export const Button = forwardRef(function Button(
     setResult();
   }
 
-  function setResult(result?: unknown) {
-    controller?.destroy(value || 'button', result);
+  function onError(error: unknown) {
+    const message = stringifyError(error);
+    onErrorHandler?.(error, message, mergedProps);
   }
 
-  function setError(error: unknown) {
-    // TODO: Better error handling
-    // eslint-disable-next-line no-console
-    console.error('Error in button handler', error);
+  function setResult(result?: unknown) {
+    controller?.destroy(value || 'button', result);
   }
 
   const cssClasses = cls(
@@ -78,17 +94,25 @@ export const Button = forwardRef(function Button(
       onClick={handleClick}
       ref={ref}
       type="button"
-      {...(props as object)}
+      {...(rest as object)}
     >
       {isLoading && <Spinner bgColor="none" />}
       {children}
     </button>
   );
-});
+}) as ForwardRefExoticComponent<
+  ButtonProps & RefAttributes<HTMLButtonElement>
+> & { defaults: ButtonProps };
+
+Button.defaults = {} as ButtonProps;
 
 export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
+  errorAction?: ButtonErrorAction;
   loading?: boolean;
+  onErrorHandler?(error: unknown, message: string, props: ButtonProps): void;
   type?: 'primary' | 'secondary' | 'text';
   value?: string;
 }
+
+export type ButtonErrorAction = 'notification' | 'console' | 'none';

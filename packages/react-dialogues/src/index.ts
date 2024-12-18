@@ -1,5 +1,7 @@
 import './styles.css';
 
+import './initialize';
+
 export { CancelButton } from './controls/CancelButton';
 export { Button, type ButtonProps } from './controls/Button';
 export { OkButton } from './controls/OkButton';
