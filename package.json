@@ -6,7 +6,6 @@
   "scripts": {
     "build": "npm run build --prefix packages/react-dialogues",
     "lint": "eslint . && prettier --check .",
-    "patch": "cd packages/react-dialogues && npm version patch",
     "preversion": "false",
     "publish": "cd packages/react-dialogues && npm publish",
     "start": "npm start --prefix packages/examples",
@@ -14,7 +13,8 @@
     "test:full": "npm run lint && npm run typecheck && npm test",
     "test:update": "npm test -- -- --update-snapshots",
     "test:ui": "npm test -- -- --ui",
-    "typecheck": "npm run typecheck -w packages"
+    "typecheck": "npm run typecheck -w packages",
+    "ver": "node version.js"
   },
   "repository": "megahertz/react-dialogues",
   "author": "Alexey Prokhorov",

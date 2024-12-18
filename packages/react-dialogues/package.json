@@ -10,7 +10,6 @@
     "lint": "eslint src '*.js' '*.mjs' && prettier --check .",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "postversion": "git push && git push --tags",
     "prepack": "npm run build"
   },
   "repository": "megahertz/react-dialogues",
