@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run build --prefix packages/react-dialogues",
     "lint": "eslint . && prettier --check .",
-    "patch": "npm version patch --prefix packages/react-dialogues",
+    "patch": "cd packages/react-dialogues && npm version patch",
     "preversion": "false",
     "publish": "cd packages/react-dialogues && npm publish",
     "start": "npm start --prefix packages/examples",
