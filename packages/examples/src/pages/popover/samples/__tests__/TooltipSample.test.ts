@@ -22,6 +22,13 @@ test('Tooltip should support setting color', async ({ page }) => {
   await expectScreenshot(page, { maxDiffPixels: 450 });
 });
 
+test('Tooltip should support disabling', async ({ page }) => {
+  await page.goto('popover/TooltipSample');
+
+  await page.getByText('Disabled', { exact: true }).hover();
+  await expectScreenshot(page, { maxDiffPixels: 450 });
+});
+
 test('Arrow should be placed correctly when long width', async ({ page }) => {
   await page.goto('popover/TooltipSample');
 

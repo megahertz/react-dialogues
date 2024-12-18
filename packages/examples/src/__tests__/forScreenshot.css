@@ -5,5 +5,5 @@
 }
 
 .test-hidden {
-  display: none;
+  visibility: hidden;
 }

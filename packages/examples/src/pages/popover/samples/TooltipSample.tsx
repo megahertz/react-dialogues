@@ -19,6 +19,9 @@ export function TooltipSample() {
         >
           <Button>Animated</Button>
         </Tooltip>
+        <Tooltip disabled>
+          <Button>Disabled</Button>
+        </Tooltip>
       </Footer>
 
       <Footer align="left">

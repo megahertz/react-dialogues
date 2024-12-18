@@ -133,7 +133,7 @@ export function Popover({
 Popover.defaults = defaults;
 
 export function usePopover(props: Partial<PopoverProps>): PopoverResult {
-  const { closeTriggers, component, triggers } = props;
+  const { closeTriggers, children, component, triggers } = props;
 
   const ref = useRef<HTMLElement | undefined>();
   const [controller, setController] = useState<RdController | undefined>();
@@ -144,6 +144,8 @@ export function usePopover(props: Partial<PopoverProps>): PopoverResult {
     if (
       (controller && !controller.destroyed) ||
       !e.target ||
+      props.disabled ||
+      !props.content ||
       !triggers?.includes(trigger)
     ) {
       return;
@@ -195,10 +197,10 @@ export function usePopover(props: Partial<PopoverProps>): PopoverResult {
       hidePopover('leave');
     },
     open: Boolean(controller),
-    ref: typeof props.children === 'function' ? undefined : ref,
+    ref,
   };
 
-  if (typeof (props.children as ReactElement)?.type === 'function') {
+  if (typeof (children as ReactElement)?.type === 'function') {
     delete result.ref;
   }
 
@@ -217,6 +219,7 @@ export interface FloatProps
   closeTriggers: CloseTrigger[];
   color: string;
   content: ReactNode;
+  disabled?: boolean;
   offset: number;
   positionFn(input: PositionOptions): void;
   placement: Placement;

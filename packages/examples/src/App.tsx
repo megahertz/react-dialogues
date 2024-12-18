@@ -35,7 +35,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <NotificationController />
-        <nav className="menu">
+        <nav className="menu test-hidden">
           <NavLink to="/modals">Modals</NavLink>
           <NavLink to="/notifications">Notifications</NavLink>
           <NavLink to="/popovers">Popovers</NavLink>
