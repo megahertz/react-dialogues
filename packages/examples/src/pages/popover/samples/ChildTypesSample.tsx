@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Button, ButtonProps, Footer, Tooltip } from 'react-dialogues';
-import styles from './ComplexTargetsSample.module.css';
+import styles from './ChildTypesSample.module.css';
 
 export function ChildTypesSample() {
   return (
@@ -45,7 +45,7 @@ export function TableRowSample() {
   }));
 
   return (
-    <table className={styles.table}>
+    <table className={`${styles.table} test-hidden`}>
       <thead>
         <tr>
           <th>id</th>

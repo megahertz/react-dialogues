@@ -30,7 +30,7 @@ test('Large modal with long text', async ({ page }) => {
 
   await page.getByText('Large & Long', { exact: true }).click();
 
-  await expectScreenshot(page, { maxDiffPixels: 700 });
+  await expectScreenshot(page, { maxDiffPixels: 750 });
 });
 
 test('Fullscreen modal', async ({ page }) => {

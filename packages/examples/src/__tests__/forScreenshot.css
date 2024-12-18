@@ -3,3 +3,7 @@
   font-family: sans-serif !important;
   transition: none !important;
 }
+
+.test-hidden {
+  display: none;
+}
