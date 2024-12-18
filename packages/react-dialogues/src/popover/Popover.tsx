@@ -5,6 +5,7 @@ import {
   isValidElement,
   type MouseEventHandler,
   type MutableRefObject,
+  type ReactElement,
   type ReactNode,
   type UIEvent,
   useEffect,
@@ -112,6 +113,7 @@ export function Popover({
 }: PopoverProps) {
   const { open, ...handlers } = usePopover({
     ...props,
+    children,
     className: cls('rd-popover', className),
     classNames,
   });
@@ -119,7 +121,7 @@ export function Popover({
   const wrapped = isValidElement(children) ? (
     children
   ) : (
-    <span className={cls('rd-popover-wrap', classNames?.wrap)}>{children}</span>
+    <span className={classNames?.wrap}>{children}</span>
   );
 
   return cloneElement(wrapped, {
@@ -147,7 +149,7 @@ export function usePopover(props: Partial<PopoverProps>): PopoverResult {
       return;
     }
 
-    if (!ref.current) {
+    if (!ref.current?.nodeName) {
       ref.current = e.target as HTMLElement;
     }
 
@@ -176,7 +178,7 @@ export function usePopover(props: Partial<PopoverProps>): PopoverResult {
     setController(undefined);
   }
 
-  return {
+  const result: PopoverResult = {
     onBlur() {
       hidePopover('blur');
     },
@@ -193,8 +195,14 @@ export function usePopover(props: Partial<PopoverProps>): PopoverResult {
       hidePopover('leave');
     },
     open: Boolean(controller),
-    ref,
+    ref: typeof props.children === 'function' ? undefined : ref,
   };
+
+  if (typeof (props.children as ReactElement)?.type === 'function') {
+    delete result.ref;
+  }
+
+  return result;
 }
 
 export interface PopoverProps extends Partial<FloatProps> {
@@ -237,7 +245,7 @@ export interface PopoverResult {
   onMouseEnter?: MouseEventHandler<HTMLElement>;
   onMouseLeave?: MouseEventHandler<HTMLElement>;
   open: boolean;
-  ref: MutableRefObject<HTMLElement | undefined>;
+  ref: MutableRefObject<HTMLElement | undefined> | undefined;
 }
 
 export type Placement =

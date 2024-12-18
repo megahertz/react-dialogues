@@ -1,3 +1,4 @@
+import { ChildTypesSample } from './samples/ChildTypesSample';
 import { ComplexTargetsSample } from './samples/ComplexTargetsSample';
 import { PlacementSample } from './samples/PlacementSample';
 import { PopoverSample } from './samples/PopoverSample';
@@ -23,6 +24,9 @@ export default function PopoverPage() {
 
       <h2>Complex targets</h2>
       <ComplexTargetsSample />
+
+      <h2>Child types</h2>
+      <ChildTypesSample />
     </>
   );
 }

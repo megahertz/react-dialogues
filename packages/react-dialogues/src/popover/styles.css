@@ -64,10 +64,6 @@
   box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.05);
 }
 
-.rd-popover-wrap {
-  display: contents;
-}
-
 .rd-tooltip {
   --rd-float-bg: var(--rd-bg-contast);
   border-radius: 4px;
