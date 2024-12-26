@@ -1,6 +1,5 @@
 html:has(.rd-modal) {
   overflow: hidden;
-  pointer-events: none;
 }
 
 .rd-modal-wrapper {
