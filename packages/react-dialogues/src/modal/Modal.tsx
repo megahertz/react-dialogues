@@ -48,7 +48,6 @@ export function Modal({
 }: ModalProps) {
   const item = useRdController();
   const focusRootRef = useFocusLock();
-  useScrollLock();
   useKey((key) => item?.destroy(key), ['keyEnter', 'keyEscape']);
 
   function onMaskClick(e: MouseEvent<HTMLDivElement>) {
@@ -164,9 +163,10 @@ function useFocusLock() {
       return undefined;
     }
 
-    disabledElementsRef.current = Array.from(
-      document.querySelectorAll('body > *'),
-    ).filter((el) => !el.contains(rootEl));
+    disabledElementsRef.current = [
+      ...Array.from(document.querySelectorAll('body > *')),
+      ...Array.from(rootEl.parentNode?.parentNode?.children || []),
+    ].filter((el) => !el.contains(rootEl));
 
     disabledElementsRef.current.forEach((el) => el.setAttribute('inert', ''));
 
@@ -175,22 +175,6 @@ function useFocusLock() {
   }, [rootEl]);
 
   return setRootEl;
-}
-
-function useScrollLock() {
-  const oldOverflowRef = useRef<string>('');
-
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return undefined;
-    }
-
-    oldOverflowRef.current = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = oldOverflowRef.current;
-    };
-  }, []);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

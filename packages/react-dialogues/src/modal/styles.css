@@ -1,3 +1,8 @@
+html:has(.rd-modal) {
+  overflow: hidden;
+  pointer-events: none;
+}
+
 .rd-modal-wrapper {
   inset: 0;
   overflow: auto;
