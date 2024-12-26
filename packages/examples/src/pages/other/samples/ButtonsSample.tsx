@@ -11,6 +11,15 @@ export function ButtonsSample() {
         <Button>Primary button</Button>
         <Button type="secondary">Secondary button</Button>
         <Button type="text">Text button</Button>
+        <Button icon="🗑">Icon</Button>
+      </Footer>
+
+      <h3>Button colors</h3>
+      <Footer align="left">
+        <Button color="success">Success</Button>
+        <Button color="warning">Warning</Button>
+        <Button color="error">Error</Button>
+        <Button color="#b2c">Custom</Button>
       </Footer>
 
       <h3>Disabled</h3>

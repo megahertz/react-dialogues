@@ -6,12 +6,12 @@ import React, {
   type ReactNode,
 } from 'react';
 import { Fragment } from 'react/jsx-runtime';
-import { Button } from '../controls/Button';
+import { Button, type ButtonProps } from '../controls/Button';
 import { CancelButton } from '../controls/CancelButton';
 import { OkButton } from '../controls/OkButton';
-import { ActionMode } from '../core/RdState';
+import type { ActionMode } from '../core/RdState';
 import { cls } from '../utils/string';
-import { AnyComponentType, NotificationType } from '../utils/types';
+import type { AnyComponentType, NotificationType } from '../utils/types';
 import { Body, DialogContainer, Header, NotificationIcon } from './components';
 import { DialogCloseButton } from './DialogCloseButton';
 import { Footer } from './Footer';
@@ -59,28 +59,7 @@ export const Dialog = forwardRef(function Dialog(
   if (footer === undefined && Array.isArray(buttons) && buttons.length > 0) {
     footerEl = (
       <Footer className={classNames?.footer}>
-        {buttons.map((button, i) => {
-          const key = i;
-
-          if (typeof button === 'string') {
-            const value = button.toLowerCase();
-            if (value === 'cancel') {
-              return <CancelButton key={key}>{button}</CancelButton>;
-            }
-
-            if (value === 'ok') {
-              return <OkButton key={key}>{button}</OkButton>;
-            }
-
-            return (
-              <Button key={key} value={value}>
-                {button}
-              </Button>
-            );
-          }
-
-          return <Fragment key={key}>{button}</Fragment>;
-        })}
+        {buttons.map((button, i) => renderButton(button, i))}
       </Footer>
     );
   }
@@ -111,11 +90,36 @@ export const Dialog = forwardRef(function Dialog(
   );
 });
 
+function renderButton(button: DialogButton, key: number) {
+  if (typeof button === 'string') {
+    const value = button.toLowerCase();
+    if (value === 'cancel') {
+      return <CancelButton key={key}>{button}</CancelButton>;
+    }
+
+    if (value === 'ok') {
+      return <OkButton key={key}>{button}</OkButton>;
+    }
+
+    return (
+      <Button key={key} value={value}>
+        {button}
+      </Button>
+    );
+  }
+
+  if (typeof button === 'object') {
+    return <Button key={key} {...(button as ButtonProps)} />;
+  }
+
+  return <Fragment key={key}>{button}</Fragment>;
+}
+
 export interface DialogProps<P = any>
   extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   actionMode?: ActionMode;
   body?: ReactNode;
-  buttons?: ReactNode[];
+  buttons?: DialogButton[];
   classNames?: Partial<Record<DialogSlots, string>>;
   close?: ReactNode;
   component?: AnyComponentType<P>;
@@ -132,3 +136,4 @@ export interface DialogProps<P = any>
 }
 
 export type DialogSlots = 'body' | 'footer' | 'header' | 'icon' | 'iconWrap';
+export type DialogButton = ReactNode | ButtonProps;

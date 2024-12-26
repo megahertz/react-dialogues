@@ -1,6 +1,15 @@
+/*noinspection CssOverwrittenProperties*/
 .rd-btn {
+  --rd-btn-main: var(--rd-primary);
+  --rd-btn-hover: var(--rd-primary-light);
+  --rd-btn-hover: oklch(from var(--rd-btn-main) calc(l + 0.1) calc(c - 0.02) h);
+  --rd-btn-outline: var(--rd-primary-soft);
+  --rd-btn-outline: oklch(
+    from var(--rd-btn-main) calc(l + 0.3) calc(c - 0.05) h
+  );
+
   align-items: center;
-  background: var(--rd-primary);
+  background: var(--rd-btn-main);
   border: 1px solid transparent;
   border-radius: 6px;
   color: #fff;
@@ -19,7 +28,7 @@
 }
 
 .rd-btn:not(:disabled):focus-visible {
-  outline: 4px solid #91caff;
+  outline: 4px solid var(--rd-btn-outline);
   outline-offset: 1px;
   transition:
     outline-offset 0s,
@@ -27,7 +36,11 @@
 }
 
 .rd-btn:hover {
-  background: var(--rd-primary-light);
+  background: var(--rd-btn-hover);
+}
+
+.rd-btn-icon {
+  display: inline-flex;
 }
 
 .rd-btn-secondary {

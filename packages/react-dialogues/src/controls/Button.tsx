@@ -1,10 +1,12 @@
 import {
+  type CSSProperties,
   type ForwardedRef,
   forwardRef,
-  ForwardRefExoticComponent,
+  type ForwardRefExoticComponent,
   type HTMLAttributes,
   type MouseEvent,
-  RefAttributes,
+  type ReactNode,
+  type RefAttributes,
   useState,
 } from 'react';
 import { useRdController } from '../core/controllerContext';
@@ -21,6 +23,8 @@ export const Button = forwardRef(function ButtonComponent(
   const {
     children,
     className,
+    color,
+    icon,
     loading,
     onClick,
     errorAction,
@@ -93,10 +97,12 @@ export const Button = forwardRef(function ButtonComponent(
       className={cssClasses}
       onClick={handleClick}
       ref={ref}
+      style={getStyle({ color })}
       type="button"
       {...(rest as object)}
     >
       {isLoading && <Spinner bgColor="none" />}
+      {icon && <div className="rd-btn-icon">{icon}</div>}
       {children}
     </button>
   );
@@ -106,9 +112,25 @@ export const Button = forwardRef(function ButtonComponent(
 
 Button.defaults = {} as ButtonProps;
 
+function getStyle({ color }: { color?: string }): CSSProperties {
+  const style = {} as CSSProperties;
+
+  if (color) {
+    const colorValue = ['success', 'warning', 'error'].includes(color)
+      ? `var(--rd-${color})`
+      : color;
+    Object.assign(style, {
+      '--rd-btn-main': colorValue,
+    });
+  }
+  return style;
+}
+
 export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+  color?: 'warning' | 'success' | 'error' | string;
   disabled?: boolean;
   errorAction?: ButtonErrorAction;
+  icon?: ReactNode;
   loading?: boolean;
   onErrorHandler?(error: unknown, message: string, props: ButtonProps): void;
   type?: 'primary' | 'secondary' | 'text';
