@@ -3,6 +3,7 @@ import React, {
   type ForwardedRef,
   forwardRef,
   type HTMLAttributes,
+  isValidElement,
   type ReactNode,
 } from 'react';
 import { Fragment } from 'react/jsx-runtime';
@@ -108,7 +109,7 @@ function renderButton(button: DialogButton, key: number) {
     );
   }
 
-  if (typeof button === 'object') {
+  if (typeof button === 'object' && !isValidElement(button)) {
     return <Button key={key} {...(button as ButtonProps)} />;
   }
 
