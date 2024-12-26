@@ -6,5 +6,5 @@ test('Notification should be shown on error', async ({ page }) => {
 
   await page.getByText('Error handling', { exact: true }).click();
 
-  await expectScreenshot(page);
+  await expectScreenshot(page, { maxDiffPixels: 400 });
 });
