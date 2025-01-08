@@ -151,9 +151,9 @@ export function usePopover(props: Partial<PopoverProps>): PopoverResult {
       return;
     }
 
-    if (!ref.current?.nodeName) {
-      ref.current = e.target as HTMLElement;
-    }
+    // Previously, I changed ref only if the current is empty:
+    // if (!ref.current?.nodeName || !document.body.contains(ref.current)) {
+    ref.current = e.target as HTMLElement;
 
     setController(
       dialogues.internal.state.add({
