@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Button, Toast } from 'react-dialogues';
 import { Link, Router, Route, Switch, useLocation } from 'wouter';
 import ModalPage from './pages/modals/ModalPage';
@@ -28,68 +28,83 @@ export default function App() {
     <Router>
       <NotificationController />
       <nav className="menu test-hidden">
-        <Link to="/modals">Modals</Link>
-        <Link to="/toasts">Toasts</Link>
-        <Link to="/popovers">Popovers</Link>
-        <Link to="/other">Other</Link>
+        <MenuLink to="/modals">Modals</MenuLink>
+        <MenuLink to="/toasts">Toasts</MenuLink>
+        <MenuLink to="/popovers">Popovers</MenuLink>
+        <MenuLink to="/other">Other</MenuLink>
         <ToggleTheme />
       </nav>
       <main className="content">
-        <Route path="modals" nest>
-          <Switch>
-            <Route
-              path="ModalCustomComponentSample"
-              component={ModalCustomComponentSample}
-            />
-            <Route path="ModalMultipleSample" component={ModalMultipleSample} />
-            <Route
-              path="ModalNotificationTypesSample"
-              component={ModalNotificationTypesSample}
-            />
-            <Route
-              path="ModalSizesAndPositionSample"
-              component={ModalSizesAndPositionSample}
-            />
-            <Route path="ModalStaticMethods" component={ModalStaticMethods} />
-            <Route component={ModalPage} />
-          </Switch>
-        </Route>
-        <Route path="other" nest>
-          <Switch>
-            <Route path="ButtonsSample" component={ButtonsSample} />
-            <Route path="SpinnersSample" component={SpinnersSample} />
-            <Route path="ThemeSample" component={ThemeSample} />
-            <Route component={OtherPage} />
-          </Switch>
-        </Route>
-        <Route path="popovers" nest>
-          <Switch>
-            <Route path="ChildTypesSample" component={ChildTypesSample} />
-            <Route path="PlacementSample" component={PlacementSample} />
-            <Route path="PopoverSample" component={PopoverSample} />
-            <Route path="ScrollSample" component={ScrollSample} />
-            <Route path="TooltipSample" component={TooltipSample} />
-            <Route component={PopoverPage} />
-          </Switch>
-        </Route>
-        <Route path="toasts" nest>
-          <Switch>
-            <Route
-              path="ToastCustomComponentSample"
-              component={ToastCustomComponentSample}
-            />
-            <Route
-              path="ToastItemMethodsSample"
-              component={ToastItemMethodsSample}
-            />
-            <Route path="ToastShowSample" component={ToastShowSample} />
-            <Route path="ToastTypesSample" component={ToastTypesSample} />
-            <Route component={ToastPage} />
-          </Switch>
-        </Route>
+        <Switch>
+          <Route path="modals" nest>
+            <Switch>
+              <Route
+                path="ModalCustomComponentSample"
+                component={ModalCustomComponentSample}
+              />
+              <Route
+                path="ModalMultipleSample"
+                component={ModalMultipleSample}
+              />
+              <Route
+                path="ModalNotificationTypesSample"
+                component={ModalNotificationTypesSample}
+              />
+              <Route
+                path="ModalSizesAndPositionSample"
+                component={ModalSizesAndPositionSample}
+              />
+              <Route path="ModalStaticMethods" component={ModalStaticMethods} />
+              <Route component={ModalPage} />
+            </Switch>
+          </Route>
+          <Route path="other" nest>
+            <Switch>
+              <Route path="ButtonsSample" component={ButtonsSample} />
+              <Route path="SpinnersSample" component={SpinnersSample} />
+              <Route path="ThemeSample" component={ThemeSample} />
+              <Route component={OtherPage} />
+            </Switch>
+          </Route>
+          <Route path="popovers" nest>
+            <Switch>
+              <Route path="ChildTypesSample" component={ChildTypesSample} />
+              <Route path="PlacementSample" component={PlacementSample} />
+              <Route path="PopoverSample" component={PopoverSample} />
+              <Route path="ScrollSample" component={ScrollSample} />
+              <Route path="TooltipSample" component={TooltipSample} />
+              <Route component={PopoverPage} />
+            </Switch>
+          </Route>
+          <Route path="toasts" nest>
+            <Switch>
+              <Route
+                path="ToastCustomComponentSample"
+                component={ToastCustomComponentSample}
+              />
+              <Route
+                path="ToastItemMethodsSample"
+                component={ToastItemMethodsSample}
+              />
+              <Route path="ToastShowSample" component={ToastShowSample} />
+              <Route path="ToastTypesSample" component={ToastTypesSample} />
+              <Route component={ToastPage} />
+            </Switch>
+          </Route>
+          <Route>
+            <h1>Examples</h1>
+          </Route>
+        </Switch>
       </main>
-      <Route />
     </Router>
+  );
+}
+
+function MenuLink({ children, to }: { children: ReactNode; to: string }) {
+  return (
+    <Link to={to!} className={(isActive) => (isActive ? 'active' : '')}>
+      {children}
+    </Link>
   );
 }
 

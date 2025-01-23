@@ -1,4 +1,4 @@
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import {
   RootContainer,
   type PortalMountedPayload,
@@ -60,13 +60,12 @@ export const dialogues = {
         return;
       }
 
-      render(
+      createRoot(dialogues.config.getContainerElement()).render(
         <RootContainer
           initControllers={internal.state.controllers}
           onMount={internal.onPortalMounted}
           onUnmount={internal.onPortalUnmounted}
         />,
-        dialogues.config.getContainerElement(),
       );
     },
 
