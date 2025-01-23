@@ -9,7 +9,7 @@
     "preversion": "false",
     "publish": "cd packages/react-dialogues && npm publish",
     "start": "npm start --prefix packages/examples",
-    "test": "npm test --prefix packages/examples",
+    "test": "npm test --prefix packages/react-dialogues && npm test --prefix packages/examples",
     "test:full": "npm run lint && npm run typecheck && npm test",
     "test:update": "npm test -- -- --update-snapshots",
     "test:ui": "npm test -- -- --ui",

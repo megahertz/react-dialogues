@@ -22,7 +22,6 @@ import { Result } from '../utils/types';
 const Mask = createDivComponent('mask');
 
 const defaults: ModalProps = {
-  actionMode: 'simplified',
   buttons: ['OK'],
   centered: false,
   className: '',
@@ -129,12 +128,9 @@ function createShowFunction(overrides: ModalProps = {}) {
     TResult extends Result = Result,
     TProps extends ModalProps = ModalProps,
   >({
-    actionMode = defaults.actionMode || 'simplified',
     closeOthers = defaults.closeOthers,
     ...props
   }: ModalProps & ModalShowOptions): RdController<TProps, TResult> => {
-    const mergedProps = { ...overrides, ...props } as TProps;
-
     if (closeOthers) {
       dialogues.internal.state.getControllersByType('modal').forEach((item) => {
         item.destroy('closeOthers');
@@ -142,9 +138,8 @@ function createShowFunction(overrides: ModalProps = {}) {
     }
 
     const controller = dialogues.internal.state.add<TProps, TResult>({
-      actionMode,
       component: props.component || Modal,
-      props: mergedProps,
+      props: { ...overrides, ...props } as TProps,
       controllerType: 'modal',
     });
 

@@ -35,9 +35,9 @@ export default class RdState {
   add<
     TProps extends DialogProps = DialogProps,
     TResult extends [string, unknown] = [string, unknown],
-  >(elementInitOptions: RdControllerInit<TProps>) {
+  >(init: RdControllerInit<TProps>) {
     this.lastControllerId += 1;
-    const id = elementInitOptions.id || this.lastControllerId.toString();
+    const id = init.id || this.lastControllerId.toString();
 
     let resolve: (result: TResult) => void;
     const promise = new Promise<TResult>((r) => {
@@ -45,7 +45,11 @@ export default class RdState {
     });
 
     const controller = {
-      ...elementInitOptions,
+      ...init,
+      actionMode:
+        init.actionMode ||
+        init.props.actionMode ||
+        ((init.props.buttons?.length || 3) > 2 ? 'simplified' : 'okClose'),
       destroyed: false,
       id: this.lastControllerId.toString(),
       result: undefined,
@@ -131,10 +135,10 @@ function transformAction(action: string, mode: ActionMode): string {
 }
 
 export interface RdControllerInit<TProps = DialogProps> {
-  actionMode: ActionMode;
+  actionMode?: ActionMode;
   id?: string;
   component: AnyComponentType;
-  props?: TProps;
+  props: TProps;
   controllerType: ControllerType;
 }
 
@@ -143,6 +147,7 @@ export interface RdController<
   TResult extends [string, unknown] = [string, unknown],
 > extends RdControllerInit<TProps>,
     Promise<TResult> {
+  actionMode: ActionMode;
   destroyed: boolean;
   id: string;
   result: TResult[1];

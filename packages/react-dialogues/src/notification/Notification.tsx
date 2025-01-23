@@ -14,7 +14,6 @@ import type { Result } from '../utils/types';
 import { Progress } from './Progress';
 
 const defaults: NotificationProps = {
-  actionMode: 'simplified',
   className: '',
   duration: 5000,
   keepOnFocusLoss: true,
@@ -114,7 +113,6 @@ function createShowFunction(overrides: NotificationProps = {}) {
     TResult extends Result = Result,
     TProps extends NotificationProps = NotificationProps,
   >({
-    actionMode = defaults.actionMode || 'simplified',
     ...props
   }: NotificationProps): RdController<TProps, TResult> => {
     const mergedProps = {
@@ -124,7 +122,6 @@ function createShowFunction(overrides: NotificationProps = {}) {
     } as TProps;
 
     const element = dialogues.internal.state.add<TProps, TResult>({
-      actionMode,
       controllerType: 'notification',
       props: mergedProps as TProps,
       component: props.component || Notification,
