@@ -7,7 +7,7 @@ import {
 } from 'react';
 import type { RdController } from '../core/RdState';
 import { UniversalContainer } from './UniversalContainer';
-import { NotificationContainer } from './NotificationContainer';
+import { ToastContainer } from './ToastContainer';
 
 export function RootContainer({
   initControllers = [],
@@ -23,9 +23,7 @@ export function RootContainer({
     useState<RdController[]>(initControllers);
 
   const modalItems = controllers.filter((i) => i.controllerType === 'modal');
-  const notificationItems = controllers.filter(
-    (i) => i.controllerType === 'notification',
-  );
+  const toastItems = controllers.filter((i) => i.controllerType === 'toast');
   const popoverItems = controllers.filter(
     (i) => i.controllerType === 'popover',
   );
@@ -41,7 +39,7 @@ export function RootContainer({
   return (
     <>
       <UniversalContainer controllers={modalItems} />
-      <NotificationContainer controllers={notificationItems} />
+      <ToastContainer controllers={toastItems} />
       <UniversalContainer controllers={popoverItems} />
       <div ref={ref} />
     </>

@@ -1,47 +1,47 @@
-.rd-notification-container {
+.rd-toast-container {
   z-index: 1002;
   position: fixed;
 }
-.rd-notification-container.bottom {
+.rd-toast-container.bottom {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
 }
-.rd-notification-container.bottomLeft {
+.rd-toast-container.bottomLeft {
   bottom: 0;
   left: 16px;
 }
-.rd-notification-container.bottomRight {
+.rd-toast-container.bottomRight {
   bottom: 0;
   right: 16px;
 }
-.rd-notification-container.top {
+.rd-toast-container.top {
   left: 50%;
   top: 16px;
   transform: translateX(-50%);
 }
-.rd-notification-container.topLeft {
+.rd-toast-container.topLeft {
   left: 16px;
   top: 16px;
 }
-.rd-notification-container.topRight {
+.rd-toast-container.topRight {
   right: 16px;
   top: 16px;
 }
 
-.rd-notification {
+.rd-toast {
   margin-bottom: 16px;
   overflow: hidden;
   width: 384px;
 }
 
-.rd-notification .rd-header {
+.rd-toast .rd-header {
   font-size: 110%;
   font-weight: normal;
 }
 
-.rd-notification-progress {
-  animation: rd-notification-progress linear 1 forwards;
+.rd-toast-progress {
+  animation: rd-toast-progress linear 1 forwards;
   background: var(--rd-primary);
   bottom: 0;
   height: 3px;
@@ -50,17 +50,17 @@
   transition: width 0.2s ease;
   width: 100%;
 }
-.rd-success .rd-notification-progress {
+.rd-success .rd-toast-progress {
   background: var(--rd-success);
 }
-.rd-warning .rd-notification-progress {
+.rd-warning .rd-toast-progress {
   background: var(--rd-warning);
 }
-.rd-error .rd-notification-progress {
+.rd-error .rd-toast-progress {
   background: var(--rd-error);
 }
 
-@keyframes rd-notification-progress {
+@keyframes rd-toast-progress {
   0% {
     width: 100%;
   }

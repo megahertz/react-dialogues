@@ -1,5 +1,5 @@
 import { Button } from './controls/Button';
-import { Notification } from './notification/Notification';
+import { Toast } from './toast/Toast';
 
 Button.defaults.onErrorHandler = function onErrorHandler(
   error,
@@ -16,5 +16,5 @@ Button.defaults.onErrorHandler = function onErrorHandler(
     return;
   }
 
-  Notification.error({ children: message });
+  Toast.error({ children: message });
 };

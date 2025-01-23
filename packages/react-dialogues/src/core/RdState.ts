@@ -157,6 +157,6 @@ export interface RdController<
   setResult: (result: TResult[1]) => void;
 }
 
-export type ControllerType = 'modal' | 'notification' | 'popover';
+export type ControllerType = 'modal' | 'toast' | 'popover';
 
 export type ActionMode = 'okClose' | 'simplified' | 'full';

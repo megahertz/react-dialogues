@@ -1,7 +1,7 @@
 @import './controls/styles.css';
 @import './dialog/styles.css';
 @import './modal/styles.css';
-@import './notification/styles.css';
+@import './toast/styles.css';
 @import './popover/styles.css';
 
 html,

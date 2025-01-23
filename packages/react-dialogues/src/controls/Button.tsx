@@ -137,4 +137,4 @@ export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   value?: string;
 }
 
-export type ButtonErrorAction = 'notification' | 'console' | 'none';
+export type ButtonErrorAction = 'toast' | 'console' | 'none';

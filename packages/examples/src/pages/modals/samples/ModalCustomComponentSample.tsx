@@ -6,7 +6,7 @@ import {
   Footer,
   Header,
   Modal,
-  Notification,
+  Toast,
   OkButton,
   TextField,
   useRdController,
@@ -27,11 +27,11 @@ export function ModalCustomComponentSample() {
           });
 
           if (action === 'save') {
-            Notification.info({
+            Toast.info({
               children: `User saved: ${JSON.stringify(result, null, 2)}`,
             });
           } else {
-            Notification.warning({
+            Toast.warning({
               children: `User editing was cancelled: ${action}`,
             });
           }

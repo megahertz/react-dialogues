@@ -13,7 +13,7 @@ import { cls } from '../utils/string';
 import type { Result } from '../utils/types';
 import { Progress } from './Progress';
 
-const defaults: NotificationProps = {
+const defaults: ToastProps = {
   className: '',
   duration: 5000,
   keepOnFocusLoss: true,
@@ -23,7 +23,7 @@ const defaults: NotificationProps = {
   showProgress: true,
 };
 
-export function Notification({
+export function Toast({
   className = defaults.className,
   classNames = {},
   duration = defaults.duration,
@@ -33,14 +33,14 @@ export function Notification({
   role = defaults.role,
   showProgress = defaults.showProgress,
   ...props
-}: NotificationProps) {
+}: ToastProps) {
   const item = useRdController();
   const timer = useCountdownTimer({
     duration,
     keepOnFocusLoss,
     onFinish: () => item?.destroy('timeout'),
   });
-  const cssClass = cls('rd-notification', className);
+  const cssClass = cls('rd-toast', className);
 
   return (
     <Dialog
@@ -72,15 +72,15 @@ export function Notification({
   );
 }
 
-Notification.defaults = defaults;
+Toast.defaults = defaults;
 
-Notification.show = createShowFunction();
-Notification.info = createShowFunction({ type: 'info' });
-Notification.success = createShowFunction({ type: 'success' });
-Notification.warning = createShowFunction({ type: 'warning' });
-Notification.error = createShowFunction({ type: 'error' });
+Toast.show = createShowFunction();
+Toast.info = createShowFunction({ type: 'info' });
+Toast.success = createShowFunction({ type: 'success' });
+Toast.warning = createShowFunction({ type: 'warning' });
+Toast.error = createShowFunction({ type: 'error' });
 
-Notification.showCustom = <
+Toast.showCustom = <
   TResult extends Result = Result,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TComponent extends ComponentType<any> = ComponentType<any>,
@@ -89,32 +89,29 @@ Notification.showCustom = <
   component: TComponent,
   props?: ComponentProps<TComponent>,
 ): RdController<TProps, TResult> => {
-  return Notification.show<TResult, TProps>({
+  return Toast.show<TResult, TProps>({
     component,
     ...props,
   });
 };
 
-Notification.getAll = () => {
-  dialogues.internal.state.getControllersByType('notification');
+Toast.getAll = () => {
+  dialogues.internal.state.getControllersByType('toast');
 };
 
-Notification.destroyAll = (action = 'destroyAll', result?: unknown) => {
-  for (const item of dialogues.internal.state.getControllersByType(
-    'notification',
-  )) {
+Toast.destroyAll = (action = 'destroyAll', result?: unknown) => {
+  for (const item of dialogues.internal.state.getControllersByType('toast')) {
     item.destroy(action, result);
   }
 };
 
-function createShowFunction(overrides: NotificationProps = {}) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+function createShowFunction(overrides: ToastProps = {}) {
   return <
     TResult extends Result = Result,
-    TProps extends NotificationProps = NotificationProps,
+    TProps extends ToastProps = ToastProps,
   >({
     ...props
-  }: NotificationProps): RdController<TProps, TResult> => {
+  }: ToastProps): RdController<TProps, TResult> => {
     const mergedProps = {
       placement: defaults.placement,
       ...overrides,
@@ -122,9 +119,9 @@ function createShowFunction(overrides: NotificationProps = {}) {
     } as TProps;
 
     const element = dialogues.internal.state.add<TProps, TResult>({
-      controllerType: 'notification',
+      controllerType: 'toast',
       props: mergedProps as TProps,
-      component: props.component || Notification,
+      component: props.component || Toast,
     });
 
     dialogues.internal.ensurePortalRendered();
@@ -177,18 +174,18 @@ function useCountdownTimer({
   };
 }
 
-export interface NotificationProps extends DialogProps {
-  classNames?: Partial<Record<NotificationSlots, string>>;
+export interface ToastProps extends DialogProps {
+  classNames?: Partial<Record<ToastSlots, string>>;
   duration?: number;
   keepOnFocusLoss?: boolean;
   pauseOnHover?: boolean;
-  placement?: NotificationPlacement;
+  placement?: ToastPlacement;
   showProgress?: boolean;
 }
 
-export type NotificationSlots = DialogSlots | 'progress';
+export type ToastSlots = DialogSlots | 'progress';
 
-export type NotificationPlacement =
+export type ToastPlacement =
   | 'bottom'
   | 'bottomLeft'
   | 'bottomRight'

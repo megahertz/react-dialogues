@@ -3,37 +3,37 @@ import {
   Button,
   dialogues,
   Footer,
-  Notification,
+  Toast,
   type RdController,
   type ThemeName,
 } from 'react-dialogues';
 
 export function ThemeSample() {
-  const [notification, setNotification] = useState<RdController>();
+  const [toast, setToast] = useState<RdController>();
 
   function createThemeChanger(theme: ThemeName) {
     return () => {
-      showTestNotification();
+      showTestToast();
       dialogues.config.theme = theme;
     };
   }
 
-  function showTestNotification() {
-    if (notification) {
+  function showTestToast() {
+    if (toast) {
       return;
     }
 
-    setNotification(
-      Notification.info({
-        children: 'Notification test',
+    setToast(
+      Toast.info({
+        children: 'Toast test',
         duration: 0,
-        onClose: () => setNotification(undefined),
+        onClose: () => setToast(undefined),
       }),
     );
   }
 
   useEffect(() => {
-    showTestNotification();
+    showTestToast();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

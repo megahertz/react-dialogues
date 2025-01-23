@@ -1,12 +1,12 @@
-import { Button, Footer, Notification } from 'react-dialogues';
+import { Button, Footer, Toast } from 'react-dialogues';
 
-export function NotificationShowSample() {
+export function ToastShowSample() {
   return (
     <>
       <Footer align="left">
         <Button
           onClick={async () => {
-            Notification.show({
+            Toast.show({
               children: 'placement: topLeft',
               placement: 'topLeft',
             });
@@ -16,7 +16,7 @@ export function NotificationShowSample() {
         </Button>
         <Button
           onClick={() => {
-            Notification.show({
+            Toast.show({
               children: 'placement: top',
               placement: 'top',
             });
@@ -26,7 +26,7 @@ export function NotificationShowSample() {
         </Button>
         <Button
           onClick={() => {
-            Notification.show({
+            Toast.show({
               children: 'placement: topRight',
               placement: 'topRight',
             });
@@ -38,7 +38,7 @@ export function NotificationShowSample() {
       <Footer align="left">
         <Button
           onClick={() => {
-            Notification.show({
+            Toast.show({
               children: 'placement: bottomLeft',
               placement: 'bottomLeft',
             });
@@ -48,7 +48,7 @@ export function NotificationShowSample() {
         </Button>
         <Button
           onClick={() => {
-            Notification.show({
+            Toast.show({
               children: 'placement: bottom',
               placement: 'bottom',
             });
@@ -58,7 +58,7 @@ export function NotificationShowSample() {
         </Button>
         <Button
           onClick={() => {
-            Notification.show({
+            Toast.show({
               children: 'placement: bottomRight',
               placement: 'bottomRight',
             });

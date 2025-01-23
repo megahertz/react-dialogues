@@ -8,7 +8,7 @@ export function Progress({
   style,
   ...props
 }: ProgressProps) {
-  const classNames = cls('rd-notification-progress', className);
+  const classNames = cls('rd-toast-progress', className);
   const styles: CSSProperties = {
     ...style,
     animationDuration: `${duration}ms`,

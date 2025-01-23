@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Notification } from 'react-dialogues';
+import { Button, Toast } from 'react-dialogues';
 import {
   createBrowserRouter,
   NavLink,
@@ -13,11 +13,11 @@ import { ModalMultipleSample } from './pages/modals/samples/ModalMultipleSample'
 import { ModalNotificationTypesSample } from './pages/modals/samples/ModalNotificationTypesSample';
 import { ModalStaticMethods } from './pages/modals/samples/ModalStaticMethods';
 import { ModalSizesAndPositionSample } from './pages/modals/samples/ModalSizesAndPositionSample';
-import NotificationPage from './pages/notifications/NotificationPage';
-import { NotificationCustomComponentSample } from './pages/notifications/samples/NotificationCustomComponentSample';
-import { NotificationItemMethodsSample } from './pages/notifications/samples/NotificationItemMethodsSample';
-import { NotificationShowSample } from './pages/notifications/samples/NotificationShowSample';
-import { NotificationTypesSample } from './pages/notifications/samples/NotificationTypesSample';
+import ToastPage from './pages/toasts/ToastPage';
+import { ToastCustomComponentSample } from './pages/toasts/samples/ToastCustomComponentSample';
+import { ToastItemMethodsSample } from './pages/toasts/samples/ToastItemMethodsSample';
+import { ToastShowSample } from './pages/toasts/samples/ToastShowSample';
+import { ToastTypesSample } from './pages/toasts/samples/ToastTypesSample';
 import OtherPage from './pages/other/OtherPage';
 import { ButtonsSample } from './pages/other/samples/ButtonsSample';
 import { SpinnersSample } from './pages/other/samples/SpinnersSample';
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         <NotificationController />
         <nav className="menu test-hidden">
           <NavLink to="/modals">Modals</NavLink>
-          <NavLink to="/notifications">Notifications</NavLink>
+          <NavLink to="/toasts">Toasts</NavLink>
           <NavLink to="/popovers">Popovers</NavLink>
           <NavLink to="/other">Other</NavLink>
           <ToggleTheme />
@@ -74,24 +74,20 @@ const router = createBrowserRouter([
       },
 
       {
-        path: 'notifications',
-        element: <NotificationPage />,
+        path: 'other',
+        element: <OtherPage />,
       },
       {
-        path: 'notifications/NotificationCustomComponentSample',
-        element: <NotificationCustomComponentSample />,
+        path: 'other/ButtonsSample',
+        element: <ButtonsSample />,
       },
       {
-        path: 'notifications/NotificationItemMethodsSample',
-        element: <NotificationItemMethodsSample />,
+        path: 'other/SpinnersSample',
+        element: <SpinnersSample />,
       },
       {
-        path: 'notifications/NotificationShowSample',
-        element: <NotificationShowSample />,
-      },
-      {
-        path: 'notifications/NotificationTypesSample',
-        element: <NotificationTypesSample />,
+        path: 'other/ThemeSample',
+        element: <ThemeSample />,
       },
 
       {
@@ -120,20 +116,24 @@ const router = createBrowserRouter([
       },
 
       {
-        path: 'other',
-        element: <OtherPage />,
+        path: 'toasts',
+        element: <ToastPage />,
       },
       {
-        path: 'other/ButtonsSample',
-        element: <ButtonsSample />,
+        path: 'toasts/ToastCustomComponentSample',
+        element: <ToastCustomComponentSample />,
       },
       {
-        path: 'other/SpinnersSample',
-        element: <SpinnersSample />,
+        path: 'toasts/ToastItemMethodsSample',
+        element: <ToastItemMethodsSample />,
       },
       {
-        path: 'other/ThemeSample',
-        element: <ThemeSample />,
+        path: 'toasts/ToastShowSample',
+        element: <ToastShowSample />,
+      },
+      {
+        path: 'toasts/ToastTypesSample',
+        element: <ToastTypesSample />,
       },
 
       {
@@ -178,6 +178,6 @@ function ToggleTheme() {
 
 function NotificationController() {
   const location = useLocation();
-  useEffect(() => Notification.destroyAll(), [location]);
+  useEffect(() => Toast.destroyAll(), [location]);
   return null;
 }

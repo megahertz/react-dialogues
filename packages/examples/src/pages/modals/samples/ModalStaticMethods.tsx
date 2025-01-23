@@ -1,4 +1,4 @@
-import { Button, Footer, Modal, Notification } from 'react-dialogues';
+import { Button, Footer, Modal, Toast } from 'react-dialogues';
 
 export function ModalStaticMethods() {
   return (
@@ -22,7 +22,7 @@ export function ModalStaticMethods() {
             title: 'Modal.prompt Example',
           });
 
-          Notification.show({
+          Toast.show({
             children: `Email: ${email} (${action})`,
             type: action === 'ok' ? 'success' : 'warning',
           });

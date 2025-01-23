@@ -25,10 +25,7 @@ export {
 } from './dialog/DialogCloseButton';
 export { Footer, type FooterProps } from './dialog/Footer';
 export { Modal, type ModalProps } from './modal/Modal';
-export {
-  Notification,
-  type NotificationProps,
-} from './notification/Notification';
+export { Toast, type ToastProps } from './toast/Toast';
 export {
   Popover,
   type PopoverProps,
