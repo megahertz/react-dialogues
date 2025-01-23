@@ -5,10 +5,7 @@ export function ModalStaticMethods() {
     <Footer align="left">
       <Button
         onClick={() => {
-          Modal.show({
-            title: 'Modal.show Example',
-            children: 'test modal content',
-          });
+          Modal.show('test modal content', { title: 'Modal.show Example' });
         }}
       >
         Show Modal
@@ -22,8 +19,7 @@ export function ModalStaticMethods() {
             title: 'Modal.prompt Example',
           });
 
-          Toast.show({
-            children: `Email: ${email} (${action})`,
+          Toast.show(`Email: ${email} (${action})`, {
             type: action === 'ok' ? 'success' : 'warning',
           });
         }}

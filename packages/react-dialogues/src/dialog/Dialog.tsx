@@ -26,6 +26,7 @@ export const Dialog = forwardRef(function Dialog(
     classNames = {},
     close,
     component,
+    content = children,
     empty = false,
     firstChild,
     footer,
@@ -46,8 +47,8 @@ export const Dialog = forwardRef(function Dialog(
     headerEl = <Header className={classNames?.header}>{title}</Header>;
   }
   let bodyEl = body;
-  if (body === undefined && children) {
-    bodyEl = <Body className={classNames?.body}>{children}</Body>;
+  if (body === undefined && content) {
+    bodyEl = <Body className={classNames?.body}>{content}</Body>;
   }
 
   const iconEl =
@@ -72,7 +73,7 @@ export const Dialog = forwardRef(function Dialog(
       <DialogContainer className={cssClass} ref={ref} {...props}>
         {firstChild}
         {closeEl}
-        {children}
+        {content}
         {lastChild}
       </DialogContainer>
     );
@@ -117,13 +118,14 @@ function renderButton(button: DialogButton, key: number) {
 }
 
 export interface DialogProps<P = any>
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'content'> {
   actionMode?: ActionMode;
   body?: ReactNode;
   buttons?: DialogButton[];
   classNames?: Partial<Record<DialogSlots, string>>;
   close?: ReactNode;
   component?: AnyComponentType<P>;
+  content?: ReactNode;
   element?: React.ReactNode;
   empty?: boolean;
   firstChild?: ReactNode;

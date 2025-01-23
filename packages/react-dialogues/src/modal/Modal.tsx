@@ -4,6 +4,7 @@ import React, {
   type ComponentProps,
   type ComponentType,
   type MouseEvent,
+  ReactNode,
   useEffect,
   useRef,
   useState,
@@ -15,6 +16,7 @@ import { useRdController } from '../core/controllerContext';
 import type { ActionMode, RdController } from '../core/RdState';
 import { Dialog, type DialogSlots, type DialogProps } from '../dialog/Dialog';
 import { createDivComponent } from '../utils/constructors';
+import { separateContentAndProps } from '../utils/helpers';
 import { useKey } from '../utils/hooks';
 import { cls } from '../utils/string';
 import { Result } from '../utils/types';
@@ -127,10 +129,15 @@ function createShowFunction(overrides: ModalProps = {}) {
   return <
     TResult extends Result = Result,
     TProps extends ModalProps = ModalProps,
-  >({
-    closeOthers = defaults.closeOthers,
-    ...props
-  }: ModalProps & ModalShowOptions): RdController<TProps, TResult> => {
+  >(
+    varContent: ModalInitOptions | ReactNode,
+    varProps: Partial<ModalInitOptions> = {},
+  ): RdController<TProps, TResult> => {
+    const { closeOthers, ...props } = {
+      ...overrides,
+      ...separateContentAndProps(varContent, varProps),
+    };
+
     if (closeOthers) {
       dialogues.internal.state.getControllersByType('modal').forEach((item) => {
         item.destroy('closeOthers');
@@ -182,14 +189,18 @@ export interface ModalProps<P = any> extends DialogProps<P> {
   size?: ModalSize;
 }
 
-export type ModalSlots = DialogSlots | 'mask' | 'wrap';
-
-export type ModalSize = 'normal' | 'large' | 'full';
-
 export interface ModalShowOptions {
   actionMode?: ActionMode;
   closeOthers?: boolean;
 }
+
+export interface ModalInitOptions<P = any>
+  extends ModalProps<P>,
+    ModalShowOptions {}
+
+export type ModalSlots = DialogSlots | 'mask' | 'wrap';
+
+export type ModalSize = 'normal' | 'large' | 'full';
 
 export function Prompt({
   buttons = ['Cancel', <OkButton autoFocus={false} />],

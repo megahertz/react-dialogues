@@ -25,7 +25,7 @@ export function ThemeSample() {
 
     setToast(
       Toast.info({
-        children: 'Toast test',
+        content: 'Toast test',
         duration: 0,
         onClose: () => setToast(undefined),
       }),

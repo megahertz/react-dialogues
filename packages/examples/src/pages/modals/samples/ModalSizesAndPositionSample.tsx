@@ -1,20 +1,20 @@
 import { Button, Footer, Modal } from 'react-dialogues';
 
 export function ModalSizesAndPositionSample() {
-  const children = 'Small test modal content';
+  const content = 'Small test modal content';
   return (
     <>
       <Footer align="left">
         <Button
           onClick={() => {
-            Modal.show({ children, title: 'Normal' });
+            Modal.show({ content, title: 'Normal' });
           }}
         >
           Normal
         </Button>
         <Button
           onClick={() => {
-            Modal.show({ children: <LongText />, title: 'Long Text' });
+            Modal.show(<LongText />, { title: 'Long Text' });
           }}
         >
           Long
@@ -23,7 +23,7 @@ export function ModalSizesAndPositionSample() {
       <Footer align="left">
         <Button
           onClick={() => {
-            Modal.show({ children, size: 'large', title: 'Large' });
+            Modal.show({ content, size: 'large', title: 'Large' });
           }}
         >
           Large
@@ -31,7 +31,7 @@ export function ModalSizesAndPositionSample() {
         <Button
           onClick={() => {
             Modal.show({
-              children: <LongText />,
+              content: <LongText />,
               size: 'large',
               title: 'Large',
             });
@@ -43,18 +43,14 @@ export function ModalSizesAndPositionSample() {
       <Footer align="left">
         <Button
           onClick={() => {
-            Modal.show({ children, size: 'full', title: 'Fullscreen' });
+            Modal.show({ content, size: 'full', title: 'Fullscreen' });
           }}
         >
           Fullscreen
         </Button>
         <Button
           onClick={() => {
-            Modal.show({
-              children: <LongText />,
-              size: 'full',
-              title: 'Fullscreen',
-            });
+            Modal.show(<LongText />, { size: 'full', title: 'Fullscreen' });
           }}
         >
           Fullscreen & Long
@@ -63,7 +59,7 @@ export function ModalSizesAndPositionSample() {
       <Footer align="left">
         <Button
           onClick={() => {
-            Modal.show({ children, centered: true, title: 'Centered' });
+            Modal.show({ content, centered: true, title: 'Centered' });
           }}
         >
           Centered

@@ -7,7 +7,7 @@ export function ToastShowSample() {
         <Button
           onClick={async () => {
             Toast.show({
-              children: 'placement: topLeft',
+              content: 'placement: topLeft',
               placement: 'topLeft',
             });
           }}
@@ -17,7 +17,7 @@ export function ToastShowSample() {
         <Button
           onClick={() => {
             Toast.show({
-              children: 'placement: top',
+              content: 'placement: top',
               placement: 'top',
             });
           }}
@@ -27,7 +27,7 @@ export function ToastShowSample() {
         <Button
           onClick={() => {
             Toast.show({
-              children: 'placement: topRight',
+              content: 'placement: topRight',
               placement: 'topRight',
             });
           }}
@@ -39,7 +39,7 @@ export function ToastShowSample() {
         <Button
           onClick={() => {
             Toast.show({
-              children: 'placement: bottomLeft',
+              content: 'placement: bottomLeft',
               placement: 'bottomLeft',
             });
           }}
@@ -49,7 +49,7 @@ export function ToastShowSample() {
         <Button
           onClick={() => {
             Toast.show({
-              children: 'placement: bottom',
+              content: 'placement: bottom',
               placement: 'bottom',
             });
           }}
@@ -59,7 +59,7 @@ export function ToastShowSample() {
         <Button
           onClick={() => {
             Toast.show({
-              children: 'placement: bottomRight',
+              content: 'placement: bottomRight',
               placement: 'bottomRight',
             });
           }}

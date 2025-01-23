@@ -5,28 +5,28 @@ export function ToastTypesSample() {
     <Footer align="left">
       <Button
         onClick={() => {
-          Toast.info({ children: 'Info' });
+          Toast.info('Info');
         }}
       >
         Info
       </Button>
       <Button
         onClick={() => {
-          Toast.success({ children: 'Success' });
+          Toast.success('Success');
         }}
       >
         Success
       </Button>
       <Button
         onClick={() => {
-          Toast.warning({ children: 'Warning' });
+          Toast.warning('Warning');
         }}
       >
         Warning
       </Button>
       <Button
         onClick={() => {
-          Toast.error({ children: 'Error' });
+          Toast.error('Error');
         }}
       >
         Error

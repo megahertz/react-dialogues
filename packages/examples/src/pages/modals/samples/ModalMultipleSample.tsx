@@ -8,8 +8,6 @@ export function ModalMultipleSample() {
     <OkButton />,
   ];
 
-  const children = 'test modal content';
-
   function showMultipleModals(
     props: ModalProps = {},
     count = 3,
@@ -21,7 +19,11 @@ export function ModalMultipleSample() {
       if (i >= count) {
         clearInterval(intervalId);
       }
-      Modal.show({ buttons, children, title: `Modal ${i}`, ...props });
+      Modal.show('test modal content', {
+        buttons,
+        title: `Modal ${i}`,
+        ...props,
+      });
     }, interval);
   }
 

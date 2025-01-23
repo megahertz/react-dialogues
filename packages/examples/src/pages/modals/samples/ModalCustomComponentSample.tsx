@@ -27,13 +27,9 @@ export function ModalCustomComponentSample() {
           });
 
           if (action === 'save') {
-            Toast.info({
-              children: `User saved: ${JSON.stringify(result, null, 2)}`,
-            });
+            Toast.info(`User saved: ${JSON.stringify(result, null, 2)}`);
           } else {
-            Toast.warning({
-              children: `User editing was cancelled: ${action}`,
-            });
+            Toast.warning(`User editing was cancelled: ${action}`);
           }
         }}
       >

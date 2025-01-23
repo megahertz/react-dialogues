@@ -213,7 +213,7 @@ export interface PopoverProps extends Partial<FloatProps> {
 }
 
 export interface FloatProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'content'> {
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'content' | 'title'> {
   className?: string;
   classNames?: Partial<Record<PopoverSlot, string>>;
   closeTriggers: CloseTrigger[];

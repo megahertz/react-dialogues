@@ -1,33 +1,33 @@
 import { Button, Footer, Modal } from 'react-dialogues';
 
 export function ModalNotificationTypesSample() {
-  const children = 'test modal content';
+  const content = 'test modal content';
   return (
     <Footer align="left">
       <Button
         onClick={() => {
-          Modal.info({ children, title: 'Info' });
+          Modal.info({ content, title: 'Info' });
         }}
       >
         Info
       </Button>
       <Button
         onClick={() => {
-          Modal.success({ children, title: 'Success' });
+          Modal.success({ content, title: 'Success' });
         }}
       >
         Success
       </Button>
       <Button
         onClick={() => {
-          Modal.warning({ children, title: 'Warning' });
+          Modal.warning({ content, title: 'Warning' });
         }}
       >
         Warning
       </Button>
       <Button
         onClick={() => {
-          Modal.error({ children, title: 'Error' });
+          Modal.error({ content, title: 'Error' });
         }}
       >
         Error

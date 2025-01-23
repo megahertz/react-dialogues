@@ -18,7 +18,7 @@ export function ToastItemMethodsSample() {
           onClick={() => {
             setToast1(
               Toast.show({
-                children: 'Toast 1',
+                content: 'Toast 1',
                 onClose: () => setToast1(undefined),
               }),
             );
@@ -30,7 +30,7 @@ export function ToastItemMethodsSample() {
           onClick={() => {
             setToast2(
               Toast.show({
-                children: 'Toast 2',
+                content: 'Toast 2',
                 role: 'status',
                 onClose: () => setToast2(undefined),
               }),
@@ -54,7 +54,7 @@ export function ToastItemMethodsSample() {
           onClick={() => {
             toast2?.update({
               duration: 40000,
-              children: 'Duration is set to 40 seconds.',
+              content: 'Duration is set to 40 seconds.',
             });
           }}
         >

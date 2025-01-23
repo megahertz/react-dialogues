@@ -2,6 +2,7 @@ import {
   type ComponentProps,
   type ComponentType,
   type MouseEvent,
+  ReactNode,
   useEffect,
   useState,
 } from 'react';
@@ -9,6 +10,7 @@ import { dialogues } from '../core/dialogues';
 import { useRdController } from '../core/controllerContext';
 import type { RdController } from '../core/RdState';
 import { Dialog, type DialogSlots, type DialogProps } from '../dialog/Dialog';
+import { separateContentAndProps } from '../utils/helpers';
 import { cls } from '../utils/string';
 import type { Result } from '../utils/types';
 import { Progress } from './Progress';
@@ -109,18 +111,19 @@ function createShowFunction(overrides: ToastProps = {}) {
   return <
     TResult extends Result = Result,
     TProps extends ToastProps = ToastProps,
-  >({
-    ...props
-  }: ToastProps): RdController<TProps, TResult> => {
-    const mergedProps = {
+  >(
+    varContent: ToastProps | ReactNode,
+    varProps: Partial<ToastProps> = {},
+  ): RdController<TProps, TResult> => {
+    const props = {
       placement: defaults.placement,
       ...overrides,
-      ...props,
+      ...separateContentAndProps(varContent, varProps),
     } as TProps;
 
     const element = dialogues.internal.state.add<TProps, TResult>({
       controllerType: 'toast',
-      props: mergedProps as TProps,
+      props: props as TProps,
       component: props.component || Toast,
     });
 

@@ -17,7 +17,7 @@ export function ToastCustomComponentSample() {
 function CustomToast(props: ToastProps) {
   function onShowAnotherClick(e: MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();
-    Toast.info({ children: 'Another toast' });
+    Toast.info('Another toast');
   }
 
   return (
