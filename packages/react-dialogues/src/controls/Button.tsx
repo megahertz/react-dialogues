@@ -24,6 +24,7 @@ export const Button = forwardRef(function ButtonComponent(
     children,
     className,
     color,
+    content = children,
     icon,
     loading,
     onClick,
@@ -103,7 +104,7 @@ export const Button = forwardRef(function ButtonComponent(
     >
       {isLoading && <Spinner bgColor="none" />}
       {icon && <div className="rd-btn-icon">{icon}</div>}
-      {children}
+      {content}
     </button>
   );
 }) as ForwardRefExoticComponent<
@@ -126,8 +127,10 @@ function getStyle({ color }: { color?: string }): CSSProperties {
   return style;
 }
 
-export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends Omit<HTMLAttributes<HTMLButtonElement>, 'content'> {
   color?: 'warning' | 'success' | 'error' | string;
+  content?: ReactNode;
   disabled?: boolean;
   errorAction?: ButtonErrorAction;
   icon?: ReactNode;

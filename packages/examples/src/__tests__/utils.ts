@@ -6,7 +6,7 @@ import type { Page } from 'playwright';
 
 export async function disableAnimations(page: Page) {
   await page.addStyleTag({
-    content: '* { animation: none; transition: none !important }',
+    content: '* { animation: none !important; transition: none !important }',
   });
 }
 
