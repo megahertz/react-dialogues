@@ -19,6 +19,7 @@ import { Footer } from './Footer';
 
 export const Dialog = forwardRef(function Dialog(
   {
+    actionMode,
     body,
     buttons,
     children,
