@@ -11,6 +11,7 @@ import { Button, type ButtonProps } from '../controls/Button';
 import { CancelButton } from '../controls/CancelButton';
 import { OkButton } from '../controls/OkButton';
 import type { ActionMode } from '../core/RdState';
+import { renderContent } from '../utils/helpers';
 import { cls } from '../utils/string';
 import type { AnyComponentType, NotificationType } from '../utils/types';
 import { Body, DialogContainer, Header, NotificationIcon } from './components';
@@ -49,7 +50,7 @@ export const Dialog = forwardRef(function Dialog(
   }
   let bodyEl = body;
   if (body === undefined && content) {
-    bodyEl = <Body className={classNames?.body}>{content}</Body>;
+    bodyEl = <Body className={classNames?.body}>{renderContent(content)}</Body>;
   }
 
   const iconEl =

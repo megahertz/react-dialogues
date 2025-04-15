@@ -16,6 +16,7 @@ import { useRdController } from '../core/controllerContext';
 import { dialogues } from '../core/dialogues';
 import type { RdController } from '../core/RdState';
 import type { DialogProps } from '../dialog/Dialog';
+import { renderContent } from '../utils/helpers';
 import { useClickOutside, useKey } from '../utils/hooks';
 import { cls } from '../utils/string';
 import type { AnyComponentType } from '../utils/types';
@@ -91,7 +92,7 @@ export function Float({
         className={cls('rd-float-content', classNames?.content)}
         role="tooltip"
       >
-        {content}
+        {renderContent(content)}
       </div>
       <div
         className={cls(
