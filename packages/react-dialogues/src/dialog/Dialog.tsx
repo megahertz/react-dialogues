@@ -50,7 +50,11 @@ export const Dialog = forwardRef(function Dialog(
   }
   let bodyEl = body;
   if (body === undefined && content) {
-    bodyEl = <Body className={classNames?.body}>{renderContent(content)}</Body>;
+    bodyEl = (
+      <Body className={classNames?.body}>
+        {renderContent(content, { processArray: content !== children })}
+      </Body>
+    );
   }
 
   const iconEl =
