@@ -219,7 +219,7 @@ export function Prompt({
   function onType(e: ChangeEvent<HTMLInputElement>) {
     const text = e.target.value;
     setInputValue(text);
-    item.setResult(text);
+    item.setResult(text.trim());
   }
 
   return (
