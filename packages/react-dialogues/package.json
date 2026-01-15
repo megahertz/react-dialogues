@@ -1,7 +1,7 @@
 {
   "name": "react-dialogues",
   "version": "1.0.5",
-  "description": "Tiny interaction React UI library",
+  "description": "Lightweight React library for modals, toasts, and popovers with an imperative API",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
