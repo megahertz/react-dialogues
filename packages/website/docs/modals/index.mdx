@@ -338,6 +338,55 @@ const [action, color] = await Modal.showCustom(ColorPicker);
 </DocSample>
 </DocBlock>
 
+<DocBlock>
+<DocDescription>
+## Modal.destroyAll()
+
+`Modal.destroyAll(action?, result?)`
+
+Closes all open modals programmatically.
+
+</DocDescription>
+<DocSample>
+
+```tsx
+import { Modal } from 'react-dialogues';
+
+// Close all modals
+Modal.destroyAll();
+
+// Close all with custom action name
+Modal.destroyAll('bulkClose');
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+## Modal.defaults
+
+A static object containing the default values for modal options. You can modify
+these to change the defaults for all modals in your application.
+
+</DocDescription>
+<DocSample>
+
+```tsx
+import { Modal } from 'react-dialogues';
+
+// Modify defaults globally
+Modal.defaults.centered = true;
+Modal.defaults.size = 'large';
+Modal.defaults.maskClosable = false;
+
+// All future modals will use these new defaults
+Modal.show({ title: 'Now Centered', content: '...' });
+```
+
+</DocSample>
+</DocBlock>
+
 ## API Reference
 
 ### Modal options
@@ -376,6 +425,46 @@ These properties are inherited from the base `Dialog` component:
 
 Also, you can pass any other properties of `HTMLDivElement` that are applied to
 the modal's root element.
+
+### ModalSlots
+
+The `classNames` prop accepts an object mapping slot names to CSS class strings.
+`ModalSlots` extends `DialogSlots` with modal-specific slots.
+
+**DialogSlots (inherited):**
+
+| Slot       | Description                             |
+| ---------- | --------------------------------------- |
+| `body`     | The main content area                   |
+| `footer`   | The button container at the bottom      |
+| `header`   | The title area at the top               |
+| `icon`     | The notification icon element           |
+| `iconWrap` | The container wrapping the icon element |
+
+**ModalSlots (additional):**
+
+| Slot   | Description                               |
+| ------ | ----------------------------------------- |
+| `mask` | The overlay backdrop behind the modal     |
+| `wrap` | The wrapper element containing the dialog |
+
+**Usage:**
+
+```tsx
+import { Modal } from 'react-dialogues';
+
+Modal.show({
+  title: 'Styled Modal',
+  content: 'Custom styled content',
+  classNames: {
+    header: 'my-header-class',
+    body: 'my-body-class',
+    footer: 'my-footer-class',
+    mask: 'my-mask-class',
+    wrap: 'my-wrap-class',
+  },
+});
+```
 
 ### Return Value
 
