@@ -1,0 +1,356 @@
+---
+sidebar_position: 4
+sidebar_label: Popover
+---
+
+import {
+  DocBlock,
+  DocDescription,
+  DocSample,
+  SamplePreview,
+} from '../../src/components/docs';
+import { BasicTooltipSample } from './components/BasicTooltipSample';
+import { PlacementSample } from './components/PlacementSample';
+import { ColorSample } from './components/ColorSample';
+import { TriggersSample } from './components/TriggersSample';
+import { PopoverContentSample } from './components/PopoverContentSample';
+
+# Popover
+
+The `Popover` and `Tooltip` components display floating content positioned
+relative to a trigger element. Use them for contextual information, tooltips, or
+interactive dropdowns.
+
+## Tooltip
+
+`Tooltip` is a convenience wrapper around `Popover` with preset triggers for
+hover and focus interactions. It's ideal for displaying helpful hints.
+
+<DocBlock>
+<DocDescription>
+### Basic Usage
+
+Wrap any element with `Tooltip` and provide the `content` prop. The tooltip
+appears when the user hovers or focuses the element.
+
+</DocDescription>
+<DocSample>
+<SamplePreview><BasicTooltipSample /></SamplePreview>
+
+```tsx
+import { Tooltip, Button } from 'react-dialogues';
+
+<Tooltip content="This is a helpful tooltip">
+  <Button>Hover me</Button>
+</Tooltip>;
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+### Placement
+
+Control where the tooltip appears relative to the trigger element using the
+`placement` prop.
+
+**Available placements:**
+
+- `top`, `top-start`, `top-end`
+- `right`, `right-start`, `right-end`
+- `bottom`, `bottom-start`, `bottom-end`
+- `left`, `left-start`, `left-end`
+
+</DocDescription>
+<DocSample>
+<SamplePreview><PlacementSample /></SamplePreview>
+
+```tsx
+import { Tooltip, Button } from 'react-dialogues';
+
+<Tooltip content="Top" placement="top">
+  <Button>top</Button>
+</Tooltip>
+
+<Tooltip content="Right" placement="right">
+  <Button>right</Button>
+</Tooltip>
+
+<Tooltip content="Bottom" placement="bottom">
+  <Button>bottom</Button>
+</Tooltip>
+
+<Tooltip content="Left" placement="left">
+  <Button>left</Button>
+</Tooltip>
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+### Custom Colors
+
+Use the `color` prop to customize the tooltip background color.
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ColorSample /></SamplePreview>
+
+```tsx
+import { Tooltip, Button } from 'react-dialogues';
+
+<Tooltip content="Green tooltip" color="#22c55e">
+  <Button>Green</Button>
+</Tooltip>
+
+<Tooltip content="Blue tooltip" color="#3b82f6">
+  <Button>Blue</Button>
+</Tooltip>
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+### Triggers
+
+Customize when the popover opens and closes using `triggers` and `closeTriggers`
+props.
+
+**Open triggers:**
+
+- `hover` - Show on mouse enter
+- `focus` - Show on focus
+- `click` - Show on click
+- `contextMenu` - Show on right-click
+
+**Close triggers:**
+
+- `blur` - Hide on blur
+- `leave` - Hide on mouse leave
+- `clickOutside` - Hide when clicking outside
+- `keyEscape` - Hide on Escape key
+
+</DocDescription>
+<DocSample>
+<SamplePreview><TriggersSample /></SamplePreview>
+
+```tsx
+import { Tooltip, Button } from 'react-dialogues';
+
+// Default: hover and focus triggers
+<Tooltip content="Hover or focus to show" triggers={['hover', 'focus']}>
+  <Button>Hover/Focus</Button>
+</Tooltip>
+
+// Click trigger with manual close
+<Tooltip
+  content="Click to show"
+  triggers={['click']}
+  closeTriggers={['clickOutside', 'keyEscape']}
+>
+  <Button>Click</Button>
+</Tooltip>
+```
+
+</DocSample>
+</DocBlock>
+
+## Popover
+
+`Popover` is the base component that allows full control over triggers and
+content. Use it for interactive content like forms or menus.
+
+<DocBlock>
+<DocDescription>
+### Rich Content
+
+Pass any React node as `content`, including complex components like `Dialog`.
+
+</DocDescription>
+<DocSample>
+<SamplePreview><PopoverContentSample /></SamplePreview>
+
+```tsx
+import { Popover, Button, Dialog, TextField } from 'react-dialogues';
+
+<Popover
+  content={
+    <Dialog
+      buttons={['Cancel', 'Save']}
+      close={null}
+      title="Edit Name"
+      style={{ width: '240px' }}
+    >
+      <TextField label="Name:" />
+    </Dialog>
+  }
+  placement="bottom-start"
+  triggers={['click']}
+>
+  <Button>Edit</Button>
+</Popover>;
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+## usePopover Hook
+
+For advanced use cases, the `usePopover` hook provides programmatic control over
+popover state. It returns event handlers and an `open` state that you can apply
+to any element.
+
+</DocDescription>
+<DocSample>
+
+```tsx
+import { usePopover } from 'react-dialogues';
+
+function CustomPopover() {
+  const { open, ...handlers } = usePopover({
+    content: 'Popover content',
+    triggers: ['click'],
+    closeTriggers: ['clickOutside'],
+  });
+
+  return <button {...handlers}>{open ? 'Close' : 'Open'}</button>;
+}
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+## defaults
+
+Static objects containing the default values for popover and tooltip options.
+Modify these to change the defaults for all instances in your application.
+
+</DocDescription>
+<DocSample>
+
+```tsx
+import { Popover, Tooltip } from 'react-dialogues';
+
+// Modify Popover defaults globally
+Popover.defaults.offset = 10;
+Popover.defaults.placement = 'bottom';
+
+// Modify Tooltip defaults globally
+Tooltip.defaults.triggers = ['hover'];
+```
+
+</DocSample>
+</DocBlock>
+
+## API Reference
+
+### Popover / Tooltip Props
+
+| Property        | Type                            | Default                                                                                               | Description                     |
+| --------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------- |
+| `children`      | `ReactNode`                     | -                                                                                                     | Trigger element                 |
+| `className`     | `string`                        | `''`                                                                                                  | CSS class for the float element |
+| `classNames`    | `Partial<Record<Slot, string>>` | `{}`                                                                                                  | CSS classes for internal slots  |
+| `closeTriggers` | `CloseTrigger[]`                | popover: `['blur', 'clickOutside', 'keyEscape']`, tooltip: `['blur', 'keyEscape', 'leave']` (tooltip) | Events that close the popover   |
+| `color`         | `string`                        | -                                                                                                     | Background color                |
+| `content`       | `ReactNode`                     | -                                                                                                     | Popover content                 |
+| `disabled`      | `boolean`                       | `false`                                                                                               | Disable the popover             |
+| `offset`        | `number`                        | `5`                                                                                                   | Distance from trigger in pixels |
+| `placement`     | `Placement`                     | `'top'`                                                                                               | Position relative to trigger    |
+| `triggers`      | `Trigger[]`                     | popover: `['click', 'focus']`, tooltip: `['focus', 'hover']`                                          | Events that open the popover    |
+
+### PopoverSlots
+
+The `classNames` prop accepts an object mapping slot names to CSS class strings.
+
+| Slot      | Description                      |
+| --------- | -------------------------------- |
+| `arrow`   | The arrow element                |
+| `content` | The content container            |
+| `wrap`    | Wrapper for non-element children |
+
+**Usage:**
+
+```tsx
+import { Tooltip } from 'react-dialogues';
+
+<Tooltip
+  content="Styled tooltip"
+  classNames={{
+    content: 'my-content-class',
+    arrow: 'my-arrow-class',
+  }}
+>
+  <button>Hover</button>
+</Tooltip>;
+```
+
+### Integrate Floating UI
+
+This library uses a pretty simple and small algorithm that positions the popover
+relative to the target element. However, if you need more advanced positioning,
+you can replace it with the Floating UI or any other library.
+
+```typescript
+import { arrow, computePosition, flip, offset, shift } from '@floating-ui/dom';
+import { Popover, type PositionOptions } from 'react-dialogues';
+
+Popover.defaults.positionFn = floatingUiPositionFn;
+
+export function floatingUiPositionFn(props: PositionOptions) {
+  for (const scrollable of props.getScrollableParents(props.targetEl)) {
+    scrollable.addEventListener('scroll', () => positionFloat(props), {
+      passive: true,
+    });
+  }
+
+  positionFloat(props);
+
+  function positionFloat({
+    arrowEl,
+    floatEl,
+    offset: offsetProp,
+    placement,
+    targetEl,
+  }: PositionOptions) {
+    computePosition(targetEl, floatEl, {
+      placement,
+      middleware: [
+        offset(offsetProp + 5),
+        flip(),
+        shift({ padding: 5 }),
+        arrowEl && arrow({ element: arrowEl, padding: 5 }),
+      ].filter(Boolean),
+    }).then(({ x, y, middlewareData }) => {
+      Object.assign(floatEl.style, {
+        left: `${x}px`,
+        top: `${y}px`,
+      });
+      if (arrowEl) {
+        const originalSide = placement.split('-')[0];
+        const newSide = middlewareData.offset?.placement.split('-')[0];
+        if (newSide && originalSide !== newSide) {
+          arrowEl.classList.replace(
+            `rd-float-arrow-${originalSide}`,
+            `rd-float-arrow-${newSide}`,
+          );
+        }
+
+        Object.assign(arrowEl.style, {
+          left: `${middlewareData.arrow!.x}px`,
+          top: `${middlewareData.arrow!.y}px`,
+        });
+      }
+    });
+  }
+}
+```
