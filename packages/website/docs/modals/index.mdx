@@ -230,6 +230,25 @@ if (action === 'ok') {
 | `size`         | `'normal' \| 'large' \| 'full'` | `'normal'` | Modal width                     |
 | `title`        | `ReactNode`                     | -          | Modal header title              |
 
+### Inherited from DialogProps
+
+These properties are inherited from the base `Dialog` component:
+
+| Property     | Type                                         | Default | Description                                     |
+| ------------ | -------------------------------------------- | ------- | ----------------------------------------------- |
+| `actionMode` | `'okClose' \| 'simplified' \| 'full'`        | -       | Controls how button actions resolve the promise |
+| `body`       | `ReactNode`                                  | -       | Direct body content (bypasses content wrapper)  |
+| `classNames` | `Partial<Record<ModalSlots, string>>`        | -       | CSS classes for internal slots                  |
+| `close`      | `ReactNode`                                  | -       | Custom close button element                     |
+| `component`  | `ComponentType`                              | -       | Custom component to render instead of Dialog    |
+| `empty`      | `boolean`                                    | `false` | Render only content without header/footer       |
+| `firstChild` | `ReactNode`                                  | -       | Content inserted before all other elements      |
+| `footer`     | `ReactNode`                                  | -       | Custom footer element (overrides buttons)       |
+| `header`     | `ReactNode`                                  | -       | Custom header element (overrides title)         |
+| `icon`       | `ReactNode`                                  | -       | Custom icon element                             |
+| `lastChild`  | `ReactNode`                                  | -       | Content inserted after all other elements       |
+| `type`       | `'success' \| 'info' \| 'warning' \| 'error'`| -       | Notification type styling                       |
+
 ### Return Value
 
 `Modal.show()` returns an `RdController` that implements
