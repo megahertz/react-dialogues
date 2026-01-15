@@ -86,6 +86,7 @@ The library builds two variants:
 ### Important things
 
 - Don't use shortcuts like `@site/...` when possible
+- Don't use arrow function assigned to const
 
 ### Testing
 
