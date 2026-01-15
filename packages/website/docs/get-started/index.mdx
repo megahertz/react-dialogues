@@ -2,28 +2,140 @@
 sidebar_position: 1
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import { ModalShowSample } from './components/ModalShowSample';
+import {
+  DocBlock,
+  DocDescription,
+  DocSample,
+  SamplePreview,
+} from '../../src/components/docs';
+import { QuickModalSample } from './components/QuickModalSample';
+import { QuickToastSample } from './components/QuickToastSample';
+import { QuickTooltipSample } from './components/QuickTooltipSample';
+import { SaveChangesSample } from './components/SaveChangesSample';
 
 # Get Started
 
-  <Tabs>
-    <TabItem value="sample" label="Sample">
+react-dialogues is a lightweight React library for displaying modals, toasts,
+and popovers with an imperative API. No need to manage state or place components
+in your JSX tree.
 
-      <ModalShowSample />
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-dialogues.svg?color=rgb%2868%2C%20204%2C%2017%29)](https://bundlephobia.com/result?p=react-dialogues)
 
-    </TabItem>
-    <TabItem value="source" label="Source">
+## Installation
 
-    ```tsx title="SimpleModal.tsx"
-    export default function SimpleModal() {
-      return (
-        <button onClick={() => alert('ok')}>Ok</button>
-      );
-    }
-    ```
+```bash
+npm install react-dialogues
+```
 
-    </TabItem>
+And that's it! No more configuration is required.
 
-  </Tabs>
+## Quick Examples
+
+<DocBlock>
+<DocDescription>
+### Modal
+
+Show a modal dialog with a single function call. The `Modal.show()` method
+accepts content and options, returning a controller that doubles as a Promise.
+
+</DocDescription>
+<DocSample>
+<SamplePreview><QuickModalSample /></SamplePreview>
+
+```tsx
+import { Modal } from 'react-dialogues';
+
+Modal.show('Welcome to react-dialogues!', { title: 'Hello' });
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+  <DocDescription>
+    ### Async/Promise Handling
+
+    `Modal.show()` returns a Promise that resolves when the modal closes. Use
+    `await` to get the user's chosen action and respond accordingly.
+
+  </DocDescription>
+  <DocSample>
+    <SamplePreview><SaveChangesSample /></SamplePreview>
+
+```tsx
+import { Button, Modal, Toast } from 'react-dialogues';
+
+const [action] = await Modal.show({
+  title: 'Unsaved Changes',
+  content: 'You have unsaved changes. What would you like to do?',
+  buttons: [
+    'Cancel',
+    <Button value="discard" type="secondary">
+      Discard
+    </Button>,
+    <Button value="save">Save</Button>,
+  ],
+});
+
+if (action === 'save') {
+  Toast.success('Changes saved!');
+} else if (action === 'discard') {
+  Toast.info('Changes discarded');
+} else {
+  Toast.info('Action cancelled');
+}
+```
+
+  </DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+### Toast
+
+Display notification messages with `Toast.show()`. Use shorthand methods like
+`Toast.success()`, `Toast.error()`, `Toast.warning()`, and `Toast.info()` for
+styled notifications.
+
+</DocDescription>
+<DocSample>
+<SamplePreview><QuickToastSample /></SamplePreview>
+
+```tsx
+import { Toast } from 'react-dialogues';
+
+Toast.success('Operation completed successfully!');
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+### Tooltip
+
+Wrap any element with `Tooltip` to show contextual information on hover or
+focus.
+
+</DocDescription>
+<DocSample>
+<SamplePreview><QuickTooltipSample /></SamplePreview>
+
+```tsx
+import { Tooltip, Button } from 'react-dialogues';
+
+<Tooltip content="Helpful information appears here">
+  <Button>Hover me</Button>
+</Tooltip>;
+```
+
+</DocSample>
+</DocBlock>
+
+## Next Steps
+
+- [Modal documentation](./modals) - Learn about modal options, sizes, and custom
+  components
+- [Toast documentation](./toasts) - Explore placements, durations, and styling
+- [Popover documentation](./popovers) - Discover tooltips, triggers, and
+  positioning

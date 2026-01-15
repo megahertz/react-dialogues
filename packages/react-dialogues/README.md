@@ -7,8 +7,6 @@
 Simple but flexible modal dialog library inspired by
 [Ant Design](https://ant.design/components/modal)
 
-## WIP! The project is still in beta stage
-
 ```tsx
 import { CancelButton, Modal, OkButton } from 'react-dialogues';
 
