@@ -83,6 +83,10 @@ The library builds two variants:
 - With CSS injected (`index.mjs`, `index.cjs`)
 - Without CSS (`index.nocss.mjs`, `index.nocss.cjs`) for custom styling
 
+### Important things
+
+- Don't use shortcuts like `@site/...` when possible
+
 ### Testing
 
 - Unit tests: Vitest in `packages/react-dialogues/`

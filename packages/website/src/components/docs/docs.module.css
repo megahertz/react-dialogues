@@ -1,0 +1,31 @@
+.docBlock {
+  display: flex;
+  gap: 2rem;
+  margin: 4rem 0 1rem;
+}
+
+.docDescription {
+  flex: 2;
+  min-width: 0;
+}
+
+.docSample {
+  flex: 3;
+  min-width: 0;
+}
+
+.samplePreview {
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.samplePreview :global(.rd-footer) {
+  gap: 0.5rem;
+}
+
+@media (max-width: 1200px) {
+  .docBlock {
+    flex-direction: column;
+  }
+}
