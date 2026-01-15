@@ -1,0 +1,361 @@
+---
+sidebar_position: 5
+---
+
+import {
+  DocBlock,
+  DocDescription,
+  DocSample,
+  SamplePreview,
+} from '../../src/components/docs';
+import { ButtonTypesSample } from './components/ButtonTypesSample';
+import { ButtonColorsSample } from './components/ButtonColorsSample';
+import { ButtonDisabledSample } from './components/ButtonDisabledSample';
+import { ButtonLoadingSample } from './components/ButtonLoadingSample';
+import { SpinnerSample } from './components/SpinnerSample';
+import { SpinnerSizesSample } from './components/SpinnerSizesSample';
+import { ThemeSample } from './components/ThemeSample';
+import { FooterSample } from './components/FooterSample';
+
+# Other
+
+Additional utility components and configuration options for react-dialogues.
+
+## Button
+
+A versatile button component used throughout the library. Can be used standalone
+or within modals and toasts.
+
+<DocBlock>
+<DocDescription>
+### Button Types
+
+The `type` prop controls the visual style of the button.
+
+**Available types:**
+
+- `'primary'` - Solid background button (default)
+- `'secondary'` - Outlined button
+- `'text'` - Text-only button without background
+
+Use the `icon` prop to add an icon before the button text.
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ButtonTypesSample /></SamplePreview>
+
+```tsx
+import { Button } from 'react-dialogues';
+
+<Button>Primary</Button>
+<Button type="secondary">Secondary</Button>
+<Button type="text">Text</Button>
+<Button icon="🗑">With Icon</Button>
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+### Button Colors
+
+Customize button colors using the `color` prop.
+
+**Preset colors:**
+
+- `'success'` - Green
+- `'warning'` - Orange
+- `'error'` - Red
+
+You can also pass any valid CSS color value.
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ButtonColorsSample /></SamplePreview>
+
+```tsx
+import { Button } from 'react-dialogues';
+
+<Button color="success">Success</Button>
+<Button color="warning">Warning</Button>
+<Button color="error">Error</Button>
+<Button color="#b2c">Custom</Button>
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+### Disabled State
+
+Use the `disabled` prop to disable button interaction.
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ButtonDisabledSample /></SamplePreview>
+
+```tsx
+import { Button } from 'react-dialogues';
+
+<Button disabled>Primary</Button>
+<Button disabled type="secondary">Secondary</Button>
+<Button disabled type="text">Text</Button>
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+### Loading State
+
+Buttons automatically show a loading spinner when:
+
+- The `loading` prop is `true`
+- The `onClick` handler returns a Promise (auto-detected)
+
+The button remains disabled while loading.
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ButtonLoadingSample /></SamplePreview>
+
+```tsx
+import { Button } from 'react-dialogues';
+
+<Button loading>Loading</Button>
+
+<Button
+  onClick={async () =>
+    new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    })
+  }
+>
+  Async Handler
+</Button>
+```
+
+</DocSample>
+</DocBlock>
+
+### OK, Cancel
+
+Pre-configured button variants for common dialog actions.
+
+```tsx
+import { OkButton, CancelButton } from 'react-dialogues';
+
+// OkButton: primary button with "OK" text, auto-focuses, returns "ok" action
+<OkButton />
+<OkButton autoFocus={false}>Confirm</OkButton>
+
+// CancelButton: secondary button with "Cancel" text, returns "cancel" action
+<CancelButton />
+<CancelButton>Dismiss</CancelButton>
+```
+
+### Button API Reference
+
+| Property         | Type                                          | Default     | Description                              |
+| ---------------- | --------------------------------------------- | ----------- | ---------------------------------------- |
+| `color`          | `'success' \| 'warning' \| 'error' \| string` | -           | Button color                             |
+| `content`        | `ReactNode`                                   | -           | Button content (alternative to children) |
+| `disabled`       | `boolean`                                     | `false`     | Disable button                           |
+| `icon`           | `ReactNode`                                   | -           | Icon element before text                 |
+| `loading`        | `boolean`                                     | `false`     | Show loading spinner                     |
+| `type`           | `'primary' \| 'secondary' \| 'text'`          | `'primary'` | Button style variant                     |
+| `value`          | `string`                                      | -           | Action name when used in dialogs         |
+| `onErrorHandler` | `(error, message, props) => void`             | -           | Custom error handler                     |
+
+Also accepts all standard `HTMLButtonElement` attributes.
+
+## Spinner
+
+An animated loading spinner component.
+
+<DocBlock>
+<DocDescription>
+### Customization
+
+The spinner supports various customization options:
+
+**Props:**
+
+- `size` - Width/height in pixels
+- `color` - Foreground color (default: `currentColor`)
+- `bgColor` - Background track color (default: `rgba(0,0,0,0.2)`)
+- `thickness` - Stroke width (default: `4`)
+- `speed` - Animation duration (default: CSS-defined)
+
+</DocDescription>
+<DocSample>
+<SamplePreview><SpinnerSample /></SamplePreview>
+
+```tsx
+import { Spinner } from 'react-dialogues';
+
+<Spinner size={24} />
+<Spinner size={24} bgColor="" />
+<Spinner size={24} bgColor="rgba(0,0,0,.05)" color="#52c41a" />
+<Spinner size={24} thickness={8} />
+<Spinner size={24} speed="3s" />
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+### Sizes
+
+Adjust spinner size using the `size` prop with pixel values.
+
+</DocDescription>
+<DocSample>
+<SamplePreview><SpinnerSizesSample /></SamplePreview>
+
+```tsx
+import { Spinner } from 'react-dialogues';
+
+<Spinner size={16} />
+<Spinner size={24} />
+<Spinner size={32} />
+<Spinner size={48} />
+```
+
+</DocSample>
+</DocBlock>
+
+### Spinner API Reference
+
+| Property    | Type               | Default             | Description              |
+| ----------- | ------------------ | ------------------- | ------------------------ |
+| `bgColor`   | `string`           | `'rgba(0,0,0,0.2)'` | Background track color   |
+| `color`     | `string`           | `'currentColor'`    | Foreground spinner color |
+| `size`      | `string \| number` | -                   | Width and height         |
+| `speed`     | `string`           | -                   | Animation duration       |
+| `thickness` | `number`           | `4`                 | Stroke width             |
+
+## Footer
+
+A layout component for arranging buttons horizontally.
+
+<DocBlock>
+<DocDescription>
+### Alignment
+
+Control button alignment with the `align` prop.
+
+**Options:**
+
+- `'left'` - Align buttons to the left
+- `'center'` - Center buttons
+- `'right'` - Align buttons to the right (default)
+
+</DocDescription>
+<DocSample>
+<SamplePreview><FooterSample /></SamplePreview>
+
+```tsx
+import { Button, Footer } from 'react-dialogues';
+
+<Footer align="left">
+  <Button>Left</Button>
+  <Button>Aligned</Button>
+</Footer>
+
+<Footer align="center">
+  <Button>Center</Button>
+  <Button>Aligned</Button>
+</Footer>
+
+<Footer>
+  <Button>Right</Button>
+  <Button>Aligned (default)</Button>
+</Footer>
+```
+
+</DocSample>
+</DocBlock>
+
+### Footer API Reference
+
+| Property | Type                            | Default   | Description      |
+| -------- | ------------------------------- | --------- | ---------------- |
+| `align`  | `'left' \| 'center' \| 'right'` | `'right'` | Button alignment |
+
+Also accepts all standard `HTMLDivElement` attributes.
+
+## Theme Configuration
+
+Configure the visual theme for all react-dialogues components using the
+`dialogues.config.theme` property.
+
+<DocBlock>
+<DocDescription>
+### Available Themes
+
+**Theme values:**
+
+- `'light'` - Light color scheme
+- `'dark'` - Dark color scheme
+- `'auto'` - Follows system preference (`prefers-color-scheme`)
+- `'none'` - No theme applied (default)
+
+Changes take effect immediately for all open and future dialogs.
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ThemeSample /></SamplePreview>
+
+```tsx
+import { dialogues } from 'react-dialogues';
+
+// Set theme directly
+dialogues.config.theme = 'light';
+dialogues.config.theme = 'dark';
+dialogues.config.theme = 'auto';
+dialogues.config.theme = 'none';
+
+// Read current theme
+const currentTheme = dialogues.config.theme;
+```
+
+</DocSample>
+</DocBlock>
+
+## dialogues Object
+
+### dialogues.config
+
+Global configuration
+
+| Property              | Type                | Description                                                                                                              |
+| --------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `theme`               | `ThemeName`         | Set theme ('light', 'dark', 'auto', 'none')                                                                              |
+| `getContainerElement` | `() => HTMLElement` | Override root element selector, eg `dialogues.config.getContainerElement = () => document.getElementById('#modal-root')` |
+
+### dialogues.destroyAll()
+
+Close all modals, toasts, and popovers. Helpful for cleanup during navigation.
+
+**Example with React Router:**
+
+```tsx
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { dialogues } from 'react-dialogues';
+
+function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    dialogues.destroyAll();
+  }, [location]);
+
+  return <Main />;
+}
+```
