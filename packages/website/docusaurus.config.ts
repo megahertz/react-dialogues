@@ -8,7 +8,7 @@ const config: Config = {
   tagline: 'Tiny interaction React UI library',
   favicon: 'favicon.ico',
 
-  url: 'https://megahertz.github.io/react-dialogues/',
+  url: 'https://megahertz.github.io',
   baseUrl: '/react-dialogues/',
 
   organizationName: 'megahertz', // Usually your GitHub org/user name.
