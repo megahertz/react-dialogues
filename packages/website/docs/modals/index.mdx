@@ -15,6 +15,9 @@ import { ModalWithButtonsSample } from './components/show/ModalWithButtonsSample
 import { ModalSizesSample } from './components/show/ModalSizesSample';
 import { ModalCenteredSample } from './components/show/ModalCenteredSample';
 import { ModalAsyncSample } from './components/show/ModalAsyncSample';
+import { ModalTypeSample } from './components/show/ModalTypeSample';
+import { ModalPromptSample } from './components/show/ModalPromptSample';
+import { ModalShowCustomSample } from './components/show/ModalShowCustomSample';
 
 # Modal
 
@@ -89,6 +92,40 @@ Modal.show({
 </DocBlock>
 
 <DocBlock>
+  <DocDescription>
+    ### Notification Types
+
+    Shorthand methods for showing modals with predefined notification styles. Each
+    method automatically applies the corresponding icon and styling. Under the
+    hood, they just call `Modal.show()` with the `type` property set.
+
+
+    Use these methods for quick feedback messages with appropriate visual styling.
+
+    **Available methods:**
+
+    - `Modal.info()`
+    - `Modal.success()`
+    - `Modal.warning()`
+    - `Modal.error()`
+
+  </DocDescription>
+  <DocSample>
+    <SamplePreview><ModalTypeSample /></SamplePreview>
+
+    ```tsx
+    import { Modal } from 'react-dialogues';
+
+    Modal.info({ title: 'Info', content: '...' });
+    Modal.success({ title: 'Success', content: '...' });
+    Modal.warning({ title: 'Warning', content: '...' });
+    Modal.error({ title: 'Error', content: '...' });
+    ```
+
+  </DocSample>
+</DocBlock>
+
+<DocBlock>
 <DocDescription>
 ### Custom Buttons
 
@@ -106,12 +143,12 @@ Customize modal buttons using the `buttons` array. You can use the built-in
 <SamplePreview><ModalWithButtonsSample /></SamplePreview>
 
 ```tsx
-import { Modal, OkButton, CancelButton } from 'react-dialogues';
+import { Modal, Button, OkButton } from 'react-dialogues';
 
 Modal.show({
   title: 'Confirm Action',
   content: 'Are you sure you want to proceed?',
-  buttons: [<CancelButton />, <OkButton />],
+  buttons: ['Cancel', <OkButton />, <Button>Help</Button>],
 });
 ```
 
@@ -137,14 +174,22 @@ Control the modal width with the `size` property.
 ```tsx
 import { Modal } from 'react-dialogues';
 
-// Normal size (default)
-Modal.show({ title: 'Normal', content: '...' });
+Modal.show({
+  title: 'Normal',
+  content: '...',
+});
 
-// Large size
-Modal.show({ title: 'Large', content: '...', size: 'large' });
+Modal.show({
+  title: 'Large',
+  content: '...',
+  size: 'large',
+});
 
-// Full screen
-Modal.show({ title: 'Full', content: '...', size: 'full' });
+Modal.show({
+  title: 'Full',
+  content: '...',
+  size: 'full',
+});
 ```
 
 </DocSample>
@@ -172,7 +217,11 @@ import { Modal } from 'react-dialogues';
 Modal.show({ title: 'Default', content: '...' });
 
 // Centered vertically
-Modal.show({ title: 'Centered', content: '...', centered: true });
+Modal.show({
+  title: 'Centered Modal',
+  content: '...',
+  centered: true,
+});
 ```
 
 </DocSample>
@@ -195,17 +244,95 @@ the user's action when the modal closes.
 <SamplePreview><ModalAsyncSample /></SamplePreview>
 
 ```tsx
-import { Modal, OkButton, CancelButton } from 'react-dialogues';
+import { Modal, Toast } from 'react-dialogues';
 
 const [action] = await Modal.show({
   title: 'Async Example',
   content: 'Click OK or Cancel.',
-  buttons: [<CancelButton />, <OkButton />],
+  buttons: ['Cancel', 'OK'],
+});
+
+Toast.show(`You clicked: ${action}`, {
+  type: action === 'ok' ? 'success' : 'info',
+});
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+## Modal.prompt()
+
+Shows a modal with a text input field. Returns the entered value when the user
+clicks OK.
+
+**Props:**
+
+- `label` - Label text above the input field
+- `placeholder` - Placeholder text in the input
+- `value` - Initial value for the input
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ModalPromptSample /></SamplePreview>
+
+```tsx
+import { Modal, Toast } from 'react-dialogues';
+
+const [action, value] = await Modal.prompt({
+  title: 'Enter your name',
+  label: 'Name',
+  placeholder: 'John Doe',
 });
 
 if (action === 'ok') {
-  // User clicked OK
+  Toast.info('User entered:', value);
 }
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+  ## Modal.showCustom()
+
+Displays a modal with a completely custom component. Use this when you need full
+control over the modal's content and behavior. Under the hood, it's just a
+shortcut for `Modal.show({ component: YourComponent })`.
+
+**Key points:**
+
+- Your component receives all standard modal props
+- Use `useRdController()` to access the controller
+- Call `controller.setResult()` to set the return value
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ModalShowCustomSample /></SamplePreview>
+
+```tsx
+import { Modal, useRdController } from 'react-dialogues';
+import { useState } from 'react';
+
+function ColorPicker() {
+  const controller = useRdController();
+  const [color, setColor] = useState('#3b82f6');
+
+  function onChange(e) {
+    setColor(e.target.value);
+    controller.setResult(e.target.value);
+  }
+
+  return (
+    <Modal title="Pick a Color" buttons={['Cancel', 'OK']}>
+      <input type="color" value={color} onChange={onChange} />
+    </Modal>
+  );
+}
+
+const [action, color] = await Modal.showCustom(ColorPicker);
 ```
 
 </DocSample>

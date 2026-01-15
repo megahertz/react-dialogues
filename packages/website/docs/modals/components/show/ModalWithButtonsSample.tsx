@@ -1,4 +1,4 @@
-import { Button, Modal, OkButton, CancelButton } from 'react-dialogues';
+import { Button, Modal } from 'react-dialogues';
 
 export function ModalWithButtonsSample() {
   return (
@@ -7,7 +7,7 @@ export function ModalWithButtonsSample() {
         Modal.show({
           title: 'Confirm Action',
           content: 'Are you sure you want to proceed with this action?',
-          buttons: [<CancelButton key="cancel" />, <OkButton key="ok" />],
+          buttons: ['Cancel', 'OK', <Button>Help</Button>],
         });
       }}
     >
