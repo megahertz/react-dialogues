@@ -3,7 +3,7 @@
   text-align: center;
   background: linear-gradient(
     180deg,
-    var(--ifm-color-primary-lightest) 0%,
+    var(--ifm-color-primary-lighter) 0%,
     transparent 100%
   );
 }

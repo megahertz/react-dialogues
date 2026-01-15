@@ -20,7 +20,9 @@ module.exports = {
       plugins: ['import', 'prettier'],
       rules: {
         ...commonRules,
-        strict: ['error', 'global'],
+        'import/no-extraneous-dependencies': 'off',
+        'no-console': 'off',
+        'strict': ['error', 'global'],
       },
     },
     {

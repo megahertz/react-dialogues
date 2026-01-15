@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'react-dialogues',
   tagline: 'Tiny interaction React UI library',
-  favicon: 'img/favicon.ico',
+  favicon: 'favicon.ico',
 
   // Set the production url of your site here
   url: 'https://your-docusaurus-site.example.com',
@@ -67,12 +67,11 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
 
-    // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/react-dialogues-social.jpg',
     navbar: {
       title: 'React Dialogues',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'React Dialogues Logo',
         src: 'img/logo.svg',
       },
       items: [

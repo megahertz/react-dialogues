@@ -32,7 +32,6 @@ function ModalFeature() {
           onClick={() => {
             showConfirm();
           }}
-          type="secondary"
         >
           Confirm
         </Button>
@@ -56,7 +55,7 @@ if (action === 'ok') {
 
 function ToastFeature() {
   async function deleteWithUndo() {
-    const [action] = await Toast.error('Item deleted', {
+    const [action] = await Toast.info('Item deleted', {
       duration: 5000,
       buttons: ['Undo', <Button value="new">Create new</Button>],
     });
@@ -76,24 +75,17 @@ function ToastFeature() {
         placements.
       </p>
       <div className={styles.buttons}>
-        <Button color="success" onClick={() => Toast.success('Saved!')}>
-          Success
-        </Button>
-        <Button color="warning" onClick={() => Toast.warning('Failed to save')}>
-          Warning
-        </Button>
-        <Button color="error" onClick={deleteWithUndo}>
-          Delete Item
-        </Button>
+        <Button onClick={() => Toast.success('Saved!')}>Success</Button>
+        <Button onClick={() => Toast.warning('Failed to save')}>Warning</Button>
+        <Button onClick={deleteWithUndo}>Delete Item</Button>
       </div>
       <CodeBlock language="jsx">
         {`Toast.success('Saved!');
 
 // Await user action with buttons
-const [action] = await Toast.show('Item deleted', {
-  type: 'info',
+const [action] = await Toast.info('Item deleted', {
+  duration: 5000,
   buttons: ['Undo', <Button value="new">Create new</Button>],
-  timeout: 5000,
 });
 
 if (action === 'undo' && await undo()) {
