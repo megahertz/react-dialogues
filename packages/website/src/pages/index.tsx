@@ -1,8 +1,8 @@
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Heading from '@theme/Heading';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '../components/HomepageFeatures';
-import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
 
@@ -26,12 +26,6 @@ function HomepageHeader() {
             <img
               src="https://img.shields.io/bundlephobia/minzip/react-dialogues.svg?color=rgb(68,204,17)"
               alt="bundle size"
-            />
-          </a>
-          <a href="https://github.com/megahertz/react-dialogues">
-            <img
-              src="https://img.shields.io/github/stars/megahertz/react-dialogues?style=social"
-              alt="GitHub stars"
             />
           </a>
         </div>
