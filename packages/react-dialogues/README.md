@@ -7,6 +7,8 @@
 Lightweight React library for modals, toasts, and popovers with an imperative
 API.
 
+[Demo and Documentation](https://megahertz.github.io/react-dialogues/)
+
 ## Installation
 
 ```bash

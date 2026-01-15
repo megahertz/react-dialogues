@@ -8,11 +8,8 @@ const config: Config = {
   tagline: 'Tiny interaction React UI library',
   favicon: 'favicon.ico',
 
-  // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  url: 'https://megahertz.github.io/react-dialogues/',
+  baseUrl: '/react-dialogues/',
 
   organizationName: 'megahertz', // Usually your GitHub org/user name.
   projectName: 'react-dialogues', // Usually your repo name.
