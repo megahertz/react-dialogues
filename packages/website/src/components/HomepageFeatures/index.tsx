@@ -55,6 +55,19 @@ if (action === 'ok') {
 }
 
 function ToastFeature() {
+  async function deleteWithUndo() {
+    const [action] = await Toast.error('Item deleted', {
+      duration: 5000,
+      buttons: ['Undo', <Button value="new">Create new</Button>],
+    });
+
+    if (action === 'undo') {
+      Toast.success('Restored!');
+    } else if (action === 'new') {
+      Toast.success('New item created!');
+    }
+  }
+
   return (
     <div className={styles.feature}>
       <Heading as="h3">Toast</Heading>
@@ -63,21 +76,31 @@ function ToastFeature() {
         placements.
       </p>
       <div className={styles.buttons}>
-        <Button onClick={() => Toast.success('Saved!')}>Success</Button>
-        <Button onClick={() => Toast.error('Failed to save')} type="secondary">
-          Error
+        <Button color="success" onClick={() => Toast.success('Saved!')}>
+          Success
         </Button>
-        <Button
-          onClick={() => Toast.info('Tip: Try clicking...')}
-          type="secondary"
-        >
-          Info
+        <Button color="warning" onClick={() => Toast.warning('Failed to save')}>
+          Warning
+        </Button>
+        <Button color="error" onClick={deleteWithUndo}>
+          Delete Item
         </Button>
       </div>
       <CodeBlock language="jsx">
         {`Toast.success('Saved!');
-Toast.error('Failed to save');
-Toast.info('Tip: Try clicking...');`}
+
+// Await user action with buttons
+const [action] = await Toast.show('Item deleted', {
+  type: 'info',
+  buttons: ['Undo', <Button value="new">Create new</Button>],
+  timeout: 5000,
+});
+
+if (action === 'undo' && await undo()) {
+  Toast.success('Restored!');
+} else if (action === 'new') {
+  createNewItem();
+}`}
       </CodeBlock>
     </div>
   );
