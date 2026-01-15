@@ -1,26 +1,22 @@
+import CodeBlock from '@theme/CodeBlock';
 import Heading from '@theme/Heading';
 import { Button, Modal, Toast, Tooltip } from 'react-dialogues';
 import styles from './styles.module.css';
 
 function ModalFeature() {
   function showModal() {
-    Modal.show({
-      title: 'Welcome',
-      content: 'Modals are easy with react-dialogues!',
-      buttons: ['Cancel', 'OK'],
-    });
+    Modal.show('Hello!', { title: 'Hi' });
   }
 
   async function showConfirm() {
     const [action] = await Modal.show({
-      title: 'Confirm Action',
-      content: 'Are you sure you want to proceed?',
-      type: 'warning',
+      title: 'Confirm',
+      content: 'Click OK to confirm',
       buttons: ['Cancel', 'OK'],
     });
-    Toast.show(action === 'ok' ? 'Confirmed!' : 'Cancelled', {
-      type: action === 'ok' ? 'success' : 'info',
-    });
+    if (action === 'ok') {
+      Toast.success('OK clicked');
+    }
   }
 
   return (
@@ -32,18 +28,28 @@ function ModalFeature() {
       </p>
       <div className={styles.buttons}>
         <Button onClick={showModal}>Basic Modal</Button>
-        <Button onClick={showConfirm} type="secondary">
+        <Button
+          onClick={() => {
+            showConfirm();
+          }}
+          type="secondary"
+        >
           Confirm
         </Button>
       </div>
-      <pre className={styles.code}>
+      <CodeBlock language="jsx">
         {`Modal.show('Hello!', { title: 'Hi' });
 
 const [action] = await Modal.show({
   title: 'Confirm',
+  content: 'Click OK to confirm',
   buttons: ['Cancel', 'OK'],
-});`}
-      </pre>
+});
+
+if (action === 'ok') {
+  Toast.success('OK clicked');
+}`}
+      </CodeBlock>
     </div>
   );
 }
@@ -57,24 +63,22 @@ function ToastFeature() {
         placements.
       </p>
       <div className={styles.buttons}>
-        <Button onClick={() => Toast.success('Operation completed!')}>
-          Success
-        </Button>
-        <Button
-          onClick={() => Toast.error('Something went wrong')}
-          type="secondary"
-        >
+        <Button onClick={() => Toast.success('Saved!')}>Success</Button>
+        <Button onClick={() => Toast.error('Failed to save')} type="secondary">
           Error
         </Button>
-        <Button onClick={() => Toast.info('Did you know?')} type="secondary">
+        <Button
+          onClick={() => Toast.info('Tip: Try clicking...')}
+          type="secondary"
+        >
           Info
         </Button>
       </div>
-      <pre className={styles.code}>
+      <CodeBlock language="jsx">
         {`Toast.success('Saved!');
 Toast.error('Failed to save');
 Toast.info('Tip: Try clicking...');`}
-      </pre>
+      </CodeBlock>
     </div>
   );
 }
@@ -95,11 +99,11 @@ function TooltipFeature() {
           <Button type="secondary">Click me</Button>
         </Tooltip>
       </div>
-      <pre className={styles.code}>
-        {`<Tooltip content="Helpful hint">
+      <CodeBlock language="jsx">
+        {`<Tooltip content="I'm a tooltip!">
   <Button>Hover me</Button>
 </Tooltip>`}
-      </pre>
+      </CodeBlock>
     </div>
   );
 }
