@@ -8,7 +8,9 @@ export function ModalWithContentSample() {
           title: 'Rich Content',
           content: (
             <div>
-              <p>This modal contains <strong>rich JSX content</strong>.</p>
+              <p>
+                This modal contains <strong>rich JSX content </strong>.
+              </p>
               <ul>
                 <li>Item one</li>
                 <li>Item two</li>

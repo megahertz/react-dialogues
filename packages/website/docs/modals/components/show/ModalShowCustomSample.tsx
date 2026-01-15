@@ -1,10 +1,4 @@
-import {
-  Button,
-  Modal,
-  OkButton,
-  Toast,
-  useRdController,
-} from 'react-dialogues';
+import { Button, Modal, Toast, useRdController } from 'react-dialogues';
 import { type ChangeEvent, useEffect, useState } from 'react';
 
 function ColorPicker() {

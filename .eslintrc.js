@@ -7,7 +7,7 @@ const commonRules = {
 module.exports = {
   root: true,
 
-  ignorePatterns: ['**/dist/**'],
+  ignorePatterns: ['**/dist/**', 'packages/website/build/**'],
 
   overrides: [
     {
