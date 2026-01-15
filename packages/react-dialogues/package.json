@@ -18,7 +18,15 @@
   ],
   "keywords": [
     "react",
-    "modal"
+    "modal",
+    "dialog",
+    "toast",
+    "notification",
+    "popover",
+    "tooltip",
+    "alert",
+    "confirm",
+    "prompt"
   ],
   "author": "Alexey Prokhorov",
   "license": "MIT",
