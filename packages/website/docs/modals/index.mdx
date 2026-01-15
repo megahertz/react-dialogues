@@ -1,0 +1,301 @@
+---
+sidebar_position: 2
+sidebar_label: Modal
+---
+
+import styles from './styles.module.css';
+import { BasicModalSample } from './components/BasicModalSample';
+import { ModalWithContentSample } from './components/ModalWithContentSample';
+import { ModalWithButtonsSample } from './components/ModalWithButtonsSample';
+import { ModalSizesSample } from './components/ModalSizesSample';
+import { ModalCenteredSample } from './components/ModalCenteredSample';
+import { ModalAsyncSample } from './components/ModalAsyncSample';
+
+# Modal
+
+The `Modal` component provides a simple imperative API to display dialog
+windows. Use `Modal.show()` to create modals programmatically.
+
+## Modal.show()
+
+The primary method for displaying modals. It accepts content and options, and
+returns a controller for managing the modal.
+
+```tsx
+Modal.show(content, options);
+// or
+Modal.show(options);
+```
+
+---
+
+<div className={styles.example}>
+
+### Basic Usage
+
+<div className={styles.exampleRow}>
+<div className={styles.docColumn}>
+
+The simplest way to show a modal is to pass a string or ReactNode as content and
+an optional options object with a `title`.
+
+**Parameters:**
+
+- `content` - String or ReactNode to display in the modal body
+- `options.title` - Modal header title
+
+</div>
+<div className={styles.sampleColumn}>
+<div className={styles.sampleBox}>
+
+<BasicModalSample />
+
+</div>
+
+```tsx
+import { Modal } from 'react-dialogues';
+
+Modal.show('Hello! This is a basic modal.', {
+  title: 'Basic Modal',
+});
+```
+
+</div>
+</div>
+</div>
+
+<div className={styles.example}>
+
+### Rich Content
+
+<div className={styles.exampleRow}>
+<div className={styles.docColumn}>
+
+You can pass JSX elements as content for more complex layouts. Use the `content`
+property in the options object.
+
+**Options:**
+
+- `title` - Modal header title
+- `content` - ReactNode for the modal body
+
+</div>
+<div className={styles.sampleColumn}>
+<div className={styles.sampleBox}>
+
+<ModalWithContentSample />
+
+</div>
+
+```tsx
+import { Modal } from 'react-dialogues';
+
+Modal.show({
+  title: 'Rich Content',
+  content: (
+    <div>
+      <p>
+        This modal contains <strong>rich JSX content</strong>.
+      </p>
+      <ul>
+        <li>Item one</li>
+        <li>Item two</li>
+      </ul>
+    </div>
+  ),
+});
+```
+
+</div>
+</div>
+</div>
+
+<div className={styles.example}>
+
+### Custom Buttons
+
+<div className={styles.exampleRow}>
+<div className={styles.docColumn}>
+
+Customize modal buttons using the `buttons` array. You can use the built-in
+`OkButton` and `CancelButton` components or create your own.
+
+**Button options:**
+
+- String values: `'OK'`, `'Cancel'`
+- Components: `<OkButton />`, `<CancelButton />`
+- Custom JSX elements
+
+</div>
+<div className={styles.sampleColumn}>
+<div className={styles.sampleBox}>
+
+<ModalWithButtonsSample />
+
+</div>
+
+```tsx
+import { Modal, OkButton, CancelButton } from 'react-dialogues';
+
+Modal.show({
+  title: 'Confirm Action',
+  content: 'Are you sure you want to proceed?',
+  buttons: [<CancelButton />, <OkButton />],
+});
+```
+
+</div>
+</div>
+</div>
+
+<div className={styles.example}>
+
+### Size Options
+
+<div className={styles.exampleRow}>
+<div className={styles.docColumn}>
+
+Control the modal width with the `size` property.
+
+**Available sizes:**
+
+- `'normal'` - Default size (default)
+- `'large'` - Wider modal for more content
+- `'full'` - Full-screen modal
+
+</div>
+<div className={styles.sampleColumn}>
+<div className={styles.sampleBox}>
+
+<ModalSizesSample />
+
+</div>
+
+```tsx
+import { Modal } from 'react-dialogues';
+
+// Normal size (default)
+Modal.show({ title: 'Normal', content: '...' });
+
+// Large size
+Modal.show({ title: 'Large', content: '...', size: 'large' });
+
+// Full screen
+Modal.show({ title: 'Full', content: '...', size: 'full' });
+```
+
+</div>
+</div>
+</div>
+
+<div className={styles.example}>
+
+### Centered Position
+
+<div className={styles.exampleRow}>
+<div className={styles.docColumn}>
+
+By default, modals appear near the top of the screen. Use `centered: true` to
+vertically center the modal.
+
+**Options:**
+
+- `centered` - Boolean, centers modal vertically when `true`
+
+</div>
+<div className={styles.sampleColumn}>
+<div className={styles.sampleBox}>
+
+<ModalCenteredSample />
+
+</div>
+
+```tsx
+import { Modal } from 'react-dialogues';
+
+// Default position (top)
+Modal.show({ title: 'Default', content: '...' });
+
+// Centered vertically
+Modal.show({ title: 'Centered', content: '...', centered: true });
+```
+
+</div>
+</div>
+</div>
+
+<div className={styles.example}>
+
+### Async/Promise Handling
+
+<div className={styles.exampleRow}>
+<div className={styles.docColumn}>
+
+`Modal.show()` returns a controller that is also a Promise. Use `await` to get
+the user's action when the modal closes.
+
+**Return value:**
+
+- `[action, result]` - Tuple with the action name and result value
+- `action` is typically `'ok'`, `'cancel'`, or `'close'`
+
+</div>
+<div className={styles.sampleColumn}>
+<div className={styles.sampleBox}>
+
+<ModalAsyncSample />
+
+</div>
+
+```tsx
+import { Modal, OkButton, CancelButton } from 'react-dialogues';
+
+const [action] = await Modal.show({
+  title: 'Async Example',
+  content: 'Click OK or Cancel.',
+  buttons: [<CancelButton />, <OkButton />],
+});
+
+if (action === 'ok') {
+  // User clicked OK
+}
+```
+
+</div>
+</div>
+</div>
+
+---
+
+## API Reference
+
+### Options
+
+| Property       | Type                            | Default    | Description                     |
+| -------------- | ------------------------------- | ---------- | ------------------------------- |
+| `title`        | `ReactNode`                     | -          | Modal header title              |
+| `content`      | `ReactNode`                     | -          | Modal body content              |
+| `buttons`      | `DialogButton[]`                | `['OK']`   | Array of buttons                |
+| `size`         | `'normal' \| 'large' \| 'full'` | `'normal'` | Modal width                     |
+| `centered`     | `boolean`                       | `false`    | Center modal vertically         |
+| `mask`         | `boolean`                       | `true`     | Show background overlay         |
+| `maskClosable` | `boolean`                       | `true`     | Click overlay to close          |
+| `onClose`      | `(result) => void`              | -          | Called when modal closes        |
+| `className`    | `string`                        | -          | CSS class for modal             |
+| `closeOthers`  | `boolean`                       | `false`    | Close other modals when opening |
+
+### Return Value
+
+`Modal.show()` returns an `RdController` that implements
+`Promise<[action, result]>`:
+
+```tsx
+const controller = Modal.show({ title: 'Example', content: 'Hello' });
+
+// Promise methods
+const [action, result] = await controller;
+
+// Controller methods
+controller.update({ title: 'Updated Title' }); // Update modal props
+controller.destroy('cancel'); // Close modal programmatically
+```
