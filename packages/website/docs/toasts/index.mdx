@@ -320,6 +320,31 @@ Toast.destroyAll();
 </DocSample>
 </DocBlock>
 
+<DocBlock>
+<DocDescription>
+## Toast.defaults
+
+A static object containing the default values for toast options. You can modify
+these to change the defaults for all toasts in your application.
+
+</DocDescription>
+<DocSample>
+
+```tsx
+import { Toast } from 'react-dialogues';
+
+// Modify defaults globally
+Toast.defaults.placement = 'topRight';
+Toast.defaults.duration = 3000;
+Toast.defaults.showProgress = false;
+
+// All future toasts will use these new defaults
+Toast.show({ title: 'Now Top Right', content: '...' });
+```
+
+</DocSample>
+</DocBlock>
+
 ## API Reference
 
 ### Toast options
@@ -359,6 +384,32 @@ These properties are inherited from the base `Dialog` component:
 Also, you can pass any other properties of `HTMLDivElement` that are applied to
 the toast's root element.
 
+### ToastSlots
+
+CSS class targets for styling internal toast elements via the `classNames` prop.
+Extends `DialogSlots` with the progress bar slot.
+
+```tsx
+type ToastSlots =
+  | 'body'
+  | 'footer'
+  | 'header'
+  | 'icon'
+  | 'iconWrap'
+  | 'progress';
+
+// Usage
+Toast.show({
+  title: 'Styled Toast',
+  content: 'Custom styling example',
+  classNames: {
+    header: 'custom-header',
+    body: 'custom-body',
+    progress: 'custom-progress',
+  },
+});
+```
+
 ### Return Value
 
 `Toast.show()` returns an `RdController` that implements
@@ -373,16 +424,4 @@ const [action, result] = await controller;
 // Controller methods
 controller.update({ title: 'Updated Title' }); // Update toast props
 controller.destroy('cancel'); // Close toast programmatically
-```
-
-### ToastPlacement
-
-```tsx
-type ToastPlacement =
-  | 'bottom'
-  | 'bottomLeft'
-  | 'bottomRight'
-  | 'top'
-  | 'topLeft'
-  | 'topRight';
 ```
