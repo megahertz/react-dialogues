@@ -14,10 +14,8 @@ const config: Config = {
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'megahertz', // Usually your GitHub org/user name.
+  projectName: 'react-dialogues', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -37,8 +35,6 @@ const config: Config = {
         blog: false,
         docs: {
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/megahertz/react-dialogues/tree/master/packages/website/',
           routeBasePath: '/',
@@ -130,6 +126,13 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
+
+  themes: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      { docsRouteBasePath: '/', hashed: true, language: ['en'] },
+    ],
+  ],
 };
 
 export default config;
