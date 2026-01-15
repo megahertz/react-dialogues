@@ -54,5 +54,6 @@
 
 .install code {
   background: none;
+  border: none;
   font-size: 0.95rem;
 }
