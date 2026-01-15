@@ -360,25 +360,25 @@ Toast.show({ title: 'Now Top Right', content: '...' });
 
 These properties are inherited from the base `Dialog` component:
 
-| Property     | Type                                          | Default | Description                                     |
-| ------------ | --------------------------------------------- | ------- | ----------------------------------------------- |
-| `actionMode` | `'okClose' \| 'simplified' \| 'full'`         | -       | Controls how button actions resolve the promise |
-| `body`       | `ReactNode`                                   | -       | Direct body content (bypasses content wrapper)  |
-| `buttons`    | `DialogButton[]`                              | -       | Array of buttons                                |
-| `className`  | `string`                                      | -       | CSS class for toast                             |
-| `classNames` | `Partial<Record<ToastSlots, string>>`         | -       | CSS classes for internal slots                  |
-| `close`      | `ReactNode`                                   | -       | Custom close button element                     |
-| `component`  | `ComponentType`                               | -       | Custom component to render instead of Toast     |
-| `content`    | `ReactNode`                                   | -       | Toast body content                              |
-| `empty`      | `boolean`                                     | `false` | Render only content without header/footer       |
-| `firstChild` | `ReactNode`                                   | -       | Content inserted before all other elements      |
-| `footer`     | `ReactNode`                                   | -       | Custom footer element (overrides buttons)       |
-| `header`     | `ReactNode`                                   | -       | Custom header element (overrides title)         |
-| `icon`       | `ReactNode`                                   | -       | Custom icon element                             |
-| `lastChild`  | `ReactNode`                                   | -       | Content inserted after all other elements       |
-| `onClose`    | `(result) => void`                            | -       | Called when toast closes                        |
-| `title`      | `ReactNode`                                   | -       | Toast header title                              |
-| `type`       | `'success' \| 'info' \| 'warning' \| 'error'` | -       | Notification type styling                       |
+| Property     | Type                                          | Default        | Description                                     |
+| ------------ | --------------------------------------------- | -------------- | ----------------------------------------------- |
+| `actionMode` | `'okClose' \| 'simplified' \| 'full'`         | `'simplified'` | Controls how button actions resolve the promise |
+| `body`       | `ReactNode`                                   | -              | Direct body content (bypasses content wrapper)  |
+| `buttons`    | `DialogButton[]`                              | -              | Array of buttons                                |
+| `className`  | `string`                                      | -              | CSS class for toast                             |
+| `classNames` | `Partial<Record<ToastSlots, string>>`         | -              | CSS classes for internal slots                  |
+| `close`      | `ReactNode`                                   | -              | Custom close button element                     |
+| `component`  | `ComponentType`                               | -              | Custom component to render instead of Toast     |
+| `content`    | `ReactNode`                                   | -              | Toast body content                              |
+| `empty`      | `boolean`                                     | `false`        | Render only content without header/footer       |
+| `firstChild` | `ReactNode`                                   | -              | Content inserted before all other elements      |
+| `footer`     | `ReactNode`                                   | -              | Custom footer element (overrides buttons)       |
+| `header`     | `ReactNode`                                   | -              | Custom header element (overrides title)         |
+| `icon`       | `ReactNode`                                   | -              | Custom icon element                             |
+| `lastChild`  | `ReactNode`                                   | -              | Content inserted after all other elements       |
+| `onClose`    | `(result) => void`                            | -              | Called when toast closes                        |
+| `title`      | `ReactNode`                                   | -              | Toast header title                              |
+| `type`       | `'success' \| 'info' \| 'warning' \| 'error'` | -              | Notification type styling                       |
 
 Also, you can pass any other properties of `HTMLDivElement` that are applied to
 the toast's root element.
