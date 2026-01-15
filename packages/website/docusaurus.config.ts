@@ -80,7 +80,7 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: 'Docs',
         },
         {
           href: 'https://github.com/megahertz/react-dialogues',
@@ -97,7 +97,7 @@ const config: Config = {
           items: [
             {
               label: 'Tutorial',
-              to: '/get-started',
+              to: '/get-started/',
             },
           ],
         },
