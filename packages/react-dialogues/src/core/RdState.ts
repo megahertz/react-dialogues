@@ -44,12 +44,21 @@ export default class RdState {
       resolve = r;
     });
 
+    let actionMode = init.actionMode || init.props.actionMode;
+    if (!actionMode) {
+      if (
+        init.controllerType === 'modal' &&
+        (init.props.buttons?.length || 0) < 3
+      ) {
+        actionMode = 'okClose';
+      } else {
+        actionMode = 'simplified';
+      }
+    }
+
     const controller = {
       ...init,
-      actionMode:
-        init.actionMode ||
-        init.props.actionMode ||
-        ((init.props.buttons?.length || 3) > 2 ? 'simplified' : 'okClose'),
+      actionMode,
       destroyed: false,
       id: this.lastControllerId.toString(),
       result: undefined,

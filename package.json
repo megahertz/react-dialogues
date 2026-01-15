@@ -1,7 +1,7 @@
 {
   "name": "@rd/workspace",
   "version": "0.0.0",
-  "description": "Tiny interaction React UI library",
+  "description": "Lightweight React library for modals, toasts, and popovers with an imperative API",
   "private": "true",
   "scripts": {
     "build": "npm run build --prefix packages/react-dialogues",
@@ -9,6 +9,7 @@
     "preversion": "false",
     "publish": "cd packages/react-dialogues && npm publish",
     "start": "npm start --prefix packages/examples",
+    "start:website": "npm start --prefix packages/website",
     "test": "npm test --prefix packages/react-dialogues && npm test --prefix packages/examples",
     "test:full": "npm run lint && npm run typecheck && npm test",
     "test:update": "npm test -- -- --update-snapshots",

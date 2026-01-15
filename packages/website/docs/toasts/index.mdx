@@ -1,0 +1,426 @@
+---
+sidebar_position: 3
+---
+
+import {
+  DocBlock,
+  DocDescription,
+  DocSample,
+  SamplePreview,
+} from '../../src/components/docs';
+import { BasicToastSample } from './components/show/BasicToastSample';
+import { ToastTypeSample } from './components/show/ToastTypeSample';
+import { ToastPlacementSample } from './components/show/ToastPlacementSample';
+import { ToastDurationSample } from './components/show/ToastDurationSample';
+import { ToastProgressSample } from './components/show/ToastProgressSample';
+import { ToastPauseOnHoverSample } from './components/show/ToastPauseOnHoverSample';
+import { ToastShowCustomSample } from './components/show/ToastShowCustomSample';
+import { ToastDestroyAllSample } from './components/show/ToastDestroyAllSample';
+
+# Toast
+
+The `Toast` component provides a simple imperative API to display notification
+messages. Use `Toast.show()` to create toasts programmatically.
+
+## Toast.show()
+
+The primary method for displaying toasts. It accepts content and toastOptions,
+and returns a controller for managing the toast.
+
+```tsx
+Toast.show(content, toastOptions);
+// or
+Toast.show(toastOptions);
+```
+
+<DocBlock>
+<DocDescription>
+### Basic Usage
+
+The simplest way to show a toast is to pass a string or ReactNode as content and
+an optional options object with a `title`.
+
+</DocDescription>
+<DocSample>
+<SamplePreview><BasicToastSample /></SamplePreview>
+
+```tsx
+import { Toast } from 'react-dialogues';
+
+Toast.show('Hello! This is a basic toast notification.', {
+  title: 'Basic Toast',
+});
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+  <DocDescription>
+    ### Notification Types
+
+    Shorthand methods for showing toasts with predefined notification styles. Each
+    method automatically applies the corresponding icon and styling. Under the
+    hood, they just call `Toast.show()` with the `type` property set.
+
+    Use these methods for quick feedback messages with appropriate visual styling.
+
+    **Available methods:**
+
+    - `Toast.info()`
+    - `Toast.success()`
+    - `Toast.warning()`
+    - `Toast.error()`
+
+  </DocDescription>
+  <DocSample>
+    <SamplePreview><ToastTypeSample /></SamplePreview>
+
+    ```tsx
+    import { Toast } from 'react-dialogues';
+
+    Toast.info({ title: 'Info', content: '...' });
+    Toast.success({ title: 'Success', content: '...' });
+    Toast.warning({ title: 'Warning', content: '...' });
+    Toast.error({ title: 'Error', content: '...' });
+    ```
+
+  </DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+### Placement
+
+Control where toasts appear on the screen with the `placement` property.
+
+**Available placements:**
+
+- `'topLeft'`
+- `'top'`
+- `'topRight'`
+- `'bottomLeft'`
+- `'bottom'`
+- `'bottomRight'`
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ToastPlacementSample /></SamplePreview>
+
+```tsx
+import { Toast } from 'react-dialogues';
+
+Toast.show({
+  title: 'Top Right',
+  content: '...',
+  placement: 'topRight',
+});
+
+Toast.show({
+  title: 'Bottom Left',
+  content: '...',
+  placement: 'bottomLeft',
+});
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+### Duration
+
+Control how long a toast stays visible with the `duration` property.
+
+**Options:**
+
+- Number in milliseconds (default: `5000`)
+- `0` for persistent toasts that stay until manually closed
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ToastDurationSample /></SamplePreview>
+
+```tsx
+import { Toast } from 'react-dialogues';
+
+// Quick toast (2 seconds)
+Toast.show({
+  title: 'Quick',
+  content: '...',
+  duration: 2000,
+});
+
+// Persistent toast (stays until closed)
+Toast.show({
+  title: 'Persistent',
+  content: '...',
+  duration: 0,
+});
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+### Progress Bar
+
+Toasts show a progress bar by default indicating time remaining. Control this
+with the `showProgress` property.
+
+**Options:**
+
+- `showProgress` - Boolean, shows countdown progress bar when `true` (default)
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ToastProgressSample /></SamplePreview>
+
+```tsx
+import { Toast } from 'react-dialogues';
+
+// With progress bar (default)
+Toast.show({
+  title: 'With Progress',
+  content: '...',
+  showProgress: true,
+});
+
+// Without progress bar
+Toast.show({
+  title: 'No Progress',
+  content: '...',
+  showProgress: false,
+});
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+### Pause on Hover
+
+By default, the toast timer pauses when you hover over it. Control this with the
+`pauseOnHover` property.
+
+**Options:**
+
+- `pauseOnHover` - Boolean, pauses countdown on hover when `true` (default)
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ToastPauseOnHoverSample /></SamplePreview>
+
+```tsx
+import { Toast } from 'react-dialogues';
+
+// Pause on hover (default)
+Toast.show({
+  title: 'Pause on Hover',
+  content: '...',
+  pauseOnHover: true,
+});
+
+// No pause on hover
+Toast.show({
+  title: 'No Pause',
+  content: '...',
+  pauseOnHover: false,
+});
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+## Toast.showCustom()
+
+Displays a toast with a completely custom component. Use this when you need full
+control over the toast's content and behavior. Under the hood, it's just a
+shortcut for `Toast.show({ component: YourComponent })`.
+
+**Key points:**
+
+- Your component receives all standard toast props
+- Use `useRdController()` to access the controller
+- Call `controller.destroy()` to close the toast programmatically
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ToastShowCustomSample /></SamplePreview>
+
+```tsx
+import { Toast, useRdController } from 'react-dialogues';
+import { useState } from 'react';
+
+function CustomProgressToast() {
+  const controller = useRdController();
+  const [progress, setProgress] = useState(0);
+
+  const handleStart = () => {
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          controller.destroy('complete');
+          return 100;
+        }
+        return prev + 10;
+      });
+    }, 300);
+  };
+
+  return (
+    <Toast title="Custom Toast" showProgress={false} duration={0}>
+      <div>
+        <p>Progress: {progress}%</p>
+        <Button onClick={handleStart}>Start</Button>
+      </div>
+    </Toast>
+  );
+}
+
+Toast.showCustom(CustomProgressToast);
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+## Toast.destroyAll()
+
+Closes all currently visible toasts at once.
+
+**Parameters:**
+
+- `action` - Optional action name (default: `'destroyAll'`)
+- `result` - Optional result value
+
+</DocDescription>
+<DocSample>
+<SamplePreview><ToastDestroyAllSample /></SamplePreview>
+
+```tsx
+import { Toast } from 'react-dialogues';
+
+// Show multiple toasts
+Toast.show({ title: 'Toast 1', content: 'First toast' });
+Toast.show({ title: 'Toast 2', content: 'Second toast' });
+Toast.show({ title: 'Toast 3', content: 'Third toast' });
+
+// Close all toasts
+Toast.destroyAll();
+```
+
+</DocSample>
+</DocBlock>
+
+<DocBlock>
+<DocDescription>
+## Toast.defaults
+
+A static object containing the default values for toast options. You can modify
+these to change the defaults for all toasts in your application.
+
+</DocDescription>
+<DocSample>
+
+```tsx
+import { Toast } from 'react-dialogues';
+
+// Modify defaults globally
+Toast.defaults.placement = 'topRight';
+Toast.defaults.duration = 3000;
+Toast.defaults.showProgress = false;
+
+// All future toasts will use these new defaults
+Toast.show({ title: 'Now Top Right', content: '...' });
+```
+
+</DocSample>
+</DocBlock>
+
+## API Reference
+
+### Toast options
+
+| Property          | Type             | Default         | Description                              |
+| ----------------- | ---------------- | --------------- | ---------------------------------------- |
+| `duration`        | `number`         | `5000`          | Auto-dismiss time in ms (0 = persistent) |
+| `keepOnFocusLoss` | `boolean`        | `true`          | Keep toast visible when tab loses focus  |
+| `pauseOnHover`    | `boolean`        | `true`          | Pause countdown when hovering            |
+| `placement`       | `ToastPlacement` | `'bottomRight'` | Position on screen                       |
+| `showProgress`    | `boolean`        | `true`          | Show countdown progress bar              |
+
+#### Inherited from DialogProps
+
+These properties are inherited from the base `Dialog` component:
+
+| Property     | Type                                          | Default        | Description                                     |
+| ------------ | --------------------------------------------- | -------------- | ----------------------------------------------- |
+| `actionMode` | `'okClose' \| 'simplified' \| 'full'`         | `'simplified'` | Controls how button actions resolve the promise |
+| `body`       | `ReactNode`                                   | -              | Direct body content (bypasses content wrapper)  |
+| `buttons`    | `DialogButton[]`                              | -              | Array of buttons                                |
+| `className`  | `string`                                      | -              | CSS class for toast                             |
+| `classNames` | `Partial<Record<ToastSlots, string>>`         | -              | CSS classes for internal slots                  |
+| `close`      | `ReactNode`                                   | -              | Custom close button element                     |
+| `component`  | `ComponentType`                               | -              | Custom component to render instead of Toast     |
+| `content`    | `ReactNode`                                   | -              | Toast body content                              |
+| `empty`      | `boolean`                                     | `false`        | Render only content without header/footer       |
+| `firstChild` | `ReactNode`                                   | -              | Content inserted before all other elements      |
+| `footer`     | `ReactNode`                                   | -              | Custom footer element (overrides buttons)       |
+| `header`     | `ReactNode`                                   | -              | Custom header element (overrides title)         |
+| `icon`       | `ReactNode`                                   | -              | Custom icon element                             |
+| `lastChild`  | `ReactNode`                                   | -              | Content inserted after all other elements       |
+| `onClose`    | `(result) => void`                            | -              | Called when toast closes                        |
+| `title`      | `ReactNode`                                   | -              | Toast header title                              |
+| `type`       | `'success' \| 'info' \| 'warning' \| 'error'` | -              | Notification type styling                       |
+
+Also, you can pass any other properties of `HTMLDivElement` that are applied to
+the toast's root element.
+
+### ToastSlots
+
+CSS class targets for styling internal toast elements via the `classNames` prop.
+Extends `DialogSlots` with the progress bar slot.
+
+```tsx
+type ToastSlots =
+  | 'body'
+  | 'footer'
+  | 'header'
+  | 'icon'
+  | 'iconWrap'
+  | 'progress';
+
+// Usage
+Toast.show({
+  title: 'Styled Toast',
+  content: 'Custom styling example',
+  classNames: {
+    header: 'custom-header',
+    body: 'custom-body',
+    progress: 'custom-progress',
+  },
+});
+```
+
+### Return Value
+
+`Toast.show()` returns an `RdController` that implements
+`Promise<[action, result]>`:
+
+```tsx
+const controller = Toast.show({ title: 'Example', content: 'Hello' });
+
+// Promise methods
+const [action, result] = await controller;
+
+// Controller methods
+controller.update({ title: 'Updated Title' }); // Update toast props
+controller.destroy('cancel'); // Close toast programmatically
+```
