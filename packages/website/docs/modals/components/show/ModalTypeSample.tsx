@@ -1,8 +1,8 @@
-import { Button, Modal } from 'react-dialogues';
+import { Button, Footer, Modal } from 'react-dialogues';
 
 export function ModalTypeSample() {
   return (
-    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+    <Footer align="left">
       <Button
         onClick={() => {
           Modal.info({ title: 'Info', content: 'This is an info modal.' });
@@ -34,6 +34,6 @@ export function ModalTypeSample() {
       >
         Error
       </Button>
-    </div>
+    </Footer>
   );
 }

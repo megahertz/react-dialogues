@@ -46,9 +46,17 @@ an optional options object with a `title`.
 <SamplePreview><BasicModalSample /></SamplePreview>
 
 ```tsx
-import { Modal } from 'react-dialogues';
+import { Button, Modal } from 'react-dialogues';
 
-Modal.show('Hello! This is a basic modal.', { title: 'Basic Modal' });
+<Button
+  onClick={() => {
+    Modal.show('Hello! This is a basic modal …', {
+      title: 'Basic Modal',
+    });
+  }}
+>
+  Show Basic Modal
+</Button>;
 ```
 
 </DocSample>
@@ -66,25 +74,30 @@ property in the options object.
 <SamplePreview><ModalWithContentSample /></SamplePreview>
 
 ```tsx
-import { Modal } from 'react-dialogues';
+import { Button, Modal } from 'react-dialogues';
 
-Modal.show({
-  title: 'Rich Content',
-  content: (
-    <div>
-      {' '}
-      <p>
-        {' '}
-        This modal contains
-        <strong>rich JSX content</strong>.{' '}
-      </p>{' '}
-      <ul>
-        {' '}
-        <li>Item one</li> <li>Item two</li>
-      </ul>{' '}
-    </div>
-  ),
-});
+<Button
+  onClick={() => {
+    Modal.show({
+      title: 'Rich Content',
+      content: (
+        <div>
+          <p>
+            This modal contains
+            <strong>rich JSX content </strong>.
+          </p>
+          <ul>
+            <li>Item one</li>
+            <li>Item two</li>
+            <li>Item three</li>
+          </ul>
+        </div>
+      ),
+    });
+  }}
+>
+  Show Rich Content Modal
+</Button>;
 ```
 
 </DocSample>
@@ -113,12 +126,41 @@ Modal.show({
     <SamplePreview><ModalTypeSample /></SamplePreview>
 
     ```tsx
-    import { Modal } from 'react-dialogues';
+    import { Button, Footer, Modal } from 'react-dialogues';
 
-    Modal.info({ title: 'Info', content: '...' });
-    Modal.success({ title: 'Success', content: '...' });
-    Modal.warning({ title: 'Warning', content: '...' });
-    Modal.error({ title: 'Error', content: '...' });
+    <Footer align="left">
+      <Button
+        onClick={() => {
+          Modal.info({ title: 'Info', content: '…' });
+        }}
+      >
+        Info
+      </Button>
+      <Button
+        color="success"
+        onClick={() => {
+          Modal.success({ title: 'Success', content: '…' });
+        }}
+      >
+        Success
+      </Button>
+      <Button
+        color="warning"
+        onClick={() => {
+          Modal.warning({ title: 'Warning', content: '…' });
+        }}
+      >
+        Warning
+      </Button>
+      <Button
+        color="error"
+        onClick={() => {
+          Modal.error({ title: 'Error', content: '…' });
+        }}
+      >
+        Error
+      </Button>
+    </Footer>
     ```
 
   </DocSample>
@@ -145,13 +187,23 @@ You can find more details about button customization in the
 <SamplePreview><ModalWithButtonsSample /></SamplePreview>
 
 ```tsx
-import { Modal, Button, OkButton } from 'react-dialogues';
+import { Button, Modal } from 'react-dialogues';
 
-Modal.show({
-  title: 'Confirm Action',
-  content: 'Are you sure you want to proceed?',
-  buttons: ['Cancel', <OkButton />, <Button>Help</Button>],
-});
+<Button
+  onClick={() => {
+    Modal.show({
+      title: 'Confirm Action',
+      content: 'Are you sure …',
+      buttons: [
+        'Cancel',
+        { content: 'OK', color: 'success' },
+        <Button>Help</Button>,
+      ],
+    });
+  }}
+>
+  Show Confirm Modal
+</Button>;
 ```
 
 </DocSample>
@@ -174,24 +226,38 @@ Control the modal width with the `size` property.
 <SamplePreview><ModalSizesSample /></SamplePreview>
 
 ```tsx
-import { Modal } from 'react-dialogues';
+import { Button, Modal, Footer } from 'react-dialogues';
 
-Modal.show({
-  title: 'Normal',
-  content: '...',
-});
+const content = (
+  <div>
+    <p>This modal demonstrates different size options.</p>
+    <p>Lorem ipsum …</p>
+  </div>
+);
 
-Modal.show({
-  title: 'Large',
-  content: '...',
-  size: 'large',
-});
-
-Modal.show({
-  title: 'Full',
-  content: '...',
-  size: 'full',
-});
+<Footer align="left">
+  <Button
+    onClick={() => {
+      Modal.show({ title: 'Normal', content });
+    }}
+  >
+    Normal
+  </Button>
+  <Button
+    onClick={() => {
+      Modal.show({ title: 'Large', content, size: 'large' });
+    }}
+  >
+    Large
+  </Button>
+  <Button
+    onClick={() => {
+      Modal.show({ title: 'Full', content, size: 'full' });
+    }}
+  >
+    Full
+  </Button>
+</Footer>;
 ```
 
 </DocSample>
@@ -213,17 +279,30 @@ vertically center the modal.
 <SamplePreview><ModalCenteredSample /></SamplePreview>
 
 ```tsx
-import { Modal } from 'react-dialogues';
+import { Button, Modal, Footer } from 'react-dialogues';
 
-// Default position (top)
-Modal.show({ title: 'Default', content: '...' });
+const content = 'This modal is vertically centered.';
 
-// Centered vertically
-Modal.show({
-  title: 'Centered Modal',
-  content: '...',
-  centered: true,
-});
+<Footer align="left">
+  <Button
+    onClick={() => {
+      Modal.show({ title: 'Default', content });
+    }}
+  >
+    Default
+  </Button>
+  <Button
+    onClick={() => {
+      Modal.show({
+        title: 'Centered Modal',
+        content,
+        centered: true,
+      });
+    }}
+  >
+    Centered
+  </Button>
+</Footer>;
 ```
 
 </DocSample>
@@ -246,17 +325,21 @@ the user's action when the modal closes.
 <SamplePreview><ModalAsyncSample /></SamplePreview>
 
 ```tsx
-import { Modal, Toast } from 'react-dialogues';
+import { Button, Modal, Toast } from 'react-dialogues';
 
-const [action] = await Modal.show({
-  title: 'Async Example',
-  content: 'Click OK or Cancel.',
-  buttons: ['Cancel', 'OK'],
-});
+async function handleClick() {
+  const [action] = await Modal.show({
+    title: 'Async Example',
+    content: 'Click OK or Cancel to see the result.',
+    buttons: ['Cancel', 'OK'],
+  });
 
-Toast.show(`You clicked: ${action}`, {
-  type: action === 'ok' ? 'success' : 'info',
-});
+  Toast.show(`You clicked: ${action}`, {
+    type: action === 'ok' ? 'success' : 'info',
+  });
+}
+
+<Button onClick={handleClick}>Show Async Modal</Button>;
 ```
 
 </DocSample>
@@ -280,17 +363,21 @@ clicks OK.
 <SamplePreview><ModalPromptSample /></SamplePreview>
 
 ```tsx
-import { Modal, Toast } from 'react-dialogues';
+import { Button, Modal, Toast } from 'react-dialogues';
 
-const [action, value] = await Modal.prompt({
-  title: 'Enter your name',
-  label: 'Name',
-  placeholder: 'John Doe',
-});
+async function handleClick() {
+  const [action, value] = await Modal.prompt({
+    title: 'Enter your name',
+    label: 'Name',
+    placeholder: 'John Doe',
+  });
 
-if (action === 'ok') {
-  Toast.info('User entered:', value);
+  if (action === 'ok') {
+    Toast.info(`User entered: ${value}`);
+  }
 }
+
+<Button onClick={handleClick}>Show Prompt</Button>;
 ```
 
 </DocSample>
@@ -315,26 +402,38 @@ shortcut for `Modal.show({ component: YourComponent })`.
 <SamplePreview><ModalShowCustomSample /></SamplePreview>
 
 ```tsx
-import { Modal, useRdController } from 'react-dialogues';
-import { useState } from 'react';
+import { Button, Modal, Toast, useRdController } from 'react-dialogues';
+import { type ChangeEvent, useEffect, useState } from 'react';
 
 function ColorPicker() {
   const controller = useRdController();
   const [color, setColor] = useState('#3b82f6');
 
-  function onChange(e) {
+  useEffect(() => {
+    controller.setResult(color);
+  }, []);
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setColor(e.target.value);
     controller.setResult(e.target.value);
   }
 
   return (
     <Modal title="Pick a Color" buttons={['Cancel', 'OK']}>
-      <input type="color" value={color} onChange={onChange} />
+      <input type="color" value={color} onChange={handleChange} />
+      <span> {color}</span>
     </Modal>
   );
 }
 
-const [action, color] = await Modal.showCustom(ColorPicker);
+async function handleClick() {
+  const [action, color] = await Modal.showCustom(ColorPicker);
+  if (action === 'ok') {
+    Toast.info(`Selected color: ${color}`);
+  }
+}
+
+<Button onClick={handleClick}>Pick Color</Button>;
 ```
 
 </DocSample>
@@ -383,7 +482,7 @@ Modal.defaults.size = 'large';
 Modal.defaults.maskClosable = false;
 
 // All future modals will use these new defaults
-Modal.show({ title: 'Now Centered', content: '...' });
+Modal.show({ title: 'Now Centered', content: '…' });
 ```
 
 </DocSample>

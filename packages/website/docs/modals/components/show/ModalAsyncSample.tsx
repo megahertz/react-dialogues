@@ -1,11 +1,11 @@
-import { Button, Modal, Toast, OkButton, CancelButton } from 'react-dialogues';
+import { Button, Modal, Toast } from 'react-dialogues';
 
 export function ModalAsyncSample() {
   const handleClick = async () => {
     const [action] = await Modal.show({
       title: 'Async Example',
       content: 'Click OK or Cancel to see the result.',
-      buttons: [<CancelButton key="cancel" />, <OkButton key="ok" />],
+      buttons: ['Cancel', 'OK'],
     });
 
     Toast.show(`You clicked: ${action}`, {

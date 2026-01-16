@@ -1,8 +1,8 @@
-import { Button, Toast } from 'react-dialogues';
+import { Button, Footer, Toast } from 'react-dialogues';
 
 export function ToastProgressSample() {
   return (
-    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+    <Footer align="left">
       <Button
         onClick={() => {
           Toast.show({
@@ -25,6 +25,6 @@ export function ToastProgressSample() {
       >
         Without Progress
       </Button>
-    </div>
+    </Footer>
   );
 }

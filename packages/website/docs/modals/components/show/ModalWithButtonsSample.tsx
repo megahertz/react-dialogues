@@ -7,7 +7,11 @@ export function ModalWithButtonsSample() {
         Modal.show({
           title: 'Confirm Action',
           content: 'Are you sure you want to proceed with this action?',
-          buttons: ['Cancel', 'OK', <Button>Help</Button>],
+          buttons: [
+            'Cancel',
+            { content: 'OK', color: 'success' },
+            <Button>Help</Button>,
+          ],
         });
       }}
     >

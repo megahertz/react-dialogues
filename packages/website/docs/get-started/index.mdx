@@ -43,9 +43,17 @@ accepts content and options, returning a controller that doubles as a Promise.
 <SamplePreview><QuickModalSample /></SamplePreview>
 
 ```tsx
-import { Modal } from 'react-dialogues';
+import { Button, Modal } from 'react-dialogues';
 
-Modal.show('Welcome to react-dialogues!', { title: 'Hello' });
+<Button
+  onClick={() => {
+    Modal.show('Welcome to react-dialogues!', {
+      title: 'Hello',
+    });
+  }}
+>
+  Show Modal
+</Button>;
 ```
 
 </DocSample>
@@ -65,25 +73,29 @@ Modal.show('Welcome to react-dialogues!', { title: 'Hello' });
 ```tsx
 import { Button, Modal, Toast } from 'react-dialogues';
 
-const [action] = await Modal.show({
-  title: 'Unsaved Changes',
-  content: 'You have unsaved changes. What would you like to do?',
-  buttons: [
-    'Cancel',
-    <Button value="discard" type="secondary">
-      Discard
-    </Button>,
-    <Button value="save">Save</Button>,
-  ],
-});
+async function handleClick() {
+  const [action] = await Modal.show({
+    title: 'Unsaved Changes',
+    content: 'You have unsaved changes…',
+    buttons: [
+      'Cancel',
+      <Button value="discard" type="secondary">
+        Discard
+      </Button>,
+      <Button value="save">Save</Button>,
+    ],
+  });
 
-if (action === 'save') {
-  Toast.success('Changes saved!');
-} else if (action === 'discard') {
-  Toast.info('Changes discarded');
-} else {
-  Toast.info('Action cancelled');
+  if (action === 'save') {
+    Toast.success('Changes saved!');
+  } else if (action === 'discard') {
+    Toast.info('Changes discarded');
+  } else {
+    Toast.info('Action cancelled');
+  }
 }
+
+<Button onClick={handleClick}>Close Document</Button>;
 ```
 
   </DocSample>
@@ -102,9 +114,15 @@ styled notifications.
 <SamplePreview><QuickToastSample /></SamplePreview>
 
 ```tsx
-import { Toast } from 'react-dialogues';
+import { Button, Toast } from 'react-dialogues';
 
-Toast.success('Operation completed successfully!');
+<Button
+  onClick={() => {
+    Toast.success('Operation completed successfully!');
+  }}
+>
+  Show Toast
+</Button>;
 ```
 
 </DocSample>

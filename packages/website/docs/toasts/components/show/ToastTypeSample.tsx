@@ -1,8 +1,8 @@
-import { Button, Toast } from 'react-dialogues';
+import { Button, Footer, Toast } from 'react-dialogues';
 
 export function ToastTypeSample() {
   return (
-    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+    <Footer align="left">
       <Button
         onClick={() => {
           Toast.info({ title: 'Info', content: 'This is an info toast.' });
@@ -34,6 +34,6 @@ export function ToastTypeSample() {
       >
         Error
       </Button>
-    </div>
+    </Footer>
   );
 }

@@ -17,10 +17,8 @@ function ColorPicker() {
 
   return (
     <Modal title="Pick a Color" buttons={['Cancel', 'OK']}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <input type="color" value={color} onChange={handleChange} />
-        <span>{color}</span>
-      </div>
+      <input type="color" value={color} onChange={handleChange} />
+      <span> {color}</span>
     </Modal>
   );
 }

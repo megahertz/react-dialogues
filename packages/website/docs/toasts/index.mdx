@@ -34,22 +34,28 @@ Toast.show(toastOptions);
 ```
 
 <DocBlock>
-<DocDescription>
-### Basic Usage
+  <DocDescription>
+    ### Basic Usage
 
-The simplest way to show a toast is to pass a string or ReactNode as content and
-an optional options object with a `title`.
+    The simplest way to show a toast is to pass a string or ReactNode as content
+    and an optional options object with a `title`.
 
-</DocDescription>
+  </DocDescription>
 <DocSample>
-<SamplePreview><BasicToastSample /></SamplePreview>
+  <SamplePreview><BasicToastSample /></SamplePreview>
 
 ```tsx
-import { Toast } from 'react-dialogues';
+import { Button, Toast } from 'react-dialogues';
 
-Toast.show('Hello! This is a basic toast notification.', {
-  title: 'Basic Toast',
-});
+<Button
+  onClick={() => {
+    Toast.show('Hello! This is a basic toast notification.', {
+      title: 'Basic Toast',
+    });
+  }}
+>
+  Show Basic Toast
+</Button>;
 ```
 
 </DocSample>
@@ -77,50 +83,107 @@ Toast.show('Hello! This is a basic toast notification.', {
     <SamplePreview><ToastTypeSample /></SamplePreview>
 
     ```tsx
-    import { Toast } from 'react-dialogues';
+    import { Button, Footer, Toast } from 'react-dialogues';
 
-    Toast.info({ title: 'Info', content: '...' });
-    Toast.success({ title: 'Success', content: '...' });
-    Toast.warning({ title: 'Warning', content: '...' });
-    Toast.error({ title: 'Error', content: '...' });
+    <Footer>
+      <Button
+        onClick={() => {
+          Toast.info({ title: 'Info', content: '…' });
+        }}
+      >
+        Info
+      </Button>
+      <Button
+        color="success"
+        onClick={() => {
+          Toast.success({ title: 'Success', content: '…' });
+        }}
+      >
+        Success
+      </Button>
+      <Button
+        color="warning"
+        onClick={() => {
+          Toast.warning({ title: 'Warning', content: '…' });
+        }}
+      >
+        Warning
+      </Button>
+      <Button
+        color="error"
+        onClick={() => {
+          Toast.error({ title: 'Error', content: '…' });
+        }}
+      >
+        Error
+      </Button>
+    </Footer>
     ```
 
   </DocSample>
 </DocBlock>
 
 <DocBlock>
-<DocDescription>
-### Placement
+  <DocDescription>
+    ### Placement
 
-Control where toasts appear on the screen with the `placement` property.
+    Control where toasts appear on the screen with the `placement` property.
 
-**Available placements:**
+    **Available placements:**
 
-- `'topLeft'`
-- `'top'`
-- `'topRight'`
-- `'bottomLeft'`
-- `'bottom'`
-- `'bottomRight'`
+    - `'topLeft'`
+    - `'top'`
+    - `'topRight'`
+    - `'bottomLeft'`
+    - `'bottom'`
+    - `'bottomRight'`
 
-</DocDescription>
+  </DocDescription>
 <DocSample>
 <SamplePreview><ToastPlacementSample /></SamplePreview>
 
 ```tsx
-import { Toast } from 'react-dialogues';
+import { Button, Toast } from 'react-dialogues';
 
-Toast.show({
-  title: 'Top Right',
-  content: '...',
-  placement: 'topRight',
-});
+type ToastPlacement =
+  | 'bottom'
+  | 'bottomLeft'
+  | 'bottomRight'
+  | 'top'
+  | 'topLeft'
+  | 'topRight';
 
-Toast.show({
-  title: 'Bottom Left',
-  content: '...',
-  placement: 'bottomLeft',
-});
+const placements: ToastPlacement[] = [
+  'topLeft',
+  'top',
+  'topRight',
+  'bottomLeft',
+  'bottom',
+  'bottomRight',
+];
+
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gap: '8px',
+  }}
+>
+  {placements.map((placement) => (
+    <Button
+      key={placement}
+      onClick={() => {
+        Toast.show({
+          title: placement,
+          content: `This toast appears at ${placement}.`,
+          placement,
+        });
+      }}
+    >
+      {placement}
+    </Button>
+  ))}
+</div>;
 ```
 
 </DocSample>
@@ -142,21 +205,53 @@ Control how long a toast stays visible with the `duration` property.
 <SamplePreview><ToastDurationSample /></SamplePreview>
 
 ```tsx
-import { Toast } from 'react-dialogues';
+import { Button, Footer, Toast } from 'react-dialogues';
 
-// Quick toast (2 seconds)
-Toast.show({
-  title: 'Quick',
-  content: '...',
-  duration: 2000,
-});
-
-// Persistent toast (stays until closed)
-Toast.show({
-  title: 'Persistent',
-  content: '...',
-  duration: 0,
-});
+<Footer align="left">
+  <Button
+    onClick={() => {
+      Toast.show({
+        title: 'Quick Toast',
+        content: 'This disappears in 2 seconds.',
+        duration: 2000,
+      });
+    }}
+  >
+    2 seconds
+  </Button>
+  <Button
+    onClick={() => {
+      Toast.show({
+        title: 'Default Toast',
+        content: 'This disappears in 5 seconds (default).',
+      });
+    }}
+  >
+    5 seconds (default)
+  </Button>
+  <Button
+    onClick={() => {
+      Toast.show({
+        title: 'Long Toast',
+        content: 'This disappears in 10 seconds.',
+        duration: 10000,
+      });
+    }}
+  >
+    10 seconds
+  </Button>
+  <Button
+    onClick={() => {
+      Toast.show({
+        title: 'Persistent Toast',
+        content: 'This toast stays until manually closed.',
+        duration: 0,
+      });
+    }}
+  >
+    Persistent
+  </Button>
+</Footer>;
 ```
 
 </DocSample>
@@ -178,21 +273,32 @@ with the `showProgress` property.
 <SamplePreview><ToastProgressSample /></SamplePreview>
 
 ```tsx
-import { Toast } from 'react-dialogues';
+import { Button, Footer, Toast } from 'react-dialogues';
 
-// With progress bar (default)
-Toast.show({
-  title: 'With Progress',
-  content: '...',
-  showProgress: true,
-});
-
-// Without progress bar
-Toast.show({
-  title: 'No Progress',
-  content: '...',
-  showProgress: false,
-});
+<Footer align="left">
+  <Button
+    onClick={() => {
+      Toast.show({
+        title: 'With Progress',
+        content: 'Progress bar is visible (default).',
+        showProgress: true,
+      });
+    }}
+  >
+    With Progress
+  </Button>
+  <Button
+    onClick={() => {
+      Toast.show({
+        title: 'No Progress',
+        content: 'Progress bar is hidden.',
+        showProgress: false,
+      });
+    }}
+  >
+    Without Progress
+  </Button>
+</Footer>;
 ```
 
 </DocSample>
@@ -214,21 +320,32 @@ By default, the toast timer pauses when you hover over it. Control this with the
 <SamplePreview><ToastPauseOnHoverSample /></SamplePreview>
 
 ```tsx
-import { Toast } from 'react-dialogues';
+import { Button, Footer, Toast } from 'react-dialogues';
 
-// Pause on hover (default)
-Toast.show({
-  title: 'Pause on Hover',
-  content: '...',
-  pauseOnHover: true,
-});
-
-// No pause on hover
-Toast.show({
-  title: 'No Pause',
-  content: '...',
-  pauseOnHover: false,
-});
+<Footer align="left">
+  <Button
+    onClick={() => {
+      Toast.show({
+        title: 'Pause on Hover',
+        content: 'Hover over this toast to pause …',
+        pauseOnHover: true,
+      });
+    }}
+  >
+    Pause on Hover
+  </Button>
+  <Button
+    onClick={() => {
+      Toast.show({
+        title: 'No Pause',
+        content: 'This toast ignores hover …',
+        pauseOnHover: false,
+      });
+    }}
+  >
+    No Pause on Hover
+  </Button>
+</Footer>;
 ```
 
 </DocSample>
@@ -253,7 +370,7 @@ shortcut for `Toast.show({ component: YourComponent })`.
 <SamplePreview><ToastShowCustomSample /></SamplePreview>
 
 ```tsx
-import { Toast, useRdController } from 'react-dialogues';
+import { Button, Toast, useRdController } from 'react-dialogues';
 import { useState } from 'react';
 
 function CustomProgressToast() {
@@ -274,16 +391,40 @@ function CustomProgressToast() {
   };
 
   return (
-    <Toast title="Custom Toast" showProgress={false} duration={0}>
+    <Toast title="Custom" showProgress={false} duration={0}>
       <div>
         <p>Progress: {progress}%</p>
+        <div
+          style={{
+            width: '100%',
+            height: '8px',
+            backgroundColor: '#e5e7eb',
+            borderRadius: '4px',
+          }}
+        >
+          <div
+            style={{
+              width: `${progress}%`,
+              height: '100%',
+              backgroundColor: '#3b82f6',
+              borderRadius: '4px',
+              transition: 'width 0.2s',
+            }}
+          />
+        </div>
         <Button onClick={handleStart}>Start</Button>
       </div>
     </Toast>
   );
 }
 
-Toast.showCustom(CustomProgressToast);
+<Button
+  onClick={() => {
+    Toast.showCustom(CustomProgressToast);
+  }}
+>
+  Show Custom Toast
+</Button>;
 ```
 
 </DocSample>
@@ -305,15 +446,27 @@ Closes all currently visible toasts at once.
 <SamplePreview><ToastDestroyAllSample /></SamplePreview>
 
 ```tsx
-import { Toast } from 'react-dialogues';
+import { Button, Footer, Toast } from 'react-dialogues';
 
-// Show multiple toasts
-Toast.show({ title: 'Toast 1', content: 'First toast' });
-Toast.show({ title: 'Toast 2', content: 'Second toast' });
-Toast.show({ title: 'Toast 3', content: 'Third toast' });
-
-// Close all toasts
-Toast.destroyAll();
+<Footer align="left">
+  <Button
+    onClick={() => {
+      Toast.show({ title: 'Toast 1', content: 'First' });
+      Toast.show({ title: 'Toast 2', content: 'Second' });
+      Toast.show({ title: 'Toast 3', content: 'Third' });
+    }}
+  >
+    Show 3 Toasts
+  </Button>
+  <Button
+    color="error"
+    onClick={() => {
+      Toast.destroyAll();
+    }}
+  >
+    Destroy All
+  </Button>
+</Footer>;
 ```
 
 </DocSample>
@@ -338,7 +491,7 @@ Toast.defaults.duration = 3000;
 Toast.defaults.showProgress = false;
 
 // All future toasts will use these new defaults
-Toast.show({ title: 'Now Top Right', content: '...' });
+Toast.show({ title: 'Now Top Right', content: '…' });
 ```
 
 </DocSample>

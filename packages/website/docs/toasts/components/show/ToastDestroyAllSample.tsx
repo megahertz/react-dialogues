@@ -1,8 +1,8 @@
-import { Button, Toast } from 'react-dialogues';
+import { Button, Footer, Toast } from 'react-dialogues';
 
 export function ToastDestroyAllSample() {
   return (
-    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+    <Footer align="left">
       <Button
         onClick={() => {
           Toast.show({ title: 'Toast 1', content: 'First toast' });
@@ -20,6 +20,6 @@ export function ToastDestroyAllSample() {
       >
         Destroy All
       </Button>
-    </div>
+    </Footer>
   );
 }
